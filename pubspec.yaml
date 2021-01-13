@@ -1,0 +1,30 @@
+name: photostok
+description: Photostok application.
+author: Sergey Kudryashov
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  gallery_saver: ^2.0.1
+  connectivity: ^2.0.2
+  cupertino_icons: ^1.0.0
+  cached_network_image: ^2.5.0
+  http: ^0.12.2
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: AppIcons
+      fonts:
+        - asset: assets/fonts/AppIcons.ttf
