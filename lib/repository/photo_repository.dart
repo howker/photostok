@@ -1,15 +1,18 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:photostok/models/auth_model.dart';
+import 'package:photostok/models/photo_list.dart';
 
 class PhotoRepository {
-  static String authToken = "";
+  static String authToken = "sODtHjHP_KttQh2UDFqy-OuSBci_2nrw1i7pDRob29U";
   static const String _accessKey =
-      'sODtHjHP_KttQh2UDFqy-OuSBci_2nrw1i7pDRob29U'; //app access key from console
+      'sODtHjHP_KttQh2UDFqy-OuSBci_2nrw1i7pDRob29U';
   static const String _secretKey =
-      'G4r7fwE8vIoWU_Ocje2yTdxm7zcl62wKZEh-tUckwZE'; //app secrey key from console
+      'G4r7fwE8vIoWU_Ocje2yTdxm7zcl62wKZEh-tUckwZE';
   static const String authUrl =
       'https://unsplash.com/oauth/authorize?client_id=$_accessKey&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=public+write_likes'; //authorize url from https://unsplash.com/oauth/applications/{your_app_id}
+
+  var oneTimeCode;
 
   Future<Auth> doLogin({String oneTimeCode}) async {
     var response = await http.post('https://unsplash.com/oauth/token',
@@ -26,7 +29,7 @@ class PhotoRepository {
     }
   }
 
-  // static Future<PhotoList> getPhotos(int page, int perPage) async {
+  // Future<PhotoList> getPhotos(int page, int perPage) async {
   //   var response = await http.get(
   //       'https://api.unsplash.com/photos?page=$page&per_page=$perPage',
   //       headers: {'Authorization': 'Bearer $authToken'});
@@ -38,7 +41,7 @@ class PhotoRepository {
   //   }
   // }
 
-  // static Future<Photo> getRandomPhoto() async {
+  // Future<Photo> getRandomPhoto() async {
   //   var response = await http.get('https://api.unsplash.com/photos/random',
   //       headers: {'Authorization': 'Bearer $authToken'});
 
