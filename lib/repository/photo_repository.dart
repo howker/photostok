@@ -4,7 +4,7 @@ import 'package:photostok/models/auth_model.dart';
 import 'package:photostok/models/photo_list.dart';
 
 class PhotoRepository {
-  static String authToken = "sODtHjHP_KttQh2UDFqy-OuSBci_2nrw1i7pDRob29U";
+  static String authToken = "jtrzyhn7fQzir3MsFH-lbsZGjWGcpd19bMmsZJinPes";
   static const String _accessKey =
       'sODtHjHP_KttQh2UDFqy-OuSBci_2nrw1i7pDRob29U';
   static const String _secretKey =
@@ -12,9 +12,9 @@ class PhotoRepository {
   static const String authUrl =
       'https://unsplash.com/oauth/authorize?client_id=$_accessKey&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=public+write_likes'; //authorize url from https://unsplash.com/oauth/applications/{your_app_id}
 
-  var oneTimeCode;
+  var oneTimeCode = 'jtrzyhn7fQzir3MsFH-lbsZGjWGcpd19bMmsZJinPes';
 
-  Future<Auth> doLogin({String oneTimeCode}) async {
+  static Future<Auth> doLogin({String oneTimeCode}) async {
     var response = await http.post('https://unsplash.com/oauth/token',
         headers: {
           'Content-Type': 'application/json',

@@ -18,7 +18,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-  var photoRepository = PhotoRepository().doLogin();
+  var photoRepository = PhotoRepository.doLogin(
+      oneTimeCode: 'jtrzyhn7fQzir3MsFH-lbsZGjWGcpd19bMmsZJinPes');
 
   StreamSubscription subscription;
   int _currentTab = 0;
