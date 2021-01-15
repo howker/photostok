@@ -77,13 +77,34 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNaviBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: AppColors.dodgerBlue,
+        unselectedItemColor: AppColors.manatee,
+        showSelectedLabels: true,
+        currentIndex: _tabController.index,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              AppIcons.home,
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Profile',
+          ),
+        ],
+      ),
       body: TabBarView(
         controller: _tabController,
         children: [
           MainPhotoList(),
-          Container(),
-          Container(),
+          Container(child: Center(child: Text('SEARCH SCREEN'))),
+          Container(child: Center(child: Text('PROFILE SCREEN'))),
         ],
       ),
     );

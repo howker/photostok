@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/res/styles.dart';
 import 'package:photostok/screens/home.dart';
-import 'package:photostok/screens/photo_screen.dart';
+import 'package:photostok/screens/detail_photo_screen.dart';
 
 const String transition = '/fullScreenImage';
 
