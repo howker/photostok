@@ -4,7 +4,7 @@ import 'package:photostok/app.dart';
 import 'package:flutter/material.dart';
 import 'package:photostok/res/res.dart';
 import 'package:flutter/widgets.dart';
-import 'package:photostok/screens/feed_screen.dart';
+import 'package:photostok/screens/main_photo_screen.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:photostok/widgets/widgets.dart';
 
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: [
-          Feed(),
+          MainPhotoList(),
           Container(),
           Container(),
         ],

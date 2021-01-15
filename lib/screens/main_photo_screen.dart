@@ -9,14 +9,14 @@ import 'package:flutter/widgets.dart';
 const String kFlutterDash =
     'https://flutter.dev/assets/404/dash_nest-c64796b59b65042a2b40fae5764c13b7477a592db79eaf04c86298dcb75b78ea.png';
 
-class Feed extends StatefulWidget {
-  Feed({Key key}) : super(key: key);
+class MainPhotoList extends StatefulWidget {
+  MainPhotoList({Key key}) : super(key: key);
 
   @override
-  _FeedState createState() => _FeedState();
+  _MainPhotoListState createState() => _MainPhotoListState();
 }
 
-class _FeedState extends State<Feed> {
+class _MainPhotoListState extends State<MainPhotoList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
