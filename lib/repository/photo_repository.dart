@@ -4,15 +4,13 @@ import 'package:photostok/models/auth_model.dart';
 import 'package:photostok/models/photo_list.dart';
 
 class PhotoRepository {
-  static String authToken = "jtrzyhn7fQzir3MsFH-lbsZGjWGcpd19bMmsZJinPes";
+  static const String authUrl =
+      'https://unsplash.com/oauth/authorize?client_id=$_accessKey&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=public+write_likes';
+  static String authToken = "KhvakcHKuL1f7gQYctR_c0-QW6FNEkXgSJNmssi52lc";
   static const String _accessKey =
       'sODtHjHP_KttQh2UDFqy-OuSBci_2nrw1i7pDRob29U';
   static const String _secretKey =
       'G4r7fwE8vIoWU_Ocje2yTdxm7zcl62wKZEh-tUckwZE';
-  static const String authUrl =
-      'https://unsplash.com/oauth/authorize?client_id=$_accessKey&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=public+write_likes'; //authorize url from https://unsplash.com/oauth/applications/{your_app_id}
-
-  var oneTimeCode = 'jtrzyhn7fQzir3MsFH-lbsZGjWGcpd19bMmsZJinPes';
 
   static Future<Auth> doLogin({String oneTimeCode}) async {
     var response = await http.post('https://unsplash.com/oauth/token',
@@ -29,17 +27,17 @@ class PhotoRepository {
     }
   }
 
-  // Future<PhotoList> getPhotos(int page, int perPage) async {
-  //   var response = await http.get(
-  //       'https://api.unsplash.com/photos?page=$page&per_page=$perPage',
-  //       headers: {'Authorization': 'Bearer $authToken'});
+  static Future<PhotoList> getPhotos(int page, int perPage) async {
+    var response = await http.get(
+        'https://api.unsplash.com/photos?page=$page&per_page=$perPage',
+        headers: {'Authorization': 'Bearer $authToken'});
 
-  //   if (response.statusCode >= 200 && response.statusCode < 300) {
-  //     return PhotoList.fromJson(json.decode(response.body));
-  //   } else {
-  //     throw Exception('Error: ${response.reasonPhrase}');
-  //   }
-  // }
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return PhotoList.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Error: ${response.reasonPhrase}');
+    }
+  }
 
   // Future<Photo> getRandomPhoto() async {
   //   var response = await http.get('https://api.unsplash.com/photos/random',
