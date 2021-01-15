@@ -71,6 +71,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void dispose() {
     subscription.cancel();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -98,6 +99,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             label: 'Profile',
           ),
         ],
+        onTap: (index) {
+          setState(() {
+            _tabController.index = index;
+          });
+        },
       ),
       body: TabBarView(
         controller: _tabController,
