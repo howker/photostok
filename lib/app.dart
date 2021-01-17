@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photostok/cubit/photos_cubit.dart';
+import 'package:photostok/repository/photo_repository.dart';
 
 import 'package:photostok/res/res.dart';
 import 'package:photostok/res/styles.dart';
@@ -10,40 +13,46 @@ import 'package:photostok/screens/home.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
 
 const String transition = '/fullScreenImage';
+final photoRepository = PhotoRepository();
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        textTheme: buildAppTextTheme(),
-      ),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: (RouteSettings setting) {
-        if (setting.name == transition) {
-          FullScreenImageArguments args =
-              (setting.arguments as FullScreenImageArguments);
-          final route = FullScreenImage(
-            photo: args.photo,
-            altDescription: args.altDescription,
-            userName: args.userName,
-            name: args.name,
-            userPhoto: args.userPhoto,
-            heroTag: args.heroTag,
-            key: args.key,
-          );
-
-          if (Platform.isAndroid) {
-            return MaterialPageRoute(
-                builder: (context) => route, settings: args.routeSettings);
-          } else if (Platform.isIOS) {
-            return CupertinoPageRoute(
-                builder: (context) => route, settings: args.routeSettings);
-          }
-          return null;
-        }
+    return BlocProvider<PhotoCubit>(
+      create: (BuildContext context) {
+        return PhotoCubit(photoRepository);
       },
-      home: Home(Connectivity().onConnectivityChanged),
+      child: MaterialApp(
+        theme: ThemeData(
+          textTheme: buildAppTextTheme(),
+        ),
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: (RouteSettings setting) {
+          if (setting.name == transition) {
+            FullScreenImageArguments args =
+                (setting.arguments as FullScreenImageArguments);
+            final route = FullScreenImage(
+              photo: args.photo,
+              altDescription: args.altDescription,
+              userName: args.userName,
+              name: args.name,
+              userPhoto: args.userPhoto,
+              heroTag: args.heroTag,
+              key: args.key,
+            );
+
+            if (Platform.isAndroid) {
+              return MaterialPageRoute(
+                  builder: (context) => route, settings: args.routeSettings);
+            } else if (Platform.isIOS) {
+              return CupertinoPageRoute(
+                  builder: (context) => route, settings: args.routeSettings);
+            }
+            return null;
+          }
+        },
+        home: Home(Connectivity().onConnectivityChanged),
+      ),
     );
   }
 }

@@ -1,3 +1,6 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photostok/cubit/photos_cubit.dart';
+import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/res/colors.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/res/styles.dart';
@@ -19,21 +22,37 @@ class MainPhotoList extends StatefulWidget {
 class _MainPhotoListState extends State<MainPhotoList> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: <Widget>[
-              _buildItem(index, context, transition),
-            ],
+    final _cubit = BlocProvider.of<PhotoCubit>(context);
+    _cubit.fetchAllPhotos();
+    return BlocBuilder<PhotoCubit, PhotoState>(
+      builder: (context, state) {
+        if (state is PhotosInitial) {
+          return Center(child: Text('LOADING'));
+        }
+        if (state is PhotosLoadSuccess) {
+          return Scaffold(
+            body: ListView.builder(
+              itemCount: state.photoList.photos.length,
+              itemBuilder: (BuildContext context, int index) {
+                var photo = state.photoList.photos[index];
+                return Column(
+                  children: <Widget>[
+                    _buildItem(index, context, transition, photo),
+                  ],
+                );
+              },
+            ),
           );
-        },
-      ),
+        }
+        if (state is PhotosLoadFailure) {
+          return Center(child: Text(state.errorMessage));
+        }
+        return Center(child: Text('DEFOULT RETURN'));
+      },
     );
   }
 
-  Widget _buildItem(int index, context, transition) {
+  Widget _buildItem(int index, context, transition, photo) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -43,7 +62,7 @@ class _MainPhotoListState extends State<MainPhotoList> {
           },
           child: Hero(
             tag: 'someword $index',
-            child: Photo(photoLink: kFlutterDash),
+            child: PhotoView(photoLink: photo.urls),
           ),
         ),
         _buildPhotoMeta(index),

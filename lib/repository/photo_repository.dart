@@ -6,13 +6,13 @@ import 'package:photostok/models/photo_list.dart';
 class PhotoRepository {
   static const String authUrl =
       'https://unsplash.com/oauth/authorize?client_id=$_accessKey&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=public+write_likes';
-  static String authToken = "KhvakcHKuL1f7gQYctR_c0-QW6FNEkXgSJNmssi52lc";
+  static String authToken = "FlDkiMgfrXBtBqvhYlAdJKaz_y1N7irGsyvFNLcsNFs";
   static const String _accessKey =
       'sODtHjHP_KttQh2UDFqy-OuSBci_2nrw1i7pDRob29U';
   static const String _secretKey =
       'G4r7fwE8vIoWU_Ocje2yTdxm7zcl62wKZEh-tUckwZE';
 
-  static Future<Auth> doLogin({String oneTimeCode}) async {
+  Future<Auth> doLogin({String oneTimeCode}) async {
     var response = await http.post('https://unsplash.com/oauth/token',
         headers: {
           'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ class PhotoRepository {
     }
   }
 
-  static Future<PhotoList> getPhotos(int page, int perPage) async {
+  Future<PhotoList> getPhotos(int page, int perPage) async {
     var response = await http.get(
         'https://api.unsplash.com/photos?page=$page&per_page=$perPage',
         headers: {'Authorization': 'Bearer $authToken'});

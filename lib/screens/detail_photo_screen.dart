@@ -100,7 +100,7 @@ class _FullScreenImageState extends State<FullScreenImage>
           children: <Widget>[
             Hero(
               tag: widget.heroTag,
-              child: Photo(photoLink: widget.photo),
+              child: PhotoView(photoLink: widget.photo),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
