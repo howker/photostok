@@ -6,19 +6,19 @@ import 'package:photostok/models/photo_list.dart';
 class PhotoRepository {
   static const String authUrl =
       'https://unsplash.com/oauth/authorize?client_id=$_accessKey&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=public+write_likes';
-  static String authToken = "FlDkiMgfrXBtBqvhYlAdJKaz_y1N7irGsyvFNLcsNFs";
+  static String authToken = "_qHJDsz517URgu6HrcQv4NLLw7shIOzD9j6QOvtd8h0";
   static const String _accessKey =
       'sODtHjHP_KttQh2UDFqy-OuSBci_2nrw1i7pDRob29U';
   static const String _secretKey =
       'G4r7fwE8vIoWU_Ocje2yTdxm7zcl62wKZEh-tUckwZE';
 
-  Future<Auth> doLogin({String oneTimeCode}) async {
+  Future<Auth> doLogin() async {
     var response = await http.post('https://unsplash.com/oauth/token',
         headers: {
           'Content-Type': 'application/json',
         },
         body:
-            '{"client_id":"$_accessKey","client_secret":"$_secretKey","redirect_uri":"urn:ietf:wg:oauth:2.0:oob","code":"$oneTimeCode","grant_type":"authorization_code"}');
+            '{"client_id":"$_accessKey","client_secret":"$_secretKey","redirect_uri":"urn:ietf:wg:oauth:2.0:oob","code":"$authToken","grant_type":"authorization_code"}');
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return Auth.fromJson(json.decode(response.body));

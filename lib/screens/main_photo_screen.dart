@@ -58,11 +58,16 @@ class _MainPhotoListState extends State<MainPhotoList> {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            _transitionPhotoScreen(context, index, transition);
+            _transitionPhotoScreen(context, index, transition, photo);
           },
           child: Hero(
             tag: 'someword $index',
-            child: PhotoView(photoLink: photo.urls),
+            child: PhotoView(
+              photoLink: photo.urls.small,
+              placeholderColor: photo.color,
+              photoHeigh: photo.height,
+              photoWidth: photo.width,
+            ),
           ),
         ),
         _buildPhotoMeta(index),
@@ -111,7 +116,7 @@ class _MainPhotoListState extends State<MainPhotoList> {
   }
 }
 
-void _transitionPhotoScreen(context, index, transition) {
+void _transitionPhotoScreen(context, index, transition, photo) {
   Navigator.pushNamed(
     context,
     transition,
@@ -119,7 +124,7 @@ void _transitionPhotoScreen(context, index, transition) {
       routeSettings: RouteSettings(
         arguments: 'Some title',
       ),
-      photo: kFlutterDash,
+      photo: photo.urls.small,
       altDescription: 'Test altDescription',
       userName: 'kaparray',
       name: 'Kirill Adeshchenko',

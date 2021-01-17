@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class PhotoList {
   List<Photo> photos;
 
@@ -26,8 +28,8 @@ class Photo {
   String createdAt;
   String updatedAt;
   String promotedAt;
-  int width;
-  int height;
+  double width;
+  double height;
   String color;
   String description;
   String altDescription;
