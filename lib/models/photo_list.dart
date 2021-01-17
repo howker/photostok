@@ -28,8 +28,8 @@ class Photo {
   String createdAt;
   String updatedAt;
   String promotedAt;
-  double width;
-  double height;
+  int width;
+  int height;
   String color;
   String description;
   String altDescription;

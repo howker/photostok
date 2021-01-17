@@ -65,8 +65,8 @@ class _MainPhotoListState extends State<MainPhotoList> {
             child: PhotoView(
               photoLink: photo.urls.small,
               placeholderColor: photo.color,
-              photoHeigh: photo.height,
-              photoWidth: photo.width,
+              photoHeigh: (photo.height).toDouble(),
+              photoWidth: (photo.width).toDouble(),
             ),
           ),
         ),
