@@ -9,9 +9,6 @@ import 'package:photostok/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-const String kFlutterDash =
-    'https://flutter.dev/assets/404/dash_nest-c64796b59b65042a2b40fae5764c13b7477a592db79eaf04c86298dcb75b78ea.png';
-
 class MainPhotoList extends StatefulWidget {
   MainPhotoList({Key key}) : super(key: key);
 
@@ -35,6 +32,7 @@ class _MainPhotoListState extends State<MainPhotoList> {
               itemCount: state.photoList.photos.length,
               itemBuilder: (BuildContext context, int index) {
                 var photo = state.photoList.photos[index];
+
                 return Column(
                   children: <Widget>[
                     _buildItem(index, context, transition, photo),
@@ -70,13 +68,13 @@ class _MainPhotoListState extends State<MainPhotoList> {
             ),
           ),
         ),
-        _buildPhotoMeta(index),
+        _buildPhotoMeta(index, photo),
         Divider(thickness: 2, color: AppColors.mercury)
       ],
     );
   }
 
-  Widget _buildPhotoMeta(int index) {
+  Widget _buildPhotoMeta(int index, photo) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Row(
@@ -84,32 +82,35 @@ class _MainPhotoListState extends State<MainPhotoList> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              UserAvatar('https://skill-branch.ru/img/speakers/Adechenko.jpg'),
+              UserAvatar(photo.user.profileImage.large),
               SizedBox(width: 6),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Kirill Adeshchenko', style: AppStyles.h2Black),
                   Text(
-                    "@kaparray",
+                      '${photo.user.firstName ?? ''} ${photo.user.lastName ?? ''}',
+                      style: AppStyles.h2Black),
+                  Text(
+                    '@${photo.user.username}',
                     style: Theme.of(context)
                         .textTheme
                         .headline5
                         .copyWith(color: AppColors.manatee),
                   ),
                   Text(
-                    'This is Flutter dash. I love him :',
+                    photo.altDescription ?? '',
                     style: Theme.of(context)
                         .textTheme
                         .headline3
                         .copyWith(color: AppColors.manatee),
+                    maxLines: 2,
                   ),
                 ],
               )
             ],
           ),
-          LikeButton(likeCount: 10, isLiked: true),
+          LikeButton(likeCount: photo.likes, isLiked: photo.likedByUser),
         ],
       ),
     );
@@ -125,11 +126,12 @@ void _transitionPhotoScreen(context, index, transition, photo) {
         arguments: 'Some title',
       ),
       photo: photo.urls.small,
-      altDescription: 'Test altDescription',
-      userName: 'kaparray',
-      name: 'Kirill Adeshchenko',
-      userPhoto: 'https://skill-branch.ru/img/speakers/Adechenko.jpg',
+      altDescription: photo.altDescription ?? '',
+      userName: photo.user.username,
+      name: '${photo.user.firstName ?? ''} ${photo.user.lastName ?? ''}',
+      userPhoto: photo.user.profileImage.large,
       heroTag: 'someword $index',
+      likeCount: photo.likes,
     ),
   );
 }

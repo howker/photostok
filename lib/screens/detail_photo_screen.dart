@@ -18,6 +18,7 @@ class FullScreenImageArguments {
     this.heroTag,
     this.key,
     this.routeSettings,
+    this.likeCount,
   });
 
   final String altDescription;
@@ -28,6 +29,7 @@ class FullScreenImageArguments {
   final String heroTag;
   final Key key;
   final RouteSettings routeSettings;
+  final int likeCount;
 }
 
 class FullScreenImage extends StatefulWidget {
@@ -39,6 +41,7 @@ class FullScreenImage extends StatefulWidget {
     this.userPhoto,
     this.photo,
     this.heroTag,
+    this.likeCount,
   }) : super(key: key);
 
   final String altDescription;
@@ -47,6 +50,7 @@ class FullScreenImage extends StatefulWidget {
   final String userPhoto;
   final String photo;
   final String heroTag;
+  final int likeCount;
 
   @override
   _FullScreenImageState createState() => _FullScreenImageState();
@@ -125,7 +129,7 @@ class _FullScreenImageState extends State<FullScreenImage>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  LikeButton(likeCount: 10, isLiked: true),
+                  LikeButton(likeCount: widget.likeCount, isLiked: true),
                   Row(
                     children: <Widget>[
                       _buildSaveButton(context, widget),
@@ -211,8 +215,7 @@ Widget _animatedBuilder(
           children: <Widget>[
             Opacity(
               opacity: 1.0, //buildAnimationUserMeta(),
-              child: UserAvatar(
-                  'https://skill-branch.ru/img/speakers/Adechenko.jpg'),
+              child: UserAvatar(widget.userPhoto),
             ),
             SizedBox(width: 6.0),
             Opacity(
