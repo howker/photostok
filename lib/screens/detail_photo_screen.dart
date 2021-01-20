@@ -10,7 +10,7 @@ import '../widgets/widgets.dart';
 
 class FullScreenImageArguments {
   FullScreenImageArguments({
-    this.altDescription,
+    this.description,
     this.userName,
     this.name,
     this.userPhoto,
@@ -21,7 +21,7 @@ class FullScreenImageArguments {
     this.likeCount,
   });
 
-  final String altDescription;
+  final String description;
   final String userName;
   final String name;
   final String userPhoto;

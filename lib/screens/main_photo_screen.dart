@@ -88,9 +88,7 @@ class _MainPhotoListState extends State<MainPhotoList> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                      '${photo.user.firstName ?? ''} ${photo.user.lastName ?? ''}',
-                      style: AppStyles.h2Black),
+                  Text(photo.user.name ?? '', style: AppStyles.h2Black),
                   Text(
                     '@${photo.user.username}',
                     style: Theme.of(context)
@@ -99,7 +97,7 @@ class _MainPhotoListState extends State<MainPhotoList> {
                         .copyWith(color: AppColors.manatee),
                   ),
                   Text(
-                    photo.altDescription ?? '',
+                    photo.description ?? '',
                     style: Theme.of(context)
                         .textTheme
                         .headline3
@@ -110,7 +108,11 @@ class _MainPhotoListState extends State<MainPhotoList> {
               )
             ],
           ),
-          LikeButton(likeCount: photo.likes, isLiked: photo.likedByUser),
+          LikeButton(
+            likeCount: photo.likes,
+            isLiked: photo.likedByUser,
+            photoId: photo.id,
+          ),
         ],
       ),
     );
@@ -126,9 +128,9 @@ void _transitionPhotoScreen(context, index, transition, photo) {
         arguments: 'Some title',
       ),
       photo: photo.urls.small,
-      altDescription: photo.altDescription ?? '',
+      description: photo.description ?? '',
       userName: photo.user.username,
-      name: '${photo.user.firstName ?? ''} ${photo.user.lastName ?? ''}',
+      name: photo.user.name,
       userPhoto: photo.user.profileImage.large,
       heroTag: 'someword $index',
       likeCount: photo.likes,

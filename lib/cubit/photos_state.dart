@@ -5,14 +5,13 @@ import 'package:photostok/models/photo_list.dart';
 abstract class PhotoState {}
 
 class PhotosLoadSuccess extends PhotoState {
-  PhotosLoadSuccess({this.photoList});
   final PhotoList photoList;
+  PhotosLoadSuccess({this.photoList});
 }
 
 class PhotosInitial extends PhotoState {}
 
 class PhotosLoadFailure extends PhotoState {
   final String errorMessage;
-
   PhotosLoadFailure(this.errorMessage);
 }

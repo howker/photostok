@@ -39,41 +39,38 @@ class PhotoRepository {
     }
   }
 
+  static Future<bool> likePhoto(String photoId, int likeCount) async {
+    var response = await http
+        .post('https://api.unsplash.com/photos/$photoId/like', headers: {
+      'Authorization': 'Bearer $authToken',
+    });
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return true; //returns 201 - Created
+    } else {
+      throw Exception('Error: ${response.reasonPhrase}');
+    }
+  }
+
+  static Future<bool> unlikePhoto(String photoId) async {
+    var response = await http
+        .delete('https://api.unsplash.com/photos/$photoId/like', headers: {
+      'Authorization': 'Bearer $authToken',
+    });
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return true; //returns 201 - Created
+    } else {
+      throw Exception('Error: ${response.reasonPhrase}');
+    }
+  }
+
   // Future<Photo> getRandomPhoto() async {
   //   var response = await http.get('https://api.unsplash.com/photos/random',
   //       headers: {'Authorization': 'Bearer $authToken'});
 
   //   if (response.statusCode >= 200 && response.statusCode < 300) {
   //     return Photo.fromJson(json.decode(response.body));
-  //   } else {
-  //     throw Exception('Error: ${response.reasonPhrase}');
-  //   }
-  // }
-
-  // static Future<bool> likePhoto(String photoId) async {
-  //   var response = await http
-  //       .post('https://api.unsplash.com/photos/$photoId/like', headers: {
-  //     'Authorization': 'Bearer $authToken',
-  //   });
-
-  //   print(response.body);
-  //   print(response.reasonPhrase);
-
-  //   if (response.statusCode >= 200 && response.statusCode < 300) {
-  //     return true; //returns 201 - Created
-  //   } else {
-  //     throw Exception('Error: ${response.reasonPhrase}');
-  //   }
-  // }
-
-  // static Future<bool> unlikePhoto(String photoId) async {
-  //   var response = await http
-  //       .delete('https://api.unsplash.com/photos/$photoId/like', headers: {
-  //     'Authorization': 'Bearer $authToken',
-  //   });
-
-  //   if (response.statusCode >= 200 && response.statusCode < 300) {
-  //     return true; //returns 201 - Created
   //   } else {
   //     throw Exception('Error: ${response.reasonPhrase}');
   //   }
