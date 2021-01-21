@@ -21,9 +21,9 @@ class MainPhotoList extends StatelessWidget {
         if (state is PhotosLoadSuccess) {
           return Scaffold(
             body: ListView.builder(
-              itemCount: state.photoList.photos.length,
+              itemCount: state.photoList.length,
               itemBuilder: (BuildContext context, int index) {
-                var photo = state.photoList.photos[index];
+                var photo = state.photoList[index];
 
                 return Column(
                   children: <Widget>[
