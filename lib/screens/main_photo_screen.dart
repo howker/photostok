@@ -80,33 +80,37 @@ class _MainPhotoListState extends State<MainPhotoList> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              UserAvatar(photo.user.profileImage.large),
-              SizedBox(width: 6),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(photo.user.name ?? '', style: AppStyles.h2Black),
-                  Text(
-                    '@${photo.user.username}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        .copyWith(color: AppColors.manatee),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                UserAvatar(photo.user.profileImage.large),
+                SizedBox(width: 6),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(photo.user.name ?? '', style: AppStyles.h2Black),
+                      Text(
+                        '@${photo.user.username ?? ''}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5
+                            .copyWith(color: AppColors.manatee),
+                      ),
+                      Text(
+                        photo.altDescription ?? '',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3
+                            .copyWith(color: AppColors.manatee),
+                        maxLines: 2,
+                      ),
+                    ],
                   ),
-                  Text(
-                    photo.description ?? '',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3
-                        .copyWith(color: AppColors.manatee),
-                    maxLines: 2,
-                  ),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           ),
           LikeButton(
             likeCount: photo.likes,
@@ -128,7 +132,7 @@ void _transitionPhotoScreen(context, index, transition, photo) {
         arguments: 'Some title',
       ),
       photo: photo.urls.small,
-      description: photo.description ?? '',
+      description: photo.altDescription ?? '',
       userName: photo.user.username,
       name: photo.user.name,
       userPhoto: photo.user.profileImage.large,
