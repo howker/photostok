@@ -1,22 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/photos_state.dart';
-import 'package:photostok/res/colors.dart';
 import 'package:photostok/res/res.dart';
-import 'package:photostok/res/styles.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class MainPhotoList extends StatefulWidget {
+class MainPhotoList extends StatelessWidget {
   MainPhotoList({Key key}) : super(key: key);
 
-  @override
-  _MainPhotoListState createState() => _MainPhotoListState();
-}
-
-class _MainPhotoListState extends State<MainPhotoList> {
   @override
   Widget build(BuildContext context) {
     final _cubit = BlocProvider.of<PhotoCubit>(context);
@@ -68,13 +60,13 @@ class _MainPhotoListState extends State<MainPhotoList> {
             ),
           ),
         ),
-        _buildPhotoMeta(index, photo),
+        _buildPhotoMeta(index, photo, context),
         Divider(thickness: 2, color: AppColors.mercury)
       ],
     );
   }
 
-  Widget _buildPhotoMeta(int index, photo) {
+  Widget _buildPhotoMeta(int index, photo, context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Row(
