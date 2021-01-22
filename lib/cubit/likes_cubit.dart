@@ -8,7 +8,8 @@ class LikeCubit extends Cubit<LikeState> {
   Future likePhoto(String photoId, int likeCount) async {
     try {
       await PhotoRepository.likePhoto(photoId, likeCount);
-      emit(PhotoLiked(likeCount + 1));
+      //TODO await PhotoRepository.getPhotoById(photoId);
+      emit(PhotoLiked(likeCount + 1)); //emit Photo
     } catch (e) {
       emit(LikeError(e.toString()));
     }
