@@ -7,10 +7,9 @@ import 'package:photostok/models/photo_list.dart';
 abstract class PhotoState {}
 
 class PhotosLoadSuccess extends PhotoState {
-  final UnmodifiableListView<Photo> photoList;
+  //final UnmodifiableListView<Photo> photoList;
+  PhotoList photoList;
   PhotosLoadSuccess({this.photoList});
-
-  //final UnmodifiableListView<PhotoList> photoList;
 }
 
 class PhotosInitial extends PhotoState {}

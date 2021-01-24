@@ -5,25 +5,27 @@ import 'package:photostok/models/photo_list.dart';
 abstract class LikeState {}
 
 class PhotoLiked extends LikeState {
-  final int likeCount;
+  final Photo photo;
 
-  PhotoLiked(this.likeCount);
-
-  // TODO final Photo photo;
-
-  // PhotoLiked(this.photo);
+  PhotoLiked(this.photo);
 }
 
 class PhotoUnliked extends LikeState {
-  final int likeCount;
+  final Photo photo;
 
-  PhotoUnliked(this.likeCount);
+  PhotoUnliked(this.photo);
 }
 
 class LikeError extends LikeState {
   final String errorMessage;
 
   LikeError(this.errorMessage);
+}
+
+class PhotoLikeSuccess extends LikeState {
+  final Photo photo;
+
+  PhotoLikeSuccess(this.photo);
 }
 
 class PhotoLikedInitState extends LikeState {}
