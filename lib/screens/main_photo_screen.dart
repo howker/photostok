@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/photos_state.dart';
+import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
@@ -113,7 +114,7 @@ class MainPhotoList extends StatelessWidget {
   }
 }
 
-void _transitionPhotoScreen(index, context, photo) {
+void _transitionPhotoScreen(index, context, Photo photo) {
   Navigator.pushNamed(
     context,
     transition,

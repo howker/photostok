@@ -68,7 +68,7 @@ class Photo {
     height = json['height'];
     color = json['color'];
     description = json['description'];
-    altDescription = json['alt_description'];
+    altDescription = json['alt_description'] ?? '';
     urls = json['urls'] != null ? new Urls.fromJson(json['urls']) : null;
     links = json['links'] != null ? new Links.fromJson(json['links']) : null;
     //был пустой объект, его генератор не смог обработать
