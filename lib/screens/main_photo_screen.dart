@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/photos_state.dart';
+import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
@@ -21,13 +22,13 @@ class MainPhotoList extends StatelessWidget {
         if (state is PhotosLoadSuccess) {
           return Scaffold(
             body: ListView.builder(
-              itemCount: state.photoList.length,
+              itemCount: state.photoList.photos.length,
               itemBuilder: (BuildContext context, int index) {
-                var photo = state.photoList[index];
+                var photo = state.photoList.photos[index];
 
                 return Column(
                   children: <Widget>[
-                    _buildItem(index, context, transition, photo),
+                    _buildItem(index, context, photo),
                   ],
                 );
               },
@@ -42,13 +43,13 @@ class MainPhotoList extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(int index, context, transition, photo) {
+  Widget _buildItem(index, context, photo) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            _transitionPhotoScreen(context, index, transition, photo);
+            _transitionPhotoScreen(index, context, photo);
           },
           child: Hero(
             tag: 'someword $index',
@@ -105,9 +106,7 @@ class MainPhotoList extends StatelessWidget {
             ),
           ),
           LikeButton(
-            likeCount: photo.likes,
-            isLiked: photo.likedByUser,
-            photoId: photo.id,
+            photo: photo,
           ),
         ],
       ),
@@ -115,7 +114,7 @@ class MainPhotoList extends StatelessWidget {
   }
 }
 
-void _transitionPhotoScreen(context, index, transition, photo) {
+void _transitionPhotoScreen(index, context, Photo photo) {
   Navigator.pushNamed(
     context,
     transition,
@@ -123,13 +122,8 @@ void _transitionPhotoScreen(context, index, transition, photo) {
       routeSettings: RouteSettings(
         arguments: 'Some title',
       ),
-      photo: photo.urls.small,
-      description: photo.altDescription ?? '',
-      userName: photo.user.username,
-      name: photo.user.name,
-      userPhoto: photo.user.profileImage.large,
-      heroTag: 'someword $index',
-      likeCount: photo.likes,
+      photo: photo,
+      heroTag: photo.id,
     ),
   );
 }

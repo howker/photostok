@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:photostok/cubit/photos_cubit.dart';
+import 'package:photostok/cubit/photos_state.dart';
+import 'package:photostok/models/photo_list.dart';
 
 import 'package:photostok/widgets/claim_bottom_sheet.dart';
 
@@ -10,55 +14,39 @@ import '../widgets/widgets.dart';
 
 class FullScreenImageArguments {
   FullScreenImageArguments({
-    this.description,
-    this.userName,
-    this.name,
-    this.userPhoto,
     this.photo,
+    this.routeSettings,
     this.heroTag,
     this.key,
-    this.routeSettings,
-    this.likeCount,
   });
 
-  final String description;
-  final String userName;
-  final String name;
-  final String userPhoto;
-  final String photo;
+  final RouteSettings routeSettings;
+  final Photo photo;
   final String heroTag;
   final Key key;
-  final RouteSettings routeSettings;
-  final int likeCount;
 }
 
 class FullScreenImage extends StatefulWidget {
-  FullScreenImage({
+  final Photo photo;
+  final String heroTag;
+
+  const FullScreenImage({
     Key key,
-    this.altDescription,
-    this.userName,
-    this.name,
-    this.userPhoto,
     this.photo,
     this.heroTag,
-    this.likeCount,
   }) : super(key: key);
 
-  final String altDescription;
-  final String userName;
-  final String name;
-  final String userPhoto;
-  final String photo;
-  final String heroTag;
-  final int likeCount;
-
   @override
-  _FullScreenImageState createState() => _FullScreenImageState();
+  _FullScreenImageState createState() => _FullScreenImageState(photo, heroTag);
 }
 
 class _FullScreenImageState extends State<FullScreenImage>
     with TickerProviderStateMixin {
   AnimationController _controller;
+  final Photo photo;
+  final String heroTag;
+
+  _FullScreenImageState(this.photo, this.heroTag);
 
   @override
   void initState() {
@@ -83,66 +71,74 @@ class _FullScreenImageState extends State<FullScreenImage>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Photo',
-            style: Theme.of(context).textTheme.headline2,
-          ),
-          leading: IconButton(
-            icon: Icon(CupertinoIcons.back),
-            onPressed: () => Navigator.pop(context),
-          ),
-          actions: <Widget>[
-            _buildVerticalButton(context),
-          ],
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Hero(
-              tag: widget.heroTag,
-              child: Container(
-                  //TODO size
-                  width: 340,
-                  height: 340,
-                  child: PhotoView(
-                    photoLink: widget.photo,
-                    placeholderColor: widget.photo,
-                  )),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text(
-                widget.altDescription,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.headline3,
+    return BlocBuilder<PhotoCubit, PhotoState>(
+      builder: (context, state) {
+        if (state is PhotosLoadSuccess) {
+          return SafeArea(
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  photo.description ?? photo.altDescription,
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                leading: IconButton(
+                  icon: Icon(CupertinoIcons.back),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                actions: <Widget>[
+                  _buildVerticalButton(context),
+                ],
               ),
-            ),
-            _animatedBuilder(_controller, buildAnimationUserMeta,
-                buildAnimationUserAvatar, widget),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  LikeButton(likeCount: widget.likeCount, isLiked: true),
-                  Row(
-                    children: <Widget>[
-                      _buildSaveButton(context, widget),
-                      SizedBox(width: 10),
-                      _buildVisitButton(context, widget),
-                    ],
+                  Hero(
+                    tag: heroTag,
+                    child: Container(
+                        //TODO size
+                        width: 340,
+                        height: 340,
+                        child: PhotoView(
+                          photoLink: photo.urls.small,
+                          placeholderColor: photo.color,
+                        )),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: Text(
+                      photo.altDescription,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                  ),
+                  _animatedBuilder(_controller, buildAnimationUserMeta,
+                      buildAnimationUserAvatar, photo),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        LikeButton(photo: photo),
+                        Row(
+                          children: <Widget>[
+                            _buildSaveButton(context, photo),
+                            SizedBox(width: 10),
+                            _buildVisitButton(context, photo),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
+          );
+        } else
+          return Container();
+      },
     );
   }
 
@@ -168,7 +164,7 @@ class _FullScreenImageState extends State<FullScreenImage>
         .value;
   }
 
-  Widget _buildVisitButton(context, widget) {
+  Widget _buildVisitButton(context, Photo photo) {
     return GestureDetector(
       onTap: () {
         _onVisitButtonTap(context);
@@ -204,8 +200,8 @@ Widget _buildVerticalButton(context) {
   );
 }
 
-Widget _animatedBuilder(
-    _controller, buildAnimationUserMeta, buildAnimationUserAvatar, widget) {
+Widget _animatedBuilder(_controller, buildAnimationUserMeta,
+    buildAnimationUserAvatar, Photo photo) {
   return AnimatedBuilder(
     animation: _controller,
     builder: (BuildContext context, Widget child) {
@@ -215,7 +211,7 @@ Widget _animatedBuilder(
           children: <Widget>[
             Opacity(
               opacity: 1.0, //buildAnimationUserMeta(),
-              child: UserAvatar(widget.userPhoto),
+              child: UserAvatar(photo.user.profileImage.large),
             ),
             SizedBox(width: 6.0),
             Opacity(
@@ -224,10 +220,10 @@ Widget _animatedBuilder(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(widget.name,
+                  Text(photo.user.name,
                       style: Theme.of(context).textTheme.headline1),
                   Text(
-                    '@' + widget.userName,
+                    '@' + photo.user.username,
                     style: Theme.of(context)
                         .textTheme
                         .headline5
@@ -243,10 +239,10 @@ Widget _animatedBuilder(
   );
 }
 
-Widget _buildSaveButton(context, widget) {
+Widget _buildSaveButton(context, Photo photo) {
   return GestureDetector(
     onTap: () {
-      _showDialog(context, widget);
+      _showDialog(context, photo);
     },
     child: Container(
       decoration: BoxDecoration(
@@ -264,7 +260,7 @@ Widget _buildSaveButton(context, widget) {
   );
 }
 
-void _showDialog(context, widget) {
+void _showDialog(context, Photo photo) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -273,7 +269,7 @@ void _showDialog(context, widget) {
       actions: <Widget>[
         FlatButton(
           onPressed: () {
-            GallerySaver.saveImage(widget.photo);
+            GallerySaver.saveImage(photo.urls.regular);
             Navigator.of(context).pop();
           },
           child: Text('Download'),
@@ -308,7 +304,7 @@ Future<void> _onVisitButtonTap(context) async {
                 color: AppColors.mercury,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Text('SkillBranch'),
+              child: Text('Visit link'),
             ),
           ),
         ),
