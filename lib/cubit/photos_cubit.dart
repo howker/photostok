@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
@@ -24,6 +22,16 @@ class PhotoCubit extends Cubit<PhotoState> {
   }
 
   Future likePhoto(String photoId) async {
+    try {
+      await PhotoRepository.likePhoto(photoId);
+
+      emit(PhotosLoadSuccess(photoList: photoList));
+    } catch (e) {
+      emit(PhotosLoadFailure(e.toString()));
+    }
+  }
+
+  Future unlikePhoto(String photoId) async {
     try {
       await PhotoRepository.likePhoto(photoId);
 

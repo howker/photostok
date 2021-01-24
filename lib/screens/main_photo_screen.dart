@@ -27,7 +27,7 @@ class MainPhotoList extends StatelessWidget {
 
                 return Column(
                   children: <Widget>[
-                    _buildItem(index, context, transition, photo),
+                    _buildItem(index, context, photo),
                   ],
                 );
               },
@@ -42,13 +42,13 @@ class MainPhotoList extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(int index, context, transition, photo) {
+  Widget _buildItem(index, context, photo) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            _transitionPhotoScreen(context, index, transition, photo);
+            _transitionPhotoScreen(index, context, photo);
           },
           child: Hero(
             tag: 'someword $index',
@@ -105,9 +105,7 @@ class MainPhotoList extends StatelessWidget {
             ),
           ),
           LikeButton(
-            likeCount: photo.likes,
-            isLiked: photo.likedByUser,
-            photoId: photo.id,
+            photo: photo,
           ),
         ],
       ),
@@ -115,7 +113,7 @@ class MainPhotoList extends StatelessWidget {
   }
 }
 
-void _transitionPhotoScreen(context, index, transition, photo) {
+void _transitionPhotoScreen(index, context, photo) {
   Navigator.pushNamed(
     context,
     transition,
@@ -123,13 +121,8 @@ void _transitionPhotoScreen(context, index, transition, photo) {
       routeSettings: RouteSettings(
         arguments: 'Some title',
       ),
-      photo: photo.urls.small,
-      description: photo.altDescription ?? '',
-      userName: photo.user.username,
-      name: photo.user.name,
-      userPhoto: photo.user.profileImage.large,
-      heroTag: 'someword $index',
-      likeCount: photo.likes,
+      photo: photo,
+      heroTag: photo.id,
     ),
   );
 }

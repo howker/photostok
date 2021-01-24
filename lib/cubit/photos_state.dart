@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/foundation.dart';
 import 'package:photostok/models/photo_list.dart';
 
@@ -7,8 +5,7 @@ import 'package:photostok/models/photo_list.dart';
 abstract class PhotoState {}
 
 class PhotosLoadSuccess extends PhotoState {
-  //final UnmodifiableListView<Photo> photoList;
-  PhotoList photoList;
+  final PhotoList photoList;
   PhotosLoadSuccess({this.photoList});
 }
 

@@ -4,8 +4,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photostok/cubit/likes_cubit.dart';
-import 'package:photostok/cubit/likes_state.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/repository/photo_repository.dart';
 
@@ -20,19 +18,10 @@ final photoRepository = PhotoRepository();
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<PhotoCubit>(
-          create: (BuildContext context) {
-            return PhotoCubit(photoRepository);
-          },
-        ),
-        BlocProvider<LikeCubit>(
-          create: (BuildContext context) {
-            return LikeCubit(PhotoLikedInitState());
-          },
-        ),
-      ],
+    return BlocProvider<PhotoCubit>(
+      create: (BuildContext context) {
+        return PhotoCubit(photoRepository);
+      },
       child: MaterialApp(
         theme: ThemeData(
           textTheme: buildAppTextTheme(),
@@ -44,13 +33,8 @@ class MyApp extends StatelessWidget {
                 (setting.arguments as FullScreenImageArguments);
             final route = FullScreenImage(
               photo: args.photo,
-              altDescription: args.description,
-              userName: args.userName,
-              name: args.name,
-              userPhoto: args.userPhoto,
               heroTag: args.heroTag,
-              key: args.key,
-              likeCount: args.likeCount,
+              key: key,
             );
 
             if (Platform.isAndroid) {

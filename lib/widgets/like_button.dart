@@ -1,34 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photostok/cubit/likes_cubit.dart';
-import 'package:photostok/cubit/likes_state.dart';
+import 'package:photostok/cubit/photos_cubit.dart';
+import 'package:photostok/cubit/photos_state.dart';
+import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
 
 class LikeButton extends StatelessWidget {
-  LikeButton({
-    this.likeCount = 0,
-    this.isLiked = false,
-    this.photoId,
-  });
+  final Photo photo;
 
-  final int likeCount;
-  final bool isLiked;
-  final String photoId;
+  const LikeButton({Key key, this.photo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _cubit = BlocProvider.of<LikeCubit>(context);
-    //_cubit.setInitLikeState();
-    return BlocBuilder<LikeCubit, LikeState>(
+    final _cubit = BlocProvider.of<PhotoCubit>(context);
+    return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
-        if (state is PhotoLikeSuccess) {
+        if (state is PhotosLoadSuccess) {
           return GestureDetector(
             onTap: () {
-              state.photo.likedByUser
-                  ? _cubit.unLikePhoto(photoId)
-                  : _cubit.likePhoto(photoId);
-              _cubit.setInitLikeState();
+              photo.likedByUser
+                  ? _cubit.unlikePhoto(photo.id)
+                  : _cubit.likePhoto(photo.id);
             },
             child: Center(
               child: Padding(
@@ -36,12 +29,11 @@ class LikeButton extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Icon(state.photo.likedByUser
-                        ? AppIcons.like_fill
-                        : AppIcons.like),
+                    Icon(
+                        photo.likedByUser ? AppIcons.like_fill : AppIcons.like),
                     SizedBox(width: 4.21),
                     Text(
-                      state.photo.likes.toString(),
+                      photo.likes.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF000000),
@@ -57,11 +49,12 @@ class LikeButton extends StatelessWidget {
               ),
             ),
           );
-        } else if (state is PhotoLikedInitState) {
+        } else if (state is PhotosInitial) {
           return GestureDetector(
             onTap: () {
-              isLiked ? _cubit.unLikePhoto(photoId) : _cubit.likePhoto(photoId);
-              //_cubit.setInitLikeState();
+              photo.likedByUser
+                  ? _cubit.unlikePhoto(photo.id)
+                  : _cubit.likePhoto(photo.id);
             },
             child: Center(
               child: Padding(
@@ -69,10 +62,11 @@ class LikeButton extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Icon(isLiked ? AppIcons.like_fill : AppIcons.like),
+                    Icon(
+                        photo.likedByUser ? AppIcons.like_fill : AppIcons.like),
                     SizedBox(width: 4.21),
                     Text(
-                      likeCount.toString(),
+                      photo.likes.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF000000),

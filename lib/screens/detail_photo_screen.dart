@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:photostok/models/photo_list.dart';
 
 import 'package:photostok/widgets/claim_bottom_sheet.dart';
 
@@ -10,55 +11,38 @@ import '../widgets/widgets.dart';
 
 class FullScreenImageArguments {
   FullScreenImageArguments({
-    this.description,
-    this.userName,
-    this.name,
-    this.userPhoto,
     this.photo,
+    this.routeSettings,
     this.heroTag,
     this.key,
-    this.routeSettings,
-    this.likeCount,
   });
 
-  final String description;
-  final String userName;
-  final String name;
-  final String userPhoto;
-  final String photo;
+  final RouteSettings routeSettings;
+  final Photo photo;
   final String heroTag;
   final Key key;
-  final RouteSettings routeSettings;
-  final int likeCount;
 }
 
 class FullScreenImage extends StatefulWidget {
-  FullScreenImage({
+  final Photo photo;
+  final String heroTag;
+
+  const FullScreenImage({
     Key key,
-    this.altDescription,
-    this.userName,
-    this.name,
-    this.userPhoto,
     this.photo,
     this.heroTag,
-    this.likeCount,
   }) : super(key: key);
 
-  final String altDescription;
-  final String userName;
-  final String name;
-  final String userPhoto;
-  final String photo;
-  final String heroTag;
-  final int likeCount;
-
   @override
-  _FullScreenImageState createState() => _FullScreenImageState();
+  _FullScreenImageState createState() => _FullScreenImageState(photo);
 }
 
 class _FullScreenImageState extends State<FullScreenImage>
     with TickerProviderStateMixin {
   AnimationController _controller;
+  final Photo photo;
+
+  _FullScreenImageState(this.photo);
 
   @override
   void initState() {
@@ -87,7 +71,7 @@ class _FullScreenImageState extends State<FullScreenImage>
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Photo',
+            widget.photo.description ?? widget.photo.altDescription,
             style: Theme.of(context).textTheme.headline2,
           ),
           leading: IconButton(
@@ -109,27 +93,27 @@ class _FullScreenImageState extends State<FullScreenImage>
                   width: 340,
                   height: 340,
                   child: PhotoView(
-                    photoLink: widget.photo,
-                    placeholderColor: widget.photo,
+                    photoLink: widget.photo.urls.small,
+                    placeholderColor: widget.photo.color,
                   )),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Text(
-                widget.altDescription,
-                maxLines: 3,
+                widget.photo.altDescription,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.headline3,
               ),
             ),
             _animatedBuilder(_controller, buildAnimationUserMeta,
-                buildAnimationUserAvatar, widget),
+                buildAnimationUserAvatar, photo),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  LikeButton(likeCount: widget.likeCount, isLiked: true),
+                  LikeButton(photo: widget.photo),
                   Row(
                     children: <Widget>[
                       _buildSaveButton(context, widget),
@@ -204,8 +188,8 @@ Widget _buildVerticalButton(context) {
   );
 }
 
-Widget _animatedBuilder(
-    _controller, buildAnimationUserMeta, buildAnimationUserAvatar, widget) {
+Widget _animatedBuilder(_controller, buildAnimationUserMeta,
+    buildAnimationUserAvatar, Photo photo) {
   return AnimatedBuilder(
     animation: _controller,
     builder: (BuildContext context, Widget child) {
@@ -215,7 +199,7 @@ Widget _animatedBuilder(
           children: <Widget>[
             Opacity(
               opacity: 1.0, //buildAnimationUserMeta(),
-              child: UserAvatar(widget.userPhoto),
+              child: UserAvatar(photo.user.profileImage.large),
             ),
             SizedBox(width: 6.0),
             Opacity(
@@ -224,10 +208,10 @@ Widget _animatedBuilder(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(widget.name,
+                  Text(photo.user.name,
                       style: Theme.of(context).textTheme.headline1),
                   Text(
-                    '@' + widget.userName,
+                    '@' + photo.user.username,
                     style: Theme.of(context)
                         .textTheme
                         .headline5
@@ -308,7 +292,7 @@ Future<void> _onVisitButtonTap(context) async {
                 color: AppColors.mercury,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Text('SkillBranch'),
+              child: Text('Visit link'),
             ),
           ),
         ),
