@@ -100,15 +100,17 @@ class _FullScreenImageState extends State<FullScreenImage>
                   Hero(
                     tag: heroTag,
                     child: Container(
-                        //TODO size to PhotoView
-                        width: 340,
-                        height: 340,
-                        child: PhotoView(
-                          photoLink: photo.urls.small,
-                          placeholderColor: photo.color,
-                          isRounded: true,
-                        )),
+                      //TODO size to PhotoView
+                      width: 340,
+                      height: 340,
+                      child: PhotoView(
+                        photoLink: photo.urls.small,
+                        placeholderColor: photo.color,
+                        isRounded: true,
+                      ),
+                    ),
                   ),
+                  //TODO time creation photo
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
