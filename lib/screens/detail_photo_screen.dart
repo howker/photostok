@@ -18,26 +18,31 @@ class FullScreenImageArguments {
     this.routeSettings,
     this.heroTag,
     this.key,
+    this.index,
   });
 
   final RouteSettings routeSettings;
   final Photo photo;
   final String heroTag;
   final Key key;
+  final int index;
 }
 
 class FullScreenImage extends StatefulWidget {
   final Photo photo;
   final String heroTag;
+  final int index;
 
   const FullScreenImage({
     Key key,
     this.photo,
     this.heroTag,
+    this.index,
   }) : super(key: key);
 
   @override
-  _FullScreenImageState createState() => _FullScreenImageState(photo, heroTag);
+  _FullScreenImageState createState() =>
+      _FullScreenImageState(photo, heroTag, index);
 }
 
 class _FullScreenImageState extends State<FullScreenImage>
@@ -45,8 +50,9 @@ class _FullScreenImageState extends State<FullScreenImage>
   AnimationController _controller;
   final Photo photo;
   final String heroTag;
+  final int index;
 
-  _FullScreenImageState(this.photo, this.heroTag);
+  _FullScreenImageState(this.photo, this.heroTag, this.index);
 
   @override
   void initState() {
@@ -108,7 +114,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Text(
                       photo.altDescription,
-                      maxLines: 2,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headline3,
                     ),
@@ -121,7 +127,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        LikeButton(photo: photo),
+                        LikeButton(photo: state.photoList.photos[index]),
                         Row(
                           children: <Widget>[
                             _buildSaveButton(context, photo),

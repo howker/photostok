@@ -43,7 +43,7 @@ class MainPhotoList extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(index, context, photo) {
+  Widget _buildItem(int index, context, photo) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -114,7 +114,7 @@ class MainPhotoList extends StatelessWidget {
   }
 }
 
-void _transitionPhotoScreen(index, context, Photo photo) {
+void _transitionPhotoScreen(int index, context, Photo photo) {
   Navigator.pushNamed(
     context,
     transition,
@@ -124,6 +124,7 @@ void _transitionPhotoScreen(index, context, Photo photo) {
       ),
       photo: photo,
       heroTag: photo.id,
+      index: index,
     ),
   );
 }

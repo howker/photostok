@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
               photo: args.photo,
               heroTag: args.heroTag,
               key: key,
+              index: args.index,
             );
 
             if (Platform.isAndroid) {
