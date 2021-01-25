@@ -27,7 +27,7 @@ class MainPhotoList extends StatelessWidget {
                 var photo = state.photoList.photos[index];
 
                 return Column(
-                  children: <Widget>[
+                  children: [
                     _buildItem(index, context, photo),
                   ],
                 );
@@ -46,7 +46,7 @@ class MainPhotoList extends StatelessWidget {
   Widget _buildItem(int index, context, photo) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+      children: [
         GestureDetector(
           onTap: () {
             _transitionPhotoScreen(index, context, photo);
@@ -58,6 +58,7 @@ class MainPhotoList extends StatelessWidget {
               placeholderColor: photo.color,
               photoHeigh: (photo.height).toDouble(),
               photoWidth: (photo.width).toDouble(),
+              isRounded: false,
             ),
           ),
         ),
@@ -72,17 +73,17 @@ class MainPhotoList extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
+        children: [
           Expanded(
             child: Row(
-              children: <Widget>[
+              children: [
                 UserAvatar(photo.user.profileImage.large),
                 SizedBox(width: 6),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+                    children: [
                       Text(photo.user.name ?? '', style: AppStyles.h2Black),
                       Text(
                         '@${photo.user.username ?? ''}',

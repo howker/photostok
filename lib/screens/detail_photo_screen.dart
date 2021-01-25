@@ -17,14 +17,13 @@ class FullScreenImageArguments {
     this.photo,
     this.routeSettings,
     this.heroTag,
-    this.key,
     this.index,
   });
 
   final RouteSettings routeSettings;
   final Photo photo;
   final String heroTag;
-  final Key key;
+
   final int index;
 }
 
@@ -34,11 +33,10 @@ class FullScreenImage extends StatefulWidget {
   final int index;
 
   const FullScreenImage({
-    Key key,
     this.photo,
     this.heroTag,
     this.index,
-  }) : super(key: key);
+  });
 
   @override
   _FullScreenImageState createState() =>
@@ -84,34 +82,36 @@ class _FullScreenImageState extends State<FullScreenImage>
             child: Scaffold(
               appBar: AppBar(
                 title: Text(
-                  photo.description ?? photo.altDescription,
+                  'Photo',
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 leading: IconButton(
-                  icon: Icon(CupertinoIcons.back),
+                  icon: const Icon(CupertinoIcons.back),
                   onPressed: () => Navigator.pop(context),
                 ),
-                actions: <Widget>[
+                actions: [
                   _buildVerticalButton(context),
                 ],
               ),
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: [
                   Hero(
                     tag: heroTag,
                     child: Container(
-                        //TODO size
+                        //TODO size to PhotoView
                         width: 340,
                         height: 340,
                         child: PhotoView(
                           photoLink: photo.urls.small,
                           placeholderColor: photo.color,
+                          isRounded: true,
                         )),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Text(
                       photo.altDescription,
                       maxLines: 3,
@@ -126,12 +126,12 @@ class _FullScreenImageState extends State<FullScreenImage>
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
+                      children: [
                         LikeButton(photo: state.photoList.photos[index]),
                         Row(
-                          children: <Widget>[
+                          children: [
                             _buildSaveButton(context, photo),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             _buildVisitButton(context, photo),
                           ],
                         ),
@@ -182,9 +182,9 @@ class _FullScreenImageState extends State<FullScreenImage>
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-          child: Text(
+          child: const Text(
             'Visit',
-            style: TextStyle(color: Colors.white, fontSize: 18),
+            style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
         ),
       ),
@@ -213,32 +213,37 @@ Widget _animatedBuilder(_controller, buildAnimationUserMeta,
     builder: (BuildContext context, Widget child) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Row(
-          children: <Widget>[
-            Opacity(
-              opacity: 1.0, //buildAnimationUserMeta(),
-              child: UserAvatar(photo.user.profileImage.large),
-            ),
-            SizedBox(width: 6.0),
-            Opacity(
-              opacity: buildAnimationUserMeta(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(photo.user.name,
-                      style: Theme.of(context).textTheme.headline1),
-                  Text(
-                    '@' + photo.user.username,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        .copyWith(color: AppColors.manatee),
-                  ),
-                ],
+        child: GestureDetector(
+          child: Row(
+            children: [
+              Opacity(
+                opacity: 1.0,
+                child: UserAvatar(photo.user.profileImage.large),
               ),
-            ),
-          ],
+              const SizedBox(width: 6.0),
+              Opacity(
+                opacity: buildAnimationUserMeta(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(photo.user.name,
+                        style: Theme.of(context).textTheme.headline1),
+                    Text(
+                      '@' + photo.user.username,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5
+                          .copyWith(color: AppColors.manatee),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          onTap: () {
+            //TODO transition to profile
+          },
         ),
       );
     },
@@ -259,7 +264,7 @@ Widget _buildSaveButton(context, Photo photo) {
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
         child: Text(
           'Save',
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
       ),
     ),
@@ -270,21 +275,21 @@ void _showDialog(context, Photo photo) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: Text('Downloading photos'),
-      content: Text('Are you sure you want to upload a photo?'),
-      actions: <Widget>[
+      title: const Text('Downloading photos'),
+      content: const Text('Are you sure you want to download a photo?'),
+      actions: [
         FlatButton(
           onPressed: () {
             GallerySaver.saveImage(photo.urls.regular);
             Navigator.of(context).pop();
           },
-          child: Text('Download'),
+          child: const Text('Download'),
         ),
         FlatButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Close'),
+          child: const Text('Close'),
         ),
       ],
     ),
@@ -304,13 +309,13 @@ Future<void> _onVisitButtonTap(context) async {
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width,
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
               decoration: BoxDecoration(
                 color: AppColors.mercury,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Text('Visit link'),
+              child: const Text('Visit link'),
             ),
           ),
         ),

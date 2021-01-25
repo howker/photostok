@@ -11,10 +11,8 @@ class PhotoCubit extends Cubit<PhotoState> {
 
   Future fetchAllPhotos() async {
     try {
-      //photoRepository.doLogin();
       final photos = await photoRepository.getPhotos(1, 2);
       photoList = photos;
-      //var unmodifiableView = UnmodifiableListView(photos.photos);
       emit(PhotosLoadSuccess(photoList: photoList));
     } catch (e) {
       emit(PhotosLoadFailure(e.toString()));

@@ -34,7 +34,6 @@ class MyApp extends StatelessWidget {
             final route = FullScreenImage(
               photo: args.photo,
               heroTag: args.heroTag,
-              key: key,
               index: args.index,
             );
 
@@ -45,8 +44,8 @@ class MyApp extends StatelessWidget {
               return CupertinoPageRoute(
                   builder: (context) => route, settings: args.routeSettings);
             }
-            return null;
           }
+          return null;
         },
         home: Home(Connectivity().onConnectivityChanged),
       ),
