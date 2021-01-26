@@ -7,14 +7,11 @@ class PhotoView extends StatelessWidget {
     Key key,
     this.photoLink,
     this.placeholderColor,
-    this.photoWidth,
-    this.photoHeigh,
     this.isRounded,
   }) : super(key: key);
 
   final String photoLink;
   final String placeholderColor;
-  final double photoWidth, photoHeigh;
   final bool isRounded;
 
   @override
@@ -30,8 +27,6 @@ class PhotoView extends StatelessWidget {
             fit: BoxFit.fill,
             placeholder: (context, url) => Center(
               child: Container(
-                height: photoHeigh,
-                width: photoWidth,
                 color: Color(int.parse(color)),
               ),
             ),
@@ -51,8 +46,6 @@ class PhotoView extends StatelessWidget {
               fit: BoxFit.fill,
               placeholder: (context, url) => Center(
                 child: Container(
-                  height: photoHeigh,
-                  width: photoWidth,
                   color: Color(int.parse(color)),
                 ),
               ),

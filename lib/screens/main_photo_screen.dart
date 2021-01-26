@@ -56,8 +56,6 @@ class MainPhotoList extends StatelessWidget {
             child: PhotoView(
               photoLink: photo.urls.small,
               placeholderColor: photo.color,
-              photoHeigh: (photo.height).toDouble(),
-              photoWidth: (photo.width).toDouble(),
               isRounded: false,
             ),
           ),

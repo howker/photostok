@@ -78,15 +78,24 @@ class _FullScreenImageState extends State<FullScreenImage>
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
         if (state is PhotosLoadSuccess) {
+          var photoSize = (MediaQuery.of(context).size.width) /
+              state.photoList.photos[index].width *
+              state.photoList.photos[index].width;
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
+                elevation: 0,
+                backgroundColor: AppColors.white,
+                centerTitle: true,
                 title: Text(
                   'Photo',
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 leading: IconButton(
-                  icon: const Icon(CupertinoIcons.back),
+                  icon: const Icon(
+                    CupertinoIcons.back,
+                    color: AppColors.manatee,
+                  ),
                   onPressed: () => Navigator.pop(context),
                 ),
                 actions: [
@@ -100,9 +109,8 @@ class _FullScreenImageState extends State<FullScreenImage>
                   Hero(
                     tag: heroTag,
                     child: Container(
-                      //TODO size to PhotoView
-                      width: 340,
-                      height: 340,
+                      height: photoSize,
+                      width: photoSize,
                       child: PhotoView(
                         photoLink: photo.urls.small,
                         placeholderColor: photo.color,
