@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:photostok/res/res.dart';
 
+/// Баннер сообщение об ошибке загрузки ленты фотографий
 class ErrorLoadingBanner extends StatelessWidget {
   const ErrorLoadingBanner({
     Key key,

@@ -5,6 +5,7 @@ import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
 
+/// Кнопка лайк не-лайк фотографии
 class LikeButton extends StatelessWidget {
   final Photo photo;
 

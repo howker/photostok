@@ -43,13 +43,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
                     decoration: BoxDecoration(
                       color: AppColors.mercury,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Text('No internet connection'),
+                    child: const Text('No internet connection'),
                   ),
                 ),
               ),
@@ -85,17 +85,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         currentIndex: _tabController.index,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(
+            icon: const Icon(
               AppIcons.home,
             ),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
+            icon: const Icon(Icons.account_circle_outlined),
             label: 'Profile',
           ),
         ],

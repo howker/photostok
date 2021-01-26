@@ -2,6 +2,7 @@ import 'package:photostok/res/colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+///Виджет реализации отображения фотографии
 class PhotoView extends StatelessWidget {
   PhotoView({
     Key key,

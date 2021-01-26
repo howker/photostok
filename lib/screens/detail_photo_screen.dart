@@ -6,11 +6,9 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
-
 import 'package:photostok/widgets/claim_bottom_sheet.dart';
-
-import '../res/res.dart';
-import '../widgets/widgets.dart';
+import 'package:photostok/res/res.dart';
+import 'package:photostok/widgets/widgets.dart';
 
 class FullScreenImageArguments {
   FullScreenImageArguments({
@@ -23,10 +21,10 @@ class FullScreenImageArguments {
   final RouteSettings routeSettings;
   final Photo photo;
   final String heroTag;
-
   final int index;
 }
 
+///Экран деталей фотографии
 class FullScreenImage extends StatefulWidget {
   final Photo photo;
   final String heroTag;
@@ -164,7 +162,7 @@ class _FullScreenImageState extends State<FullScreenImage>
         .animate(
           CurvedAnimation(
             parent: _controller,
-            curve: Interval(0.5, 1.0, curve: Curves.ease),
+            curve: const Interval(0.5, 1.0, curve: Curves.ease),
           ),
         )
         .value;
@@ -175,7 +173,7 @@ class _FullScreenImageState extends State<FullScreenImage>
         .animate(
           CurvedAnimation(
             parent: _controller,
-            curve: Interval(0.5, 1.0, curve: Curves.ease),
+            curve: const Interval(0.5, 1.0, curve: Curves.ease),
           ),
         )
         .value;
@@ -205,7 +203,7 @@ class _FullScreenImageState extends State<FullScreenImage>
 
 Widget _buildVerticalButton(context) {
   return IconButton(
-    icon: Icon(Icons.more_vert),
+    icon: const Icon(Icons.more_vert),
     onPressed: () {
       showModalBottomSheet(
         context: context,

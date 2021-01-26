@@ -12,17 +12,17 @@ class BottomNaviBar extends StatelessWidget {
       currentIndex: 0,
       items: [
         BottomNavigationBarItem(
-          icon: Icon(
+          icon: const Icon(
             AppIcons.home,
           ),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
+          icon: const Icon(Icons.search),
           label: 'Search',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle_outlined),
+          icon: const Icon(Icons.account_circle_outlined),
           label: 'Profile',
         ),
       ],

@@ -40,7 +40,7 @@ class MainPhotoList extends StatelessWidget {
             ),
           );
         } else if (state is PhotosLoadFailure) {
-          return ErrorLoadingBanner();
+          return const ErrorLoadingBanner();
         }
         return Container();
       },
@@ -65,14 +65,14 @@ class MainPhotoList extends StatelessWidget {
           ),
         ),
         _buildPhotoMeta(index, photo, context),
-        Divider(thickness: 2, color: AppColors.mercury)
+        const Divider(thickness: 2, color: AppColors.mercury)
       ],
     );
   }
 
   Widget _buildPhotoMeta(int index, Photo photo, context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -80,7 +80,7 @@ class MainPhotoList extends StatelessWidget {
             child: Row(
               children: [
                 UserAvatar(photo.user.profileImage.large),
-                SizedBox(width: 6),
+                const SizedBox(width: 6),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
