@@ -19,8 +19,22 @@ class PhotoView extends StatelessWidget {
   Widget build(BuildContext context) {
     var color = '0xFF${placeholderColor.replaceAll(RegExp(r"[#]"), '')}';
     if (!isRounded)
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      return Container(
+        color: AppColors.grayChateau,
+        child: CachedNetworkImage(
+          imageUrl: photoLink,
+          fit: BoxFit.fill,
+          placeholder: (context, url) => Center(
+            child: Container(
+              color: Color(int.parse(color)),
+            ),
+          ),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+        ),
+      );
+    else
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(17),
         child: Container(
           color: AppColors.grayChateau,
           child: CachedNetworkImage(
@@ -32,26 +46,6 @@ class PhotoView extends StatelessWidget {
               ),
             ),
             errorWidget: (context, url, error) => const Icon(Icons.error),
-          ),
-        ),
-      );
-    else
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(17),
-          child: Container(
-            color: AppColors.grayChateau,
-            child: CachedNetworkImage(
-              imageUrl: photoLink,
-              fit: BoxFit.fill,
-              placeholder: (context, url) => Center(
-                child: Container(
-                  color: Color(int.parse(color)),
-                ),
-              ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
           ),
         ),
       );

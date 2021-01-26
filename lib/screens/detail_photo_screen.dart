@@ -100,40 +100,39 @@ class _FullScreenImageState extends State<FullScreenImage>
                   _buildVerticalButton(context),
                 ],
               ),
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Hero(
-                    tag: heroTag,
-                    child: Container(
-                      height: photoSize,
-                      width: photoSize,
-                      child: PhotoView(
-                        photoLink: photo.urls.small,
-                        placeholderColor: photo.color,
-                        isRounded: true,
+              body: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Hero(
+                      tag: heroTag,
+                      child: Container(
+                        height: photoSize,
+                        width: photoSize,
+                        child: PhotoView(
+                          photoLink: photo.urls.small,
+                          placeholderColor: photo.color,
+                          isRounded: true,
+                        ),
                       ),
                     ),
-                  ),
-                  //TODO time creation photo
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Text(
+                    const SizedBox(height: 10),
+                    TimeOfFotoCreation(
+                        createdAt: state.photoList.photos[index].createdAt),
+                    const SizedBox(height: 11),
+                    Text(
                       //TODO maxmin text ellipsis
                       photo.altDescription,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headline3,
                     ),
-                  ),
-                  _animatedBuilder(_controller, buildAnimationUserMeta,
-                      buildAnimationUserAvatar, photo),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Row(
+                    const SizedBox(height: 15),
+                    _animatedBuilder(_controller, buildAnimationUserMeta,
+                        buildAnimationUserAvatar, photo),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         LikeButton(photo: state.photoList.photos[index]),
@@ -146,8 +145,8 @@ class _FullScreenImageState extends State<FullScreenImage>
                         ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
@@ -220,40 +219,37 @@ Widget _animatedBuilder(_controller, buildAnimationUserMeta,
   return AnimatedBuilder(
     animation: _controller,
     builder: (BuildContext context, Widget child) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: GestureDetector(
-          child: Row(
-            children: [
-              Opacity(
-                opacity: 1.0,
-                child: UserAvatar(photo.user.profileImage.large),
+      return GestureDetector(
+        child: Row(
+          children: [
+            Opacity(
+              opacity: 1.0,
+              child: UserAvatar(photo.user.profileImage.large),
+            ),
+            const SizedBox(width: 6.0),
+            Opacity(
+              opacity: buildAnimationUserMeta(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(photo.user.name,
+                      style: Theme.of(context).textTheme.headline1),
+                  Text(
+                    '@' + photo.user.username,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5
+                        .copyWith(color: AppColors.manatee),
+                  ),
+                ],
               ),
-              const SizedBox(width: 6.0),
-              Opacity(
-                opacity: buildAnimationUserMeta(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(photo.user.name,
-                        style: Theme.of(context).textTheme.headline1),
-                    Text(
-                      '@' + photo.user.username,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5
-                          .copyWith(color: AppColors.manatee),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          onTap: () {
-            //TODO transition to profile
-          },
+            ),
+          ],
         ),
+        onTap: () {
+          //TODO transition to profile
+        },
       );
     },
   );

@@ -20,7 +20,6 @@ class MainPhotoList extends StatelessWidget {
           return TripleCircularIndicator();
         }
         if (state is PhotosLoadSuccess) {
-          //TODO Pull-to-refresh need to check
           return Scaffold(
             body: RefreshIndicator(
               onRefresh: () {
