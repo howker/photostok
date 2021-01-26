@@ -16,25 +16,29 @@ class MainPhotoList extends StatelessWidget {
     _cubit.fetchAllPhotos();
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
-        if (state is PhotosInitial) {
-          return Center(child: Text('LOADING'));
-        }
         if (state is PhotosLoadSuccess) {
-          return Scaffold(
-            body: ListView.builder(
-              itemCount: state.photoList.photos.length,
-              itemBuilder: (BuildContext context, int index) {
-                var photo = state.photoList.photos[index];
-
-                return Column(
-                  children: [
-                    _buildItem(index, context, photo),
-                  ],
-                );
-              },
-            ),
+          //PhotosInitial
+          //TODO CircularProgressIndicator stack
+          return Center(
+            child: TripleCircularIndicator(),
           );
         }
+        // if (state is PhotosLoadSuccess) {
+        //   return Scaffold(
+        //     body: ListView.builder(
+        //       itemCount: state.photoList.photos.length,
+        //       itemBuilder: (BuildContext context, int index) {
+        //         var photo = state.photoList.photos[index];
+
+        //         return Column(
+        //           children: [
+        //             _buildItem(index, context, photo),
+        //           ],
+        //         );
+        //       },
+        //     ),
+        //   );
+        // }
         if (state is PhotosLoadFailure) {
           return Center(child: Text(state.errorMessage));
         }

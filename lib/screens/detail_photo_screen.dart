@@ -123,6 +123,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Text(
+                      //TODO maxmin text ellipsis
                       photo.altDescription,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
