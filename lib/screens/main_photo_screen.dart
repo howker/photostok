@@ -16,38 +16,38 @@ class MainPhotoList extends StatelessWidget {
     _cubit.fetchAllPhotos();
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
+        if (state is PhotosInitial) {
+          return TripleCircularIndicator();
+        }
         if (state is PhotosLoadSuccess) {
-          //PhotosInitial
-          //TODO CircularProgressIndicator stack
-          return Center(
-            child: TripleCircularIndicator(),
+          //TODO Pull-to-refresh need to check
+          return Scaffold(
+            body: RefreshIndicator(
+              onRefresh: () {
+                return _cubit.fetchAllPhotos();
+              },
+              child: ListView.builder(
+                itemCount: state.photoList.photos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var photo = state.photoList.photos[index];
+                  return Column(
+                    children: [
+                      _buildItem(index, context, photo),
+                    ],
+                  );
+                },
+              ),
+            ),
           );
+        } else if (state is PhotosLoadFailure) {
+          return ErrorLoadingBanner();
         }
-        // if (state is PhotosLoadSuccess) {
-        //   return Scaffold(
-        //     body: ListView.builder(
-        //       itemCount: state.photoList.photos.length,
-        //       itemBuilder: (BuildContext context, int index) {
-        //         var photo = state.photoList.photos[index];
-
-        //         return Column(
-        //           children: [
-        //             _buildItem(index, context, photo),
-        //           ],
-        //         );
-        //       },
-        //     ),
-        //   );
-        // }
-        if (state is PhotosLoadFailure) {
-          return Center(child: Text(state.errorMessage));
-        }
-        return Center(child: Text('DEFOULT RETURN'));
+        return Container();
       },
     );
   }
 
-  Widget _buildItem(int index, context, photo) {
+  Widget _buildItem(int index, context, Photo photo) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -58,7 +58,7 @@ class MainPhotoList extends StatelessWidget {
           child: Hero(
             tag: 'someword $index',
             child: PhotoView(
-              photoLink: photo.urls.small,
+              photoLink: photo.urls.regular,
               placeholderColor: photo.color,
               isRounded: false,
             ),
@@ -70,7 +70,7 @@ class MainPhotoList extends StatelessWidget {
     );
   }
 
-  Widget _buildPhotoMeta(int index, photo, context) {
+  Widget _buildPhotoMeta(int index, Photo photo, context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Row(
@@ -101,6 +101,7 @@ class MainPhotoList extends StatelessWidget {
                             .headline3
                             .copyWith(color: AppColors.manatee),
                         maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),

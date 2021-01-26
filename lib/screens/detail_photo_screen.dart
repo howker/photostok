@@ -78,9 +78,9 @@ class _FullScreenImageState extends State<FullScreenImage>
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
         if (state is PhotosLoadSuccess) {
-          var photoSize = (MediaQuery.of(context).size.width) /
+          var photoSize = (MediaQuery.of(context).size.width - 130) /
               state.photoList.photos[index].width *
-              state.photoList.photos[index].width;
+              state.photoList.photos[index].height;
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(

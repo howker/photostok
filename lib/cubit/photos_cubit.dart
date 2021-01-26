@@ -36,7 +36,7 @@ class PhotoCubit extends Cubit<PhotoState> {
 
       emit(PhotosLoadSuccess(photoList: photoList));
     } catch (e) {
-      emit(PhotosLoadFailure(e.toString()));
+      emit(LikePhotoFailure());
     }
   }
 

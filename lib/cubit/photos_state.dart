@@ -15,3 +15,7 @@ class PhotosLoadFailure extends PhotoState {
   final String errorMessage;
   PhotosLoadFailure(this.errorMessage);
 }
+
+class LikePhotoFailure extends PhotoState {
+  LikePhotoFailure();
+}
