@@ -145,6 +145,8 @@ class _FullScreenImageState extends State<FullScreenImage>
                         ),
                       ],
                     ),
+                    const SizedBox(height: 30),
+                    RelatedPhotoGrid(photo: photo),
                   ],
                 ),
               ),

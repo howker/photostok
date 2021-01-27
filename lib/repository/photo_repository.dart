@@ -39,6 +39,18 @@ class PhotoRepository {
     }
   }
 
+  Future<PhotoList> getRelatedPhotos(String photoId) async {
+    var response = await http.get(
+        'https://api.unsplash.com/photos/$photoId/related',
+        headers: {'Authorization': 'Bearer $authToken'});
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return PhotoList.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Error: ${response.reasonPhrase}');
+    }
+  }
+
   static Future<bool> likePhoto(String photoId) async {
     var response = await http
         .post('https://api.unsplash.com/photos/$photoId/like', headers: {
@@ -75,15 +87,4 @@ class PhotoRepository {
       throw Exception('Error: ${response.reasonPhrase}');
     }
   }
-
-  // Future<Photo> getRandomPhoto() async {
-  //   var response = await http.get('https://api.unsplash.com/photos/random',
-  //       headers: {'Authorization': 'Bearer $authToken'});
-
-  //   if (response.statusCode >= 200 && response.statusCode < 300) {
-  //     return Photo.fromJson(json.decode(response.body));
-  //   } else {
-  //     throw Exception('Error: ${response.reasonPhrase}');
-  //   }
-  // }
 }
