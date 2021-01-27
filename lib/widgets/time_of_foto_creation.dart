@@ -7,7 +7,7 @@ class TimeOfFotoCreation extends StatelessWidget {
 
   String getTime(String createData) {
     String time = '';
-    Map monthAsString = {
+    Map monthAsHuman = {
       1: 'january',
       2: 'february',
       3: 'march',
@@ -30,11 +30,10 @@ class TimeOfFotoCreation extends StatelessWidget {
     if (timeDifference > 0 || timeDifference < 24) {
       time = 'today';
     }
-    if (timeDifference > 24) {
+    if (timeDifference >= 24) {
       time =
-          '${DateTime.parse(createData).day} ${monthAsString[DateTime.parse(createData).month]} ${DateTime.parse(createData).year}';
+          '${DateTime.parse(createData).day} ${monthAsHuman[DateTime.parse(createData).month]} ${DateTime.parse(createData).year}';
     }
-    print(time);
     return time;
   }
 

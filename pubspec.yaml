@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  gallery_saver: ^2.0.1
+  gallery_saver: ^2.0.3
   connectivity: ^2.0.2
   cupertino_icons: ^1.0.0
   cached_network_image: ^2.5.0

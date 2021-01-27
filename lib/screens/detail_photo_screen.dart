@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
@@ -258,7 +257,7 @@ Widget _animatedBuilder(_controller, buildAnimationUserMeta,
 Widget _buildSaveButton(context, Photo photo) {
   return GestureDetector(
     onTap: () {
-      _showDialog(context, photo);
+      _showSaveDialog(context, photo);
     },
     child: Container(
       decoration: BoxDecoration(
@@ -276,26 +275,15 @@ Widget _buildSaveButton(context, Photo photo) {
   );
 }
 
-void _showDialog(context, Photo photo) {
+void _showSaveDialog(context, Photo photo) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
       title: const Text('Downloading photos'),
       content: const Text('Are you sure you want to download a photo?'),
       actions: [
-        FlatButton(
-          onPressed: () {
-            GallerySaver.saveImage(photo.urls.regular);
-            Navigator.of(context).pop();
-          },
-          child: const Text('Download'),
-        ),
-        FlatButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Close'),
-        ),
+        SaveButton(photo: photo),
+        CloseDialogButton(),
       ],
     ),
   );
