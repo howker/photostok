@@ -8,6 +8,7 @@ import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/widgets/claim_bottom_sheet.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/widgets/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FullScreenImageArguments {
   FullScreenImageArguments({
@@ -180,7 +181,7 @@ class _FullScreenImageState extends State<FullScreenImage>
   Widget _buildVisitButton(context, Photo photo) {
     return GestureDetector(
       onTap: () {
-        _onVisitButtonTap(context);
+        _onVisitButtonTap(photo);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -289,36 +290,12 @@ void _showSaveDialog(context, Photo photo) {
   );
 }
 
-Future<void> _onVisitButtonTap(context) async {
-  OverlayState overlayState = Overlay.of(context);
+void _onVisitButtonTap(Photo photo) async {
+  String url = photo.urls.full;
 
-  OverlayEntry overlayEntry = OverlayEntry(
-    builder: (BuildContext context) {
-      return Positioned(
-        top: MediaQuery.of(context).viewInsets.top + 50,
-        child: Material(
-          color: Colors.transparent,
-          child: Container(
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-              decoration: BoxDecoration(
-                color: AppColors.mercury,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Text('Visit link'),
-            ),
-          ),
-        ),
-      );
-    },
-  );
-
-  overlayState.insert(overlayEntry);
-  await Future.delayed(
-    Duration(seconds: 1),
-  );
-  overlayEntry.remove();
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
