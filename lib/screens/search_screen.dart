@@ -4,24 +4,42 @@ import 'package:photostok/res/res.dart';
 class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10),
       child: Column(
         children: [
           const SizedBox(height: 34),
-          Container(
-            width: 300,
-            height: 36,
-            child: TextField(
-              decoration: InputDecoration.collapsed(
-                hintText: 'Search',
-                hintStyle: Theme.of(context).textTheme.headline2,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              alignment: Alignment.center,
+              color: AppColors.gray,
+              width: double.infinity,
+              height: 36,
+              child: Row(
+                children: [
+                  const SizedBox(width: 12),
+                  const Icon(Icons.search, size: 20, color: AppColors.manatee),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration.collapsed(
+                        hintText: 'Search',
+                        hintStyle: Theme.of(context)
+                            .textTheme
+                            .headline2
+                            .copyWith(color: AppColors.manatee),
+                      ),
+                      cursorColor: AppColors.manatee,
+                      style: TextStyle(
+                        color: AppColors.manatee,
+                        fontSize: 23,
+                      ),
+                      onChanged: (inputText) {},
+                    ),
+                  ),
+                ],
               ),
-              cursorColor: AppColors.white,
-              style: TextStyle(
-                color: AppColors.white,
-                fontSize: 23,
-              ),
-              onChanged: (inputText) {},
             ),
           ),
         ],
