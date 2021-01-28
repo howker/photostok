@@ -76,7 +76,7 @@ class _FullScreenImageState extends State<FullScreenImage>
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
         if (state is PhotosLoadSuccess) {
-          var photoSize = (MediaQuery.of(context).size.width - 130) /
+          var photoSize = (MediaQuery.of(context).size.width - 200) /
               state.photoList.photos[index].width *
               state.photoList.photos[index].height;
           return SafeArea(
@@ -101,7 +101,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                 ],
               ),
               body: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,8 +145,8 @@ class _FullScreenImageState extends State<FullScreenImage>
                         ),
                       ],
                     ),
-                    const SizedBox(height: 30),
-                    RelatedPhotoGrid(photo: photo),
+                    const SizedBox(height: 10),
+                    Expanded(child: RelatedPhotoGrid(photo: photo)),
                   ],
                 ),
               ),

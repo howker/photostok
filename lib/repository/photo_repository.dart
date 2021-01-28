@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:photostok/models/auth_model.dart';
 import 'package:photostok/models/photo_list.dart';
+import 'package:photostok/models/related_photo_list.dart';
 
 class PhotoRepository {
   static const String authUrl =
@@ -39,13 +40,13 @@ class PhotoRepository {
     }
   }
 
-  Future<PhotoList> getRelatedPhotos(String photoId) async {
+  static Future<RelatedPhotoList> getRelatedPhotos(String photoId) async {
     var response = await http.get(
         'https://api.unsplash.com/photos/$photoId/related',
         headers: {'Authorization': 'Bearer $authToken'});
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      return PhotoList.fromJson(json.decode(response.body));
+      return RelatedPhotoList.fromJson(json.decode(response.body));
     } else {
       throw Exception('Error: ${response.reasonPhrase}');
     }

@@ -9,11 +9,13 @@ class PhotoView extends StatelessWidget {
     this.photoLink,
     this.placeholderColor,
     this.isRounded,
+    this.radiusPhoto,
   }) : super(key: key);
 
   final String photoLink;
   final String placeholderColor;
   final bool isRounded;
+  final double radiusPhoto;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class PhotoView extends StatelessWidget {
       );
     else
       return ClipRRect(
-        borderRadius: BorderRadius.circular(17),
+        borderRadius: BorderRadius.circular(radiusPhoto ?? 17),
         child: Container(
           color: AppColors.grayChateau,
           child: CachedNetworkImage(
