@@ -21,7 +21,7 @@ class PhotoCubit extends Cubit<PhotoState> {
 
   Future fetchSearchPhotos() async {
     try {
-      final photos = await photoRepository.getSearchPhotos();
+      final photos = await photoRepository.getSearchPhotos(1, 9);
       photoList = photos;
       emit(PhotosLoadSuccess(photoList: photoList));
     } catch (e) {

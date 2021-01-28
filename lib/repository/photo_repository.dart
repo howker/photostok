@@ -51,8 +51,9 @@ class PhotoRepository {
     }
   }
 
-  Future<PhotoList> getSearchPhotos() async {
-    var response = await http.get('https://api.unsplash.com/search/photos',
+  Future<PhotoList> getSearchPhotos(int page, int perPage) async {
+    var response = await http.get(
+        'https://api.unsplash.com/search/photos?page=$page&per_page=$perPage',
         headers: {'Authorization': 'Bearer $authToken'});
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
