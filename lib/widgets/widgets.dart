@@ -8,3 +8,4 @@ export 'package:photostok/widgets/error_loading_banner.dart';
 export 'package:photostok/widgets/time_of_foto_creation.dart';
 export 'package:photostok/widgets/save_dialog_buttons.dart';
 export 'package:photostok/widgets/related_photo_grid.dart';
+export 'package:photostok/widgets/searh_photo.grid.dart';

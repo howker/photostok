@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photostok/cubit/photos_cubit.dart';
+import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/res/res.dart';
+import 'package:photostok/widgets/widgets.dart';
 
 class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        children: [
-          const SizedBox(height: 34),
-          _buildSearchBar(context),
-          const SizedBox(height: 10),
-        ],
-      ),
+    final _cubit = BlocProvider.of<PhotoCubit>(context);
+    _cubit.fetchSearchPhotos();
+    return BlocBuilder<PhotoCubit, PhotoState>(
+      builder: (BuildContext context, state) {
+        if (state is PhotosLoadSuccess)
+          return Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10), //TODO nothink found
+            child: Column(
+              children: [
+                const SizedBox(height: 34),
+                _buildSearchBar(context),
+                const SizedBox(height: 10),
+                Expanded(child: SearchPhotoGrid(state: state)),
+              ],
+            ),
+          );
+        else if (state is PhotosLoadFailure) return ErrorLoadingBanner();
+        return Container();
+      },
     );
   }
 

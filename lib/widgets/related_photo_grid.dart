@@ -22,7 +22,20 @@ class RelatedPhotoGrid extends StatelessWidget {
                   crossAxisSpacing: 11, mainAxisSpacing: 9, crossAxisCount: 3),
               itemBuilder: (ctx, index) {
                 return GestureDetector(
-                  onTap: _onGridElementTap(index, ctx, photo),
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      transition,
+                      arguments: FullScreenImageArguments(
+                        routeSettings: RouteSettings(
+                          arguments: 'Some title',
+                        ),
+                        photo: photo,
+                        heroTag: photo.id,
+                        index: index,
+                      ),
+                    );
+                  },
                   child: PhotoView(
                     photoLink: snapshot.data.results[index].urls.small,
                     placeholderColor: snapshot.data.results[index].color,
@@ -35,21 +48,6 @@ class RelatedPhotoGrid extends StatelessWidget {
         }
         return const SizedBox();
       },
-    );
-  }
-
-  _onGridElementTap(int index, context, Photo hoto) {
-    Navigator.pushNamed(
-      context,
-      transition,
-      arguments: FullScreenImageArguments(
-        routeSettings: RouteSettings(
-          arguments: 'Some title',
-        ),
-        photo: photo,
-        heroTag: photo.id,
-        index: index,
-      ),
     );
   }
 }
