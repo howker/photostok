@@ -20,27 +20,25 @@ class LikeButton extends StatelessWidget {
         photo.likedByUser ? _cubit.unlikePhoto(photo) : _cubit.likePhoto(photo);
       },
       child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(8),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(photo.likedByUser ? AppIcons.like_fill : AppIcons.like),
-              const SizedBox(width: 4.21),
-              Text(
-                photo.likes.toString(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: const Color(0xFF000000),
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto',
-                  fontStyle: FontStyle.normal,
-                  fontSize: 14,
-                  height: 16 / 14,
-                ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const SizedBox(width: 23.3),
+            Icon(photo.likedByUser ? AppIcons.like_fill : AppIcons.like),
+            const SizedBox(width: 4.21),
+            Text(
+              photo.likes.toString(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Roboto',
+                fontStyle: FontStyle.normal,
+                fontSize: 14,
+                height: 16 / 14,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

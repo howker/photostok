@@ -132,6 +132,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                     const SizedBox(height: 15),
                     _animatedBuilder(_controller, buildAnimationUserMeta,
                         buildAnimationUserAvatar, photo),
+                    const SizedBox(height: 17),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -145,7 +146,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 30),
                     Expanded(child: RelatedPhotoGrid(photo: photo)),
                   ],
                 ),
