@@ -1,3 +1,5 @@
+import 'package:photostok/models/photo_list.dart';
+
 class RelatedPhotoList {
   int total;
   List<Results> results;
@@ -130,33 +132,33 @@ class Results {
   }
 }
 
-class Urls {
-  String raw;
-  String full;
-  String regular;
-  String small;
-  String thumb;
+// class Urls {
+//   String raw;
+//   String full;
+//   String regular;
+//   String small;
+//   String thumb;
 
-  Urls({this.raw, this.full, this.regular, this.small, this.thumb});
+//   Urls({this.raw, this.full, this.regular, this.small, this.thumb});
 
-  Urls.fromJson(Map<String, dynamic> json) {
-    raw = json['raw'];
-    full = json['full'];
-    regular = json['regular'];
-    small = json['small'];
-    thumb = json['thumb'];
-  }
+//   Urls.fromJson(Map<String, dynamic> json) {
+//     raw = json['raw'];
+//     full = json['full'];
+//     regular = json['regular'];
+//     small = json['small'];
+//     thumb = json['thumb'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['raw'] = this.raw;
-    data['full'] = this.full;
-    data['regular'] = this.regular;
-    data['small'] = this.small;
-    data['thumb'] = this.thumb;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['raw'] = this.raw;
+//     data['full'] = this.full;
+//     data['regular'] = this.regular;
+//     data['small'] = this.small;
+//     data['thumb'] = this.thumb;
+//     return data;
+//   }
+// }
 
 class Links {
   String self;
@@ -183,92 +185,92 @@ class Links {
   }
 }
 
-class User {
-  String id;
-  String updatedAt;
-  String username;
-  String name;
-  String firstName;
-  String lastName;
-  String twitterUsername;
-  String portfolioUrl;
-  String bio;
-  String location;
-  Links links;
-  ProfileImage profileImage;
-  String instagramUsername;
-  int totalCollections;
-  int totalLikes;
-  int totalPhotos;
-  bool acceptedTos;
+// class User {
+//   String id;
+//   String updatedAt;
+//   String username;
+//   String name;
+//   String firstName;
+//   String lastName;
+//   String twitterUsername;
+//   String portfolioUrl;
+//   String bio;
+//   String location;
+//   Links links;
+//   ProfileImage profileImage;
+//   String instagramUsername;
+//   int totalCollections;
+//   int totalLikes;
+//   int totalPhotos;
+//   bool acceptedTos;
 
-  User(
-      {this.id,
-      this.updatedAt,
-      this.username,
-      this.name,
-      this.firstName,
-      this.lastName,
-      this.twitterUsername,
-      this.portfolioUrl,
-      this.bio,
-      this.location,
-      this.links,
-      this.profileImage,
-      this.instagramUsername,
-      this.totalCollections,
-      this.totalLikes,
-      this.totalPhotos,
-      this.acceptedTos});
+//   User(
+//       {this.id,
+//       this.updatedAt,
+//       this.username,
+//       this.name,
+//       this.firstName,
+//       this.lastName,
+//       this.twitterUsername,
+//       this.portfolioUrl,
+//       this.bio,
+//       this.location,
+//       this.links,
+//       this.profileImage,
+//       this.instagramUsername,
+//       this.totalCollections,
+//       this.totalLikes,
+//       this.totalPhotos,
+//       this.acceptedTos});
 
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    updatedAt = json['updated_at'];
-    username = json['username'];
-    name = json['name'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    twitterUsername = json['twitter_username'];
-    portfolioUrl = json['portfolio_url'];
-    bio = json['bio'];
-    location = json['location'];
-    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-    profileImage = json['profile_image'] != null
-        ? new ProfileImage.fromJson(json['profile_image'])
-        : null;
-    instagramUsername = json['instagram_username'];
-    totalCollections = json['total_collections'];
-    totalLikes = json['total_likes'];
-    totalPhotos = json['total_photos'];
-    acceptedTos = json['accepted_tos'];
-  }
+//   User.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     updatedAt = json['updated_at'];
+//     username = json['username'];
+//     name = json['name'];
+//     firstName = json['first_name'];
+//     lastName = json['last_name'];
+//     twitterUsername = json['twitter_username'];
+//     portfolioUrl = json['portfolio_url'];
+//     bio = json['bio'];
+//     location = json['location'];
+//     links = json['links'] != null ? new Links.fromJson(json['links']) : null;
+//     profileImage = json['profile_image'] != null
+//         ? new ProfileImage.fromJson(json['profile_image'])
+//         : null;
+//     instagramUsername = json['instagram_username'];
+//     totalCollections = json['total_collections'];
+//     totalLikes = json['total_likes'];
+//     totalPhotos = json['total_photos'];
+//     acceptedTos = json['accepted_tos'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['updated_at'] = this.updatedAt;
-    data['username'] = this.username;
-    data['name'] = this.name;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['twitter_username'] = this.twitterUsername;
-    data['portfolio_url'] = this.portfolioUrl;
-    data['bio'] = this.bio;
-    data['location'] = this.location;
-    if (this.links != null) {
-      data['links'] = this.links.toJson();
-    }
-    if (this.profileImage != null) {
-      data['profile_image'] = this.profileImage.toJson();
-    }
-    data['instagram_username'] = this.instagramUsername;
-    data['total_collections'] = this.totalCollections;
-    data['total_likes'] = this.totalLikes;
-    data['total_photos'] = this.totalPhotos;
-    data['accepted_tos'] = this.acceptedTos;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['updated_at'] = this.updatedAt;
+//     data['username'] = this.username;
+//     data['name'] = this.name;
+//     data['first_name'] = this.firstName;
+//     data['last_name'] = this.lastName;
+//     data['twitter_username'] = this.twitterUsername;
+//     data['portfolio_url'] = this.portfolioUrl;
+//     data['bio'] = this.bio;
+//     data['location'] = this.location;
+//     if (this.links != null) {
+//       data['links'] = this.links.toJson();
+//     }
+//     if (this.profileImage != null) {
+//       data['profile_image'] = this.profileImage.toJson();
+//     }
+//     data['instagram_username'] = this.instagramUsername;
+//     data['total_collections'] = this.totalCollections;
+//     data['total_likes'] = this.totalLikes;
+//     data['total_photos'] = this.totalPhotos;
+//     data['accepted_tos'] = this.acceptedTos;
+//     return data;
+//   }
+// }
 
 class SponsorLinks {
   String self;

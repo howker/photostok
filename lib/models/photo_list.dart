@@ -38,7 +38,7 @@ class Photo {
   bool likedByUser;
   //List<Null> currentUserCollections;
   Sponsorship sponsorship;
-  Sponsor user;
+  User user;
 
   Photo(
       {this.id,
@@ -94,7 +94,7 @@ class Photo {
     sponsorship = json['sponsorship'] != null
         ? new Sponsorship.fromJson(json['sponsorship'])
         : null;
-    user = json['user'] != null ? new Sponsor.fromJson(json['user']) : null;
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -196,7 +196,7 @@ class Sponsorship {
   List<String> impressionUrls;
   String tagline;
   String taglineUrl;
-  Sponsor sponsor;
+  User sponsor;
 
   Sponsorship(
       {this.impressionUrls, this.tagline, this.taglineUrl, this.sponsor});
@@ -206,7 +206,7 @@ class Sponsorship {
     tagline = json['tagline'];
     taglineUrl = json['tagline_url'];
     sponsor =
-        json['sponsor'] != null ? new Sponsor.fromJson(json['sponsor']) : null;
+        json['sponsor'] != null ? new User.fromJson(json['sponsor']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -221,7 +221,7 @@ class Sponsorship {
   }
 }
 
-class Sponsor {
+class User {
   String id;
   String updatedAt;
   String username;
@@ -240,7 +240,7 @@ class Sponsor {
   int totalPhotos;
   bool acceptedTos;
 
-  Sponsor(
+  User(
       {this.id,
       this.updatedAt,
       this.username,
@@ -259,7 +259,7 @@ class Sponsor {
       this.totalPhotos,
       this.acceptedTos});
 
-  Sponsor.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     updatedAt = json['updated_at'];
     username = json['username'];

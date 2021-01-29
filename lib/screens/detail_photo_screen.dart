@@ -77,8 +77,8 @@ class _FullScreenImageState extends State<FullScreenImage>
       builder: (context, state) {
         if (state is PhotosLoadSuccess) {
           var photoSize = (MediaQuery.of(context).size.width - 200) /
-              state.photoList.photos[index].width *
-              state.photoList.photos[index].height;
+              photo.width *
+              photo.height;
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
@@ -119,8 +119,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                       ),
                     ),
                     const SizedBox(height: 10),
-                    TimeOfFotoCreation(
-                        createdAt: state.photoList.photos[index].createdAt),
+                    TimeOfFotoCreation(createdAt: photo.createdAt),
                     const SizedBox(height: 11),
                     Text(
                       //TODO maxmin text ellipsis
@@ -136,7 +135,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        LikeButton(photo: state.photoList.photos[index]),
+                        LikeButton(photo: photo),
                         Row(
                           children: [
                             _buildSaveButton(context, photo),

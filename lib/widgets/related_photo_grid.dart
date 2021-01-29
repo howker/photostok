@@ -24,6 +24,20 @@ class RelatedPhotoGrid extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 return GestureDetector(
                   onTap: () {
+                    Photo photo = Photo(
+                      id: snapshot.data.results[index].id,
+                      createdAt: snapshot.data.results[index].createdAt,
+                      width: snapshot.data.results[index].width,
+                      height: snapshot.data.results[index].height,
+                      color: snapshot.data.results[index].color,
+                      description: snapshot.data.results[index].description,
+                      altDescription:
+                          snapshot.data.results[index].altDescription,
+                      urls: snapshot.data.results[index].urls,
+                      likes: snapshot.data.results[index].likes,
+                      likedByUser: snapshot.data.results[index].likedByUser,
+                      user: snapshot.data.results[index].user,
+                    );
                     Navigator.pushNamed(
                       context,
                       transition,
