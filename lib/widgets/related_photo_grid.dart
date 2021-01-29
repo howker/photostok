@@ -8,6 +8,7 @@ import 'package:photostok/widgets/widgets.dart';
 class RelatedPhotoGrid extends StatelessWidget {
   final Photo photo;
 
+  ///Сетка отображения связанных фотографий
   const RelatedPhotoGrid({Key key, this.photo}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,12 @@ class RelatedPhotoGrid extends StatelessWidget {
               },
               itemCount: snapshot.data.results.length);
         }
-        return const SizedBox();
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            TripleCircularIndicator(),
+          ],
+        );
       },
     );
   }

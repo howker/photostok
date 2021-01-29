@@ -47,25 +47,28 @@ class MainPhotoList extends StatelessWidget {
   }
 
   Widget _buildItem(int index, context, Photo photo) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        GestureDetector(
-          onTap: () {
-            _transitionPhotoScreen(index, context, photo);
-          },
-          child: Hero(
-            tag: 'someword $index',
-            child: PhotoView(
-              photoLink: photo.urls.regular,
-              placeholderColor: photo.color,
-              isRounded: false,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GestureDetector(
+            onTap: () {
+              _transitionPhotoScreen(index, context, photo);
+            },
+            child: Hero(
+              tag: 'someword $index',
+              child: PhotoView(
+                photoLink: photo.urls.regular,
+                placeholderColor: photo.color,
+                isRounded: false,
+              ),
             ),
           ),
-        ),
-        _buildPhotoMeta(index, photo, context),
-        const Divider(thickness: 2, color: AppColors.mercury)
-      ],
+          _buildPhotoMeta(index, photo, context),
+          const Divider(thickness: 2, color: AppColors.mercury)
+        ],
+      ),
     );
   }
 

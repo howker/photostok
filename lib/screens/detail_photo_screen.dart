@@ -112,7 +112,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                         height: photoSize,
                         width: photoSize,
                         child: PhotoView(
-                          photoLink: photo.urls.small,
+                          photoLink: photo.urls.regular,
                           placeholderColor: photo.color,
                           isRounded: true,
                         ),
