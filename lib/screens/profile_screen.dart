@@ -21,11 +21,11 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (isMyProfile)
+    if (isMyProfile) {
       return DefaultTabController(
         length: 3,
         child: Scaffold(
-          appBar: _buildAppBar(context),
+          appBar: _buildMyProfileAppBar(context),
           body: TabBarView(
             children: [
               const Icon(Icons.directions_car),
@@ -35,19 +35,11 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       );
-    else
+    } else {
       return DefaultTabController(
         length: 3,
         child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: AppColors.white,
-            centerTitle: true,
-            title: Text(
-              'Profile',
-              style: Theme.of(context).textTheme.headline2,
-            ),
-          ),
+          appBar: _buildUserProfileAppBar(context),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
@@ -63,6 +55,11 @@ class ProfileScreen extends StatelessWidget {
                     Tab(icon: const Icon(Icons.bookmark_border_outlined)),
                   ],
                 ),
+                const Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: AppColors.greyLine,
+                ),
                 Expanded(
                   child: TabBarView(
                     children: [
@@ -77,9 +74,22 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       );
+    }
   }
 
-  AppBar _buildAppBar(BuildContext context) {
+  AppBar _buildUserProfileAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: AppColors.white,
+      centerTitle: true,
+      title: Text(
+        'Profile',
+        style: Theme.of(context).textTheme.headline2,
+      ),
+    );
+  }
+
+  AppBar _buildMyProfileAppBar(BuildContext context) {
     return AppBar(
       elevation: 0,
       backgroundColor: AppColors.white,

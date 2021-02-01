@@ -11,4 +11,5 @@ class AppColors {
   static const Color amaranth = Color(0xFFE73664);
   static const Color gray = Color(0xFFF5F5F8);
   static const Color blue = Color(0xFF39CEFD);
+  static const Color greyLine = Color(0xFFE7E7E7);
 }

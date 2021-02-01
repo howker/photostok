@@ -4,6 +4,7 @@ import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
+import 'package:photostok/screens/profile_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -75,46 +76,61 @@ class MainPhotoList extends StatelessWidget {
   Widget _buildPhotoMeta(int index, Photo photo, context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                UserAvatar(photo.user.profileImage.large),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(photo.user.name ?? '', style: AppStyles.h2Black),
-                      Text(
-                        '@${photo.user.username ?? ''}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5
-                            .copyWith(color: AppColors.manatee),
-                      ),
-                      Text(
-                        photo.altDescription ?? '',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline3
-                            .copyWith(color: AppColors.manatee),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                )
-              ],
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            transitionToProfileScreen,
+            arguments: ProfileScreenArguments(
+              routeSettings: RouteSettings(
+                arguments: 'Some title',
+              ),
+              photo: photo,
+              isMyProfile: false,
             ),
-          ),
-          LikeButton(
-            photo: photo,
-          ),
-        ],
+          );
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  UserAvatar(photo.user.profileImage.large),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(photo.user.name ?? '', style: AppStyles.h2Black),
+                        Text(
+                          '@${photo.user.username ?? ''}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5
+                              .copyWith(color: AppColors.manatee),
+                        ),
+                        Text(
+                          photo.altDescription ?? '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3
+                              .copyWith(color: AppColors.manatee),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            LikeButton(
+              photo: photo,
+            ),
+          ],
+        ),
       ),
     );
   }
