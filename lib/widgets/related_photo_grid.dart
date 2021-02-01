@@ -40,7 +40,7 @@ class RelatedPhotoGrid extends StatelessWidget {
                     );
                     Navigator.pushNamed(
                       context,
-                      transition,
+                      transitionToDetailScreen,
                       arguments: FullScreenImageArguments(
                         routeSettings: RouteSettings(
                           arguments: 'Some title',

@@ -11,8 +11,10 @@ import 'package:photostok/res/res.dart';
 import 'package:photostok/res/styles.dart';
 import 'package:photostok/screens/home.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
+import 'package:photostok/screens/profile_screen.dart';
 
-const String transition = '/fullScreenImage';
+const String transitionToDetailScreen = '/fullScreenImage';
+const String transitionToProfileScreen = '/profileScreen';
 final photoRepository = PhotoRepository();
 
 class MyApp extends StatelessWidget {
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: (RouteSettings setting) {
-          if (setting.name == transition) {
+          if (setting.name == transitionToDetailScreen) {
             FullScreenImageArguments args =
                 (setting.arguments as FullScreenImageArguments);
             final route = FullScreenImage(
@@ -36,16 +38,19 @@ class MyApp extends StatelessWidget {
               heroTag: args.heroTag,
               index: args.index,
             );
-
-            if (Platform.isAndroid) {
-              return MaterialPageRoute(
-                  builder: (context) => route, settings: args.routeSettings);
-            } else if (Platform.isIOS) {
-              return CupertinoPageRoute(
-                  builder: (context) => route, settings: args.routeSettings);
-            }
-          }
-          return null;
+            return MaterialPageRoute(
+                builder: (context) => route, settings: args.routeSettings);
+          } else if (setting.name == transitionToProfileScreen) {
+            ProfileScreenArguments args =
+                (setting.arguments as ProfileScreenArguments);
+            final route = ProfileScreen(
+              photo: args.photo,
+              isMyProfile: args.isMyProfile,
+            );
+            return MaterialPageRoute(
+                builder: (context) => route, settings: args.routeSettings);
+          } else
+            return null;
         },
         home: Home(Connectivity().onConnectivityChanged),
       ),
@@ -70,6 +75,6 @@ class ConnectivityOverlay {
   }
 
   void removeOverlay(BuildContext context) {
-    overlayEntry.remove();
+    overlayEntry?.remove();
   }
 }

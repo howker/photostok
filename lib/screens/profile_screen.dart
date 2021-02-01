@@ -2,7 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
-import 'package:photostok/widgets/widgets.dart';
+
+class ProfileScreenArguments {
+  ProfileScreenArguments({
+    this.photo,
+    this.routeSettings,
+    this.isMyProfile,
+  });
+  final RouteSettings routeSettings;
+  final Photo photo;
+  final bool isMyProfile;
+}
 
 class ProfileScreen extends StatelessWidget {
   final bool isMyProfile;

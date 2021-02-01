@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
-import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/widgets/widgets.dart';
 

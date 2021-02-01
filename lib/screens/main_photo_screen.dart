@@ -123,7 +123,7 @@ class MainPhotoList extends StatelessWidget {
 void _transitionPhotoScreen(int index, context, Photo photo) {
   Navigator.pushNamed(
     context,
-    transition,
+    transitionToDetailScreen,
     arguments: FullScreenImageArguments(
       routeSettings: RouteSettings(
         arguments: 'Some title',

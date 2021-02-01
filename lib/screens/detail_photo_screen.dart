@@ -6,6 +6,7 @@ import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
+import 'package:photostok/screens/profile_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -233,6 +234,17 @@ Widget _animatedBuilder(_controller, buildAnimationUserMeta,
         ),
         onTap: () {
           //TODO transition to profile
+          Navigator.pushNamed(
+            context,
+            transitionToProfileScreen,
+            arguments: ProfileScreenArguments(
+              routeSettings: RouteSettings(
+                arguments: 'Some title',
+              ),
+              photo: photo,
+              isMyProfile: false,
+            ),
+          );
         },
       );
     },
