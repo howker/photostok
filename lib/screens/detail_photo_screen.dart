@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
-import 'package:photostok/widgets/claim_bottom_sheet.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -96,9 +95,6 @@ class _FullScreenImageState extends State<FullScreenImage>
                   ),
                   onPressed: () => Navigator.pop(context),
                 ),
-                actions: [
-                  _buildVerticalButton(context),
-                ],
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -200,20 +196,6 @@ class _FullScreenImageState extends State<FullScreenImage>
       ),
     );
   }
-}
-
-Widget _buildVerticalButton(context) {
-  return IconButton(
-    icon: const Icon(Icons.more_vert),
-    onPressed: () {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) => Container(
-          child: ClaimBottomSheet(),
-        ),
-      );
-    },
-  );
 }
 
 Widget _animatedBuilder(_controller, buildAnimationUserMeta,

@@ -6,6 +6,7 @@ import 'package:photostok/res/res.dart';
 import 'package:flutter/widgets.dart';
 import 'package:photostok/screens/main_photo_screen.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:photostok/screens/profile_screen.dart';
 import 'package:photostok/screens/search_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 
@@ -111,7 +112,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         children: [
           MainPhotoList(),
           SearchScreen(),
-          Container(child: Center(child: Text('PROFILE SCREEN'))),
+          ProfileScreen(),
         ],
       ),
     );
