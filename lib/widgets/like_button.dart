@@ -22,7 +22,7 @@ class LikeButton extends StatelessWidget {
       child: Center(
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             const SizedBox(width: 23.3),
             Icon(photo.likedByUser ? AppIcons.like_fill : AppIcons.like),
             const SizedBox(width: 4.21),

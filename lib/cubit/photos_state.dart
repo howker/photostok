@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:photostok/models/photo_list.dart';
+import 'package:photostok/models/related_photo_list.dart';
 
 @immutable
 abstract class PhotoState {}
@@ -19,3 +20,11 @@ class PhotosLoadFailure extends PhotoState {
 class LikePhotoFailure extends PhotoState {
   LikePhotoFailure();
 }
+
+class SearchPhotoLoadSuccess extends PhotoState {
+  final RelatedPhotoList searchPhotoList;
+
+  SearchPhotoLoadSuccess({this.searchPhotoList});
+}
+
+class SearchPhotoLoadFailure extends PhotoState {}

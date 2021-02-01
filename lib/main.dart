@@ -6,7 +6,7 @@ import 'app.dart';
 
 void main() {
   debugRepaintRainbowEnabled = false;
-
+  Bloc.observer = SimpleBlocObserver();
   runApp(MyApp());
 }
 

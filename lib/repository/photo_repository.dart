@@ -52,13 +52,14 @@ class PhotoRepository {
     }
   }
 
-  Future<PhotoList> getSearchPhotos(int page, int perPage) async {
+  Future<RelatedPhotoList> getSearchPhotos(
+      int page, int perPage, String query) async {
     var response = await http.get(
-        'https://api.unsplash.com/search/photos?page=$page&per_page=$perPage',
+        'https://api.unsplash.com/search/photos?page=$page&per_page=$perPage&query=$query',
         headers: {'Authorization': 'Bearer $authToken'});
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      return PhotoList.fromJson(json.decode(response.body));
+      return RelatedPhotoList.fromJson(json.decode(response.body));
     } else {
       throw Exception('Error: ${response.reasonPhrase}');
     }
