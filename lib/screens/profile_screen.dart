@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
+import 'package:photostok/widgets/widgets.dart';
 
 class ProfileScreenArguments {
   ProfileScreenArguments({
@@ -44,7 +45,42 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
-                SizedBox(height: 200),
+                SizedBox(height: 24),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        UserAvatar(photo.user.profileImage.large),
+                      ],
+                    ),
+                    const SizedBox(width: 18),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              photo.user.name ?? '',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2
+                                  .copyWith(fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Text(photo.sponsorship.sponsor.totalLikes
+                                .toString()),
+                          ],
+                        ),
+                        Row(),
+                        Row(),
+                      ],
+                    ),
+                  ],
+                ),
                 TabBar(
                   labelColor: AppColors.blue,
                   unselectedLabelColor: AppColors.black,
