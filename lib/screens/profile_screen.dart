@@ -70,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 18),
                           Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
@@ -130,18 +130,19 @@ class ProfileScreen extends StatelessWidget {
                                   const Icon(Icons.ac_unit,
                                       color: AppColors.dodgerBlue),
                                   const SizedBox(width: 8.49),
-                                  Text(state.userProfile.links.portfolio ?? ''),
+                                  Text(state.userProfile.id ??
+                                      ''), //TODO DTO profilelink
                                 ],
                               ),
                               const SizedBox(height: 20),
                             ],
                           ),
-                          Row(
-                            children: [
-                              Text(state.userProfile.bio ?? ''),
-                            ],
-                          ),
-                          const SizedBox(height: 37),
+                          // Row(
+                          //   children: [
+                          //     Text(state.userProfile.bio ?? ''),
+                          //   ],
+                          // ),
+                          // const SizedBox(height: 37),
                         ],
                       ),
                       TabBar(
