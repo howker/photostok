@@ -209,7 +209,7 @@ Widget _animatedBuilder(_controller, buildAnimationUserMeta,
           children: [
             Opacity(
               opacity: 1.0,
-              child: UserAvatar(photo.user.profileImage.large),
+              child: UserAvatar(avatarLink: photo.user.profileImage.large),
             ),
             const SizedBox(width: 6.0),
             Opacity(

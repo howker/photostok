@@ -61,7 +61,11 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           Column(
                             children: [
-                              UserAvatar(state.userProfile.profileImage.large),
+                              UserAvatar(
+                                  width: 70,
+                                  height: 70,
+                                  avatarLink:
+                                      state.userProfile.profileImage.large),
                             ],
                           ),
                           const SizedBox(width: 18),

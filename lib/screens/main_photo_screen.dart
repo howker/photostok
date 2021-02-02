@@ -96,7 +96,7 @@ class MainPhotoList extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  UserAvatar(photo.user.profileImage.large),
+                  UserAvatar(avatarLink: photo.user.profileImage.large),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Column(
