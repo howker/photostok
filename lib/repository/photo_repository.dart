@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:photostok/models/auth_model.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/models/related_photo_list.dart';
+import 'package:photostok/models/user_profile.dart';
 
 class PhotoRepository {
   static const String authUrl =
@@ -60,6 +61,17 @@ class PhotoRepository {
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return RelatedPhotoList.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Error: ${response.reasonPhrase}');
+    }
+  }
+
+  Future<UserProfile> getUserProfile(String userName) async {
+    var response = await http.get('https://api.unsplash.com/users/$userName',
+        headers: {'Authorization': 'Bearer $authToken'});
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return UserProfile.fromJson(json.decode(response.body));
     } else {
       throw Exception('Error: ${response.reasonPhrase}');
     }

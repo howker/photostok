@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
+import 'package:photostok/cubit/user_cubit.dart';
 import 'package:photostok/repository/photo_repository.dart';
 
 import 'package:photostok/res/res.dart';
@@ -20,10 +21,19 @@ final photoRepository = PhotoRepository();
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PhotoCubit>(
-      create: (BuildContext context) {
-        return PhotoCubit(photoRepository);
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<PhotoCubit>(
+          create: (BuildContext context) {
+            return PhotoCubit(photoRepository);
+          },
+        ),
+        BlocProvider<UserCubit>(
+          create: (BuildContext context) {
+            return UserCubit(photoRepository);
+          },
+        ),
+      ],
       child: MaterialApp(
         theme: ThemeData(
           textTheme: buildAppTextTheme(),
