@@ -75,7 +75,7 @@ class ProfileScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    state.userProfile.username ?? '',
+                                    state.userProfile.name ?? '',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline2
@@ -115,20 +115,22 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 10),
                                   const Text('following'),
+                                  const SizedBox(height: 10),
                                 ],
                               ),
                               Row(
                                 children: [
                                   const Icon(Icons.location_on,
-                                      color: AppColors.dodgerBlue),
+                                      size: 13, color: AppColors.dodgerBlue),
                                   const SizedBox(width: 9.79),
                                   Text(state.userProfile.location ?? ''),
+                                  const SizedBox(height: 22),
                                 ],
                               ),
                               Row(
                                 children: [
                                   const Icon(Icons.link,
-                                      color: AppColors.dodgerBlue),
+                                      size: 13, color: AppColors.dodgerBlue),
                                   const SizedBox(width: 8.49),
                                   Text(state.userProfile.id ??
                                       ''), //TODO DTO profilelink
@@ -137,12 +139,12 @@ class ProfileScreen extends StatelessWidget {
                               const SizedBox(height: 20),
                             ],
                           ),
-                          // Row(
-                          //   children: [
-                          //     Text(state.userProfile.bio ?? ''),
-                          //   ],
-                          // ),
-                          // const SizedBox(height: 37),
+                          const SizedBox(height: 37),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Flexible(child: Text(state.userProfile.bio ?? '')),
                         ],
                       ),
                       TabBar(
