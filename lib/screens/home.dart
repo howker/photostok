@@ -112,7 +112,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         children: [
           MainPhotoList(),
           SearchScreen(),
-          ProfileScreen(),
+          ProfileScreen(isMyProfile: true),
         ],
       ),
     );

@@ -23,7 +23,7 @@ class ProfileScreenArguments {
 class ProfileScreen extends StatelessWidget {
   final bool isMyProfile;
   final Photo photo;
-  const ProfileScreen({this.isMyProfile = false, this.photo});
+  const ProfileScreen({this.isMyProfile, this.photo});
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +158,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             );
           else
-            return ErrorLoadingBanner();
+            return TripleCircularIndicator();
         },
       );
     }
