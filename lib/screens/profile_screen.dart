@@ -119,7 +119,7 @@ class ProfileScreen extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  const Icon(Icons.flag_rounded,
+                                  const Icon(Icons.location_on,
                                       color: AppColors.dodgerBlue),
                                   const SizedBox(width: 9.79),
                                   Text(state.userProfile.location ?? ''),
@@ -127,7 +127,7 @@ class ProfileScreen extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  const Icon(Icons.ac_unit,
+                                  const Icon(Icons.link,
                                       color: AppColors.dodgerBlue),
                                   const SizedBox(width: 8.49),
                                   Text(state.userProfile.id ??
