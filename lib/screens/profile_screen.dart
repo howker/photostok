@@ -70,6 +70,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 18),
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
@@ -99,11 +100,7 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 10),
                                   const Text('followers'),
-                                ],
-                              ),
-                              const SizedBox(width: 26),
-                              Row(
-                                children: [
+                                  const SizedBox(width: 26),
                                   Text(
                                     state.userProfile.followingCount
                                             .toString() ??
@@ -128,8 +125,23 @@ class ProfileScreen extends StatelessWidget {
                                   Text(state.userProfile.location ?? ''),
                                 ],
                               ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.ac_unit,
+                                      color: AppColors.dodgerBlue),
+                                  const SizedBox(width: 8.49),
+                                  Text(state.userProfile.links.portfolio ?? ''),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
                             ],
                           ),
+                          Row(
+                            children: [
+                              Text(state.userProfile.bio ?? ''),
+                            ],
+                          ),
+                          const SizedBox(height: 37),
                         ],
                       ),
                       TabBar(
