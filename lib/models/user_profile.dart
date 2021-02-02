@@ -19,28 +19,31 @@ class UserProfile {
   ProfileImage profileImage;
   Badge badge;
   Links links;
+  String portfolioUrl;
 
-  UserProfile(
-      {this.id,
-      this.updatedAt,
-      this.username,
-      this.name,
-      this.firstName,
-      this.lastName,
-      this.instagramUsername,
-      this.twitterUsername,
-      this.bio,
-      this.location,
-      this.totalLikes,
-      this.totalPhotos,
-      this.totalCollections,
-      this.followedByUser,
-      this.followersCount,
-      this.followingCount,
-      this.downloads,
-      this.profileImage,
-      this.badge,
-      this.links});
+  UserProfile({
+    this.id,
+    this.updatedAt,
+    this.username,
+    this.name,
+    this.firstName,
+    this.lastName,
+    this.instagramUsername,
+    this.twitterUsername,
+    this.bio,
+    this.location,
+    this.totalLikes,
+    this.totalPhotos,
+    this.totalCollections,
+    this.followedByUser,
+    this.followersCount,
+    this.followingCount,
+    this.downloads,
+    this.profileImage,
+    this.badge,
+    this.links,
+    this.portfolioUrl,
+  });
 
   UserProfile.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -51,6 +54,7 @@ class UserProfile {
     lastName = json['last_name'];
     instagramUsername = json['instagram_username'];
     twitterUsername = json['twitter_username'];
+    portfolioUrl = json['portfolio_url'];
     bio = json['bio'];
     location = json['location'];
     totalLikes = json['total_likes'];
@@ -77,6 +81,7 @@ class UserProfile {
     data['last_name'] = this.lastName;
     data['instagram_username'] = this.instagramUsername;
     data['twitter_username'] = this.twitterUsername;
+    data['portfolio_url'] = this.portfolioUrl;
     data['bio'] = this.bio;
     data['location'] = this.location;
     data['total_likes'] = this.totalLikes;

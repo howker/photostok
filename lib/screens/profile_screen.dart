@@ -132,7 +132,7 @@ class ProfileScreen extends StatelessWidget {
                                   const Icon(Icons.link,
                                       size: 13, color: AppColors.dodgerBlue),
                                   const SizedBox(width: 8.49),
-                                  Text(state.userProfile.id ??
+                                  Text(state.userProfile.portfolioUrl ??
                                       ''), //TODO DTO profilelink
                                 ],
                               ),
