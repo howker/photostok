@@ -180,7 +180,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               PhotoGridByUser(userName: photo.user.username),
               PhotoGridUserFavorites(userName: photo.user.username),
-              const Icon(Icons.directions_bike),
+              PhotoGridUserCollections(userName: photo.user.username),
             ],
           ),
         ),

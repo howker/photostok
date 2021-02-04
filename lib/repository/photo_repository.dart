@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:photostok/models/auth_model.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/models/related_photo_list.dart';
+import 'package:photostok/models/user_collection.dart';
 import 'package:photostok/models/user_profile.dart';
 
 class PhotoRepository {
@@ -70,6 +71,32 @@ class PhotoRepository {
       int page, int perPage, String userName) async {
     var response = await http.get(
         'https://api.unsplash.com/users/$userName/likes?page=$page&per_page=$perPage',
+        headers: {'Authorization': 'Bearer $authToken'});
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return PhotoList.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Error: ${response.reasonPhrase}');
+    }
+  }
+
+  static Future<UserCollectionList> getUserCollections(
+      int page, int perPage, String userName) async {
+    var response = await http.get(
+        'https://api.unsplash.com/users/$userName/collections?page=$page&per_page=$perPage',
+        headers: {'Authorization': 'Bearer $authToken'});
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return UserCollectionList.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Error: ${response.reasonPhrase}');
+    }
+  }
+
+  static Future<PhotoList> getCollectionPhotos(
+      int page, int perPage, String collectionId) async {
+    var response = await http.get(
+        'https://api.unsplash.com/collections/$collectionId/photos?page=$page&per_page=$perPage',
         headers: {'Authorization': 'Bearer $authToken'});
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
