@@ -66,6 +66,19 @@ class PhotoRepository {
     }
   }
 
+  static Future<PhotoList> getUserFavoritesPhotos(
+      int page, int perPage, String userName) async {
+    var response = await http.get(
+        'https://api.unsplash.com/users/$userName/likes?page=$page&per_page=$perPage',
+        headers: {'Authorization': 'Bearer $authToken'});
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return PhotoList.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Error: ${response.reasonPhrase}');
+    }
+  }
+
   Future<RelatedPhotoList> getSearchPhotos(
       int page, int perPage, String query) async {
     var response = await http.get(

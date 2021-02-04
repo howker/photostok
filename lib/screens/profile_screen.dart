@@ -179,7 +179,7 @@ class ProfileScreen extends StatelessWidget {
           child: TabBarView(
             children: [
               PhotoGridByUser(userName: photo.user.username),
-              const Icon(Icons.directions_transit),
+              PhotoGridUserFavorites(userName: photo.user.username),
               const Icon(Icons.directions_bike),
             ],
           ),

@@ -10,3 +10,4 @@ export 'package:photostok/widgets/save_dialog_buttons.dart';
 export 'package:photostok/widgets/related_photo_grid.dart';
 export 'package:photostok/widgets/searh_photo.grid.dart';
 export 'package:photostok/widgets/foto_grid_by_user.dart';
+export 'package:photostok/widgets/photo_grid_user_favorites.dart';
