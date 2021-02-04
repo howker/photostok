@@ -69,82 +69,97 @@ class ProfileScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(width: 18),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    state.userProfile.name ?? '',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2
-                                        .copyWith(fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  Text(
-                                    state.userProfile.followersCount
-                                            .toString() ??
-                                        '',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2
-                                        .copyWith(
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColors.dodgerBlue,
-                                        ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  const Text('followers'),
-                                  const SizedBox(width: 26),
-                                  Text(
-                                    state.userProfile.followingCount
-                                            .toString() ??
-                                        '',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2
-                                        .copyWith(
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColors.dodgerBlue,
-                                        ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  const Text('following'),
-                                  const SizedBox(height: 10),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(Icons.location_on,
-                                      size: 13, color: AppColors.dodgerBlue),
-                                  const SizedBox(width: 9.79),
-                                  Text(state.userProfile.location ?? ''),
-                                  const SizedBox(height: 22),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(Icons.link,
-                                      size: 13, color: AppColors.dodgerBlue),
-                                  const SizedBox(width: 8.49),
-                                  Text(state.userProfile.portfolioUrl ??
-                                      ''), //TODO DTO profilelink
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      state.userProfile.name ?? '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2
+                                          .copyWith(
+                                              fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    Text(
+                                      state.userProfile.followersCount
+                                              .toString() ??
+                                          '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2
+                                          .copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            color: AppColors.dodgerBlue,
+                                          ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    const Text('followers'),
+                                    const SizedBox(width: 26),
+                                    Text(
+                                      state.userProfile.followingCount
+                                              .toString() ??
+                                          '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2
+                                          .copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            color: AppColors.dodgerBlue,
+                                          ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    const Text('following'),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.location_on,
+                                        size: 13, color: AppColors.dodgerBlue),
+                                    const SizedBox(width: 9.79),
+                                    Text(state.userProfile.location ?? ''),
+                                    const SizedBox(height: 22),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.link,
+                                        size: 13, color: AppColors.dodgerBlue),
+                                    const SizedBox(width: 8.49),
+                                    Flexible(
+                                      child: Text(
+                                        state.userProfile.portfolioUrl ?? '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 37),
                         ],
                       ),
                       Row(
                         children: [
-                          Flexible(child: Text(state.userProfile.bio ?? '')),
+                          Flexible(
+                            child: Text(state.userProfile.bio ?? '',
+                                style: Theme.of(context).textTheme.headline6,
+                                maxLines: 3),
+                          ),
                         ],
                       ),
                       TabBar(
