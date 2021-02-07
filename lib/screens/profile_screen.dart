@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photostok/cubit/photos_cubit.dart';
-import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/cubit/user_cubit.dart';
 import 'package:photostok/cubit/user_state.dart';
 import 'package:photostok/models/photo_list.dart';

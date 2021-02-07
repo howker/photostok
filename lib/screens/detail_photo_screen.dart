@@ -75,7 +75,7 @@ class _FullScreenImageState extends State<FullScreenImage>
   Widget build(BuildContext context) {
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
-        if (state is PhotosLoadSuccess) {
+        if (state is PhotosLoadSuccess || state is SearchPhotoLoadSuccess) {
           var photoSize = (MediaQuery.of(context).size.width - 200) /
               photo.width *
               photo.height;
@@ -150,7 +150,10 @@ class _FullScreenImageState extends State<FullScreenImage>
             ),
           );
         } else
-          return Container();
+          return Center(
+            child: Text(
+                'detail photo screen error, state is $state'), //TODO remoove
+          );
       },
     );
   }

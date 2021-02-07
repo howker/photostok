@@ -7,15 +7,16 @@ import 'package:photostok/widgets/widgets.dart';
 class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10), //TODO nothink found
-      child: Column(
-        children: [
-          const SizedBox(height: 34),
-          _buildSearchBar(context),
-          const SizedBox(height: 10),
-          Expanded(child: SearchPhotoGrid()),
-        ],
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: [
+            const SizedBox(height: 34),
+            _buildSearchBar(context),
+            SearchPhotoGrid(),
+          ],
+        ),
       ),
     );
   }
