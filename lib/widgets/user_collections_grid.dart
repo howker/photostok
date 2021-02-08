@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photostok/cubit/user_cubit.dart';
+import 'package:photostok/cubit/user_state.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/models/user_collection.dart';
 import 'package:photostok/repository/photo_repository.dart';
@@ -14,43 +17,43 @@ class PhotoGridUserCollections extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<UserCollectionList>(
-      future: PhotoRepository.getUserCollections(1, 15, userName),
-      builder: (ctx, snapshot) {
-        if (snapshot.hasError)
+    return BlocBuilder<UserCubit, UserState>(
+      builder: (context, state) {
+        if (state is UserCollectionsLoadFailure)
           return ErrorLoadingBanner();
-        else if (snapshot.hasData) {
+        else if (state is UserCollectionsLoadSuccess) {
           return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 11, mainAxisSpacing: 9, crossAxisCount: 3),
-              itemBuilder: (ctx, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Photo photo = Photo();
-                    Navigator.pushNamed(
-                      context,
-                      transitionToDetailScreen,
-                      arguments: FullScreenImageArguments(
-                        routeSettings: RouteSettings(
-                          arguments: 'Some title',
-                        ),
-                        photo: photo,
-                        heroTag: photo.id,
-                        index: index,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: 11, mainAxisSpacing: 9, crossAxisCount: 3),
+            itemBuilder: (ctx, index) {
+              return GestureDetector(
+                onTap: () {
+                  Photo photo = Photo();
+                  Navigator.pushNamed(
+                    context,
+                    transitionToDetailScreen,
+                    arguments: FullScreenImageArguments(
+                      routeSettings: RouteSettings(
+                        arguments: 'Some title',
                       ),
-                    );
-                  },
-                  child: PhotoView(
-                    photoLink: snapshot
-                        .data.userCollectionList[index].coverPhoto.urls.small,
-                    placeholderColor: snapshot
-                        .data.userCollectionList[index].coverPhoto.color,
-                    isRounded: true,
-                    radiusPhoto: 7,
-                  ),
-                );
-              },
-              itemCount: snapshot.data.userCollectionList.length);
+                      photo: photo,
+                      heroTag: photo.id,
+                      index: index,
+                    ),
+                  );
+                },
+                child: PhotoView(
+                  photoLink: state.userCollectionList.userCollectionList[index]
+                      .coverPhoto.urls.small,
+                  placeholderColor: state.userCollectionList
+                      .userCollectionList[index].coverPhoto.color,
+                  isRounded: true,
+                  radiusPhoto: 7,
+                ),
+              );
+            },
+            itemCount: state.userCollectionList.userCollectionList.length,
+          );
         }
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,

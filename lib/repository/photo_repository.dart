@@ -80,7 +80,7 @@ class PhotoRepository {
     }
   }
 
-  static Future<UserCollectionList> getUserCollections(
+  Future<UserCollectionList> getUserCollections(
       int page, int perPage, String userName) async {
     var response = await http.get(
         'https://api.unsplash.com/users/$userName/collections?page=$page&per_page=$perPage',
@@ -93,7 +93,7 @@ class PhotoRepository {
     }
   }
 
-  static Future<PhotoList> getCollectionPhotos(
+  Future<PhotoList> getCollectionPhotos(
       int page, int perPage, String collectionId) async {
     var response = await http.get(
         'https://api.unsplash.com/collections/$collectionId/photos?page=$page&per_page=$perPage',

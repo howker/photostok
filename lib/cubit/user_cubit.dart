@@ -16,4 +16,27 @@ class UserCubit extends Cubit<UserState> {
       emit(UserProfileLoadFailure());
     }
   }
+
+  Future fetchUserCollections(int page, int perPage, String userName) async {
+    try {
+      final userCollectionList =
+          await photoRepository.getUserCollections(page, perPage, userName);
+
+      emit(UserCollectionsLoadSuccess(userCollectionList));
+    } catch (e) {
+      emit(UserCollectionsLoadFailure());
+    }
+  }
+
+  Future fetchUserCollectionsPhoto(
+      int page, int perPage, String userName) async {
+    try {
+      final userCollectionPhotoList =
+          await photoRepository.getCollectionPhotos(page, perPage, userName);
+
+      emit(UserCollectionsPhotoLoadSuccess(userCollectionPhotoList));
+    } catch (e) {
+      emit(UserCollectionsPhotoLoadFailure());
+    }
+  }
 }
