@@ -196,6 +196,13 @@ AppBar _buildUserProfileAppBar(BuildContext context) {
       'Profile',
       style: Theme.of(context).textTheme.headline2,
     ),
+    leading: IconButton(
+      icon: const Icon(
+        CupertinoIcons.back,
+        color: AppColors.manatee,
+      ),
+      onPressed: () => Navigator.pop(context),
+    ),
   );
 }
 
