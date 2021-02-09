@@ -32,7 +32,7 @@ class MainPhotoList extends StatelessWidget {
                   var photo = state.photoList.photos[index];
                   return Column(
                     children: [
-                      _buildItem(index, context, photo),
+                      _buildItem(index, context, photo, state),
                     ],
                   );
                 },
@@ -47,7 +47,7 @@ class MainPhotoList extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(int index, context, Photo photo) {
+  Widget _buildItem(int index, context, Photo photo, state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -66,14 +66,14 @@ class MainPhotoList extends StatelessWidget {
               ),
             ),
           ),
-          _buildPhotoMeta(index, photo, context),
+          _buildPhotoMeta(index, photo, context, state),
           const Divider(thickness: 2, color: AppColors.mercury)
         ],
       ),
     );
   }
 
-  Widget _buildPhotoMeta(int index, Photo photo, context) {
+  Widget _buildPhotoMeta(int index, Photo photo, context, state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: GestureDetector(
@@ -127,7 +127,8 @@ class MainPhotoList extends StatelessWidget {
               ),
             ),
             LikeButton(
-              photo: photo,
+              photo: state.photoList.photos[index],
+              //photo: photo,
             ),
           ],
         ),

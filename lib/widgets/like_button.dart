@@ -5,6 +5,7 @@ import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
+import 'package:photostok/widgets/error_loading_banner.dart';
 
 /// Кнопка лайк не-лайк фотографии
 class LikeButton extends StatelessWidget {
@@ -48,6 +49,8 @@ class LikeButton extends StatelessWidget {
               ),
             ),
           );
+        else if (state is PhotosLoadFailure)
+          return ErrorLoadingBanner();
         else
           return Center(
             child: Text(

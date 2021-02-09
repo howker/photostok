@@ -13,7 +13,7 @@ class PhotoCubit extends Cubit<PhotoState> {
     try {
       final photos = await photoRepository.getPhotos(1, 15);
       photoList = photos;
-      emit(PhotosLoadSuccess(photoList: photoList));
+      emit(PhotosLoadSuccess().copyWith(photoList: photoList));
     } catch (e) {
       emit(PhotosLoadFailure(e.toString()));
     }
@@ -46,7 +46,7 @@ class PhotoCubit extends Cubit<PhotoState> {
         photoList.photos[index].likes += 1;
       }
 
-      emit(PhotosLoadSuccess(photoList: photoList));
+      emit(PhotosLoadSuccess().copyWith(photoList: photoList));
     } catch (e) {
       emit(LikePhotoFailure());
     }
@@ -65,7 +65,7 @@ class PhotoCubit extends Cubit<PhotoState> {
       photoList.photos[index].likedByUser = false;
       photoList.photos[index].likes -= 1;
 
-      emit(PhotosLoadSuccess(photoList: photoList));
+      emit(PhotosLoadSuccess().copyWith(photoList: photoList));
     } catch (e) {
       emit(PhotosLoadFailure(e.toString()));
     }
