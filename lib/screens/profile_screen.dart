@@ -33,35 +33,44 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _cubit = BlocProvider.of<UserCubit>(context);
     if (isMyProfile) {
-      return DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: _buildMyProfileAppBar(context),
-          body: TabBarView(
-            children: [
-              PhotoGridByUser(userName: myUserName),
-              PhotoGridUserFavorites(userName: myUserName),
-              PhotoGridUserCollections(userName: myUserName),
-            ],
-          ),
-        ),
+      _cubit.fetchMyProfile();
+      return BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          if (state is UserProfileLoadSuccess)
+            return DefaultTabController(
+              length: 3,
+              child: Scaffold(
+                appBar: _buildMyProfileAppBar(context),
+                body: TabBarView(
+                  children: [
+                    PhotoGridByUser(userName: myUserName),
+                    PhotoGridUserFavorites(userName: myUserName),
+                    PhotoGridUserCollections(userName: myUserName),
+                  ],
+                ),
+              ),
+            );
+          else
+            return TripleCircularIndicator();
+        },
       );
     } else {
-      final _cubit = BlocProvider.of<UserCubit>(context);
       _cubit.fetchUserProfile(photo.user.username);
       return BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
           if (state is UserProfileLoadSuccess)
             return DefaultTabController(
-                length: 3,
-                child: Scaffold(
-                  appBar: _buildUserProfileAppBar(context),
-                  body: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: _buildUserProfileDescription(state, context),
-                  ),
-                ));
+              length: 3,
+              child: Scaffold(
+                appBar: _buildUserProfileAppBar(context),
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: _buildUserProfileDescription(state, context),
+                ),
+              ),
+            );
           else
             return TripleCircularIndicator();
         },

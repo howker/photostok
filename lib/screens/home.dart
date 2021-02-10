@@ -81,7 +81,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final _cubit = BlocProvider.of<UserCubit>(context);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColors.dodgerBlue,
@@ -106,7 +105,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ],
         onTap: (index) {
           setState(() {
-            if (index == 2) _cubit.fetchMyProfile();
             _tabController.index = index;
           });
         },
@@ -116,17 +114,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         children: [
           MainPhotoList(),
           SearchScreen(),
-          BlocBuilder<UserCubit, UserState>(
-            builder: (BuildContext context, state) {
-              if (state is UserProfileLoadSuccess)
-                return ProfileScreen(
-                  isMyProfile: true,
-                  myUserName: state.userProfile.username,
-                );
-              else
-                return Container();
-            },
-          ),
+          ProfileScreen(isMyProfile: true),
         ],
       ),
     );
