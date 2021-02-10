@@ -227,8 +227,7 @@ AppBar _buildMyProfileAppBar(BuildContext context) {
         CupertinoIcons.back,
         color: AppColors.manatee,
       ),
-      onPressed: () =>
-          Navigator.pushNamed(context, transitionToMainPhotoScreen),
+      onPressed: () => Navigator.pushNamed(context, transitionToHome),
     ),
     elevation: 0,
     backgroundColor: AppColors.white,

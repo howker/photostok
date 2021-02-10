@@ -15,7 +15,7 @@ import 'package:photostok/screens/profile_screen.dart';
 
 const String transitionToDetailScreen = '/fullScreenImage';
 const String transitionToProfileScreen = '/profileScreen';
-const String transitionToMainPhotoScreen = '/mainPhotoScreen';
+const String transitionToHome = '/home';
 
 final photoRepository = PhotoRepository();
 
@@ -60,13 +60,14 @@ class MyApp extends StatelessWidget {
             );
             return MaterialPageRoute(
                 builder: (context) => route, settings: args.routeSettings);
-          } else if (setting.name == transitionToMainPhotoScreen) {
-            final route = MainPhotoList();
+          } else if (setting.name == transitionToHome) {
+            final route = Home(
+                onConnectivityChanged: Connectivity().onConnectivityChanged);
             return MaterialPageRoute(builder: (context) => route);
           } else
             return null;
         },
-        home: Home(Connectivity().onConnectivityChanged),
+        home: Home(onConnectivityChanged: Connectivity().onConnectivityChanged),
       ),
     );
   }

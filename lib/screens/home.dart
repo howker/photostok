@@ -13,7 +13,7 @@ import 'package:photostok/screens/search_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 
 class Home extends StatefulWidget {
-  Home(this.onConnectivityChanged);
+  Home({this.onConnectivityChanged});
   final Stream<ConnectivityResult> onConnectivityChanged;
 
   @override
