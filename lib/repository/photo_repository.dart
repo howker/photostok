@@ -130,6 +130,17 @@ class PhotoRepository {
     }
   }
 
+  Future<UserProfile> getMyProfile() async {
+    var response = await http.get('https://api.unsplash.com/me',
+        headers: {'Authorization': 'Bearer $authToken'});
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return UserProfile.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Error: ${response.reasonPhrase}');
+    }
+  }
+
   static Future<bool> likePhoto(String photoId) async {
     var response = await http
         .post('https://api.unsplash.com/photos/$photoId/like', headers: {

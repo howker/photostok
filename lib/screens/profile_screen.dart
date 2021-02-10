@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:photostok/cubit/user_cubit.dart';
 import 'package:photostok/cubit/user_state.dart';
 import 'package:photostok/models/photo_list.dart';
@@ -21,7 +22,14 @@ class ProfileScreenArguments {
 class ProfileScreen extends StatelessWidget {
   final bool isMyProfile;
   final Photo photo;
-  const ProfileScreen({this.isMyProfile, this.photo});
+  final String myUserName;
+
+  const ProfileScreen({
+    Key key,
+    this.isMyProfile,
+    this.photo,
+    this.myUserName,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +40,9 @@ class ProfileScreen extends StatelessWidget {
           appBar: _buildMyProfileAppBar(context),
           body: TabBarView(
             children: [
-              const Icon(Icons.directions_car),
-              const Icon(Icons.directions_transit),
-              const Icon(Icons.directions_bike),
+              PhotoGridByUser(userName: myUserName),
+              PhotoGridUserFavorites(userName: myUserName),
+              PhotoGridUserCollections(userName: myUserName),
             ],
           ),
         ),

@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/user_cubit.dart';
 import 'package:photostok/cubit/user_state.dart';
 import 'package:photostok/models/photo_list.dart';
-import 'package:photostok/models/user_collection.dart';
-import 'package:photostok/repository/photo_repository.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 
@@ -17,6 +15,8 @@ class PhotoGridUserCollections extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final _cubit = BlocProvider.of<UserCubit>(context);
+    _cubit.fetchUserCollections(1, 15, userName);
     return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         if (state is UserCollectionsLoadFailure)

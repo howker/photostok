@@ -7,6 +7,16 @@ class UserCubit extends Cubit<UserState> {
 
   UserCubit(this.photoRepository) : super(null);
 
+  Future fetchMyProfile() async {
+    try {
+      final userProfile = await photoRepository.getMyProfile();
+
+      emit(UserProfileLoadSuccess(userProfile));
+    } catch (e) {
+      emit(UserProfileLoadFailure());
+    }
+  }
+
   Future fetchUserProfile(String userName) async {
     try {
       final userProfile = await photoRepository.getUserProfile(userName);

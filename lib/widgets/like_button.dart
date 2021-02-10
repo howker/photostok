@@ -15,7 +15,6 @@ class LikeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO add state for show error dialog
     final _cubit = BlocProvider.of<PhotoCubit>(context);
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {

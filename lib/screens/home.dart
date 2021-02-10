@@ -1,7 +1,9 @@
 import 'dart:async';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/app.dart';
 import 'package:flutter/material.dart';
+import 'package:photostok/cubit/user_cubit.dart';
+import 'package:photostok/cubit/user_state.dart';
 import 'package:photostok/res/res.dart';
 import 'package:flutter/widgets.dart';
 import 'package:photostok/screens/main_photo_screen.dart';
@@ -79,6 +81,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final _cubit = BlocProvider.of<UserCubit>(context);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColors.dodgerBlue,
@@ -103,6 +106,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ],
         onTap: (index) {
           setState(() {
+            if (index == 2) _cubit.fetchMyProfile();
             _tabController.index = index;
           });
         },
@@ -112,7 +116,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         children: [
           MainPhotoList(),
           SearchScreen(),
-          ProfileScreen(isMyProfile: true),
+          BlocBuilder<UserCubit, UserState>(
+            builder: (BuildContext context, state) {
+              if (state is UserProfileLoadSuccess)
+                return ProfileScreen(
+                  isMyProfile: true,
+                  myUserName: state.userProfile.username,
+                );
+              else
+                return Container();
+            },
+          ),
         ],
       ),
     );
