@@ -10,10 +10,13 @@ import 'package:photostok/res/res.dart';
 import 'package:photostok/res/styles.dart';
 import 'package:photostok/screens/home.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
+import 'package:photostok/screens/main_photo_screen.dart';
 import 'package:photostok/screens/profile_screen.dart';
 
 const String transitionToDetailScreen = '/fullScreenImage';
 const String transitionToProfileScreen = '/profileScreen';
+const String transitionToMainPhotoScreen = '/mainPhotoScreen';
+
 final photoRepository = PhotoRepository();
 
 class MyApp extends StatelessWidget {
@@ -57,6 +60,9 @@ class MyApp extends StatelessWidget {
             );
             return MaterialPageRoute(
                 builder: (context) => route, settings: args.routeSettings);
+          } else if (setting.name == transitionToMainPhotoScreen) {
+            final route = MainPhotoList();
+            return MaterialPageRoute(builder: (context) => route);
           } else
             return null;
         },
