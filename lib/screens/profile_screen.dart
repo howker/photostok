@@ -43,7 +43,10 @@ class ProfileScreen extends StatelessWidget {
               length: 3,
               child: Scaffold(
                 appBar: _buildMyProfileAppBar(context),
-                body: _buildMyProfileDescription(state, context),
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: _buildMyProfileDescription(state, context),
+                ),
               ),
             );
           else
@@ -219,6 +222,13 @@ AppBar _buildUserProfileAppBar(BuildContext context) {
 
 AppBar _buildMyProfileAppBar(BuildContext context) {
   return AppBar(
+    leading: IconButton(
+      icon: const Icon(
+        CupertinoIcons.back,
+        color: AppColors.manatee,
+      ),
+      onPressed: () => Navigator.pop(context),
+    ),
     elevation: 0,
     backgroundColor: AppColors.white,
     centerTitle: true,
@@ -229,16 +239,6 @@ AppBar _buildMyProfileAppBar(BuildContext context) {
     actions: [
       _buildVerticalButton(context),
     ],
-    bottom: TabBar(
-      labelColor: AppColors.blue,
-      unselectedLabelColor: AppColors.black,
-      indicatorWeight: 3,
-      tabs: [
-        Tab(icon: const Icon(Icons.home)),
-        Tab(icon: const Icon(Icons.favorite_border_outlined)),
-        Tab(icon: const Icon(Icons.bookmark_border_outlined)),
-      ],
-    ),
   );
 }
 
@@ -357,13 +357,9 @@ Widget _buildMyProfileDescription(
       Expanded(
         child: TabBarView(
           children: [
-            TabBarView(
-              children: [
-                PhotoGridByUser(userName: state.userProfile.username),
-                PhotoGridUserFavorites(userName: state.userProfile.username),
-                PhotoGridUserCollections(userName: state.userProfile.username),
-              ],
-            ),
+            PhotoGridByUser(userName: state.userProfile.username),
+            PhotoGridUserFavorites(userName: state.userProfile.username),
+            PhotoGridUserCollections(userName: state.userProfile.username),
           ],
         ),
       ),
