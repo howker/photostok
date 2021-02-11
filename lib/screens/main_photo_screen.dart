@@ -29,7 +29,7 @@ class MainPhotoList extends StatelessWidget {
               child: ListView.builder(
                 itemCount: state.photoList.photos.length,
                 itemBuilder: (BuildContext context, int index) {
-                  var photo = state.photoList.photos[index];
+                  Photo photo = state.photoList.photos[index];
                   return Column(
                     children: [
                       _buildItem(index, context, photo, state),
@@ -82,9 +82,7 @@ class MainPhotoList extends StatelessWidget {
             context,
             transitionToProfileScreen,
             arguments: ProfileScreenArguments(
-              routeSettings: RouteSettings(
-                arguments: 'Some title',
-              ),
+              routeSettings: RouteSettings(),
               photo: photo,
               isMyProfile: false,
             ),
@@ -127,7 +125,7 @@ class MainPhotoList extends StatelessWidget {
               ),
             ),
             LikeButton(
-              photo: state.photoList.photos[index],
+              photo: state.photoList.photos[index], index: index,
               //photo: photo,
             ),
           ],
@@ -142,9 +140,7 @@ void _transitionPhotoScreen(int index, context, Photo photo) {
     context,
     transitionToDetailScreen,
     arguments: FullScreenImageArguments(
-      routeSettings: RouteSettings(
-        arguments: 'Some title',
-      ),
+      routeSettings: RouteSettings(),
       photo: photo,
       heroTag: photo.id,
       index: index,

@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/app.dart';
 import 'package:flutter/material.dart';
-import 'package:photostok/cubit/user_cubit.dart';
-import 'package:photostok/cubit/user_state.dart';
 import 'package:photostok/res/res.dart';
 import 'package:flutter/widgets.dart';
 import 'package:photostok/screens/main_photo_screen.dart';

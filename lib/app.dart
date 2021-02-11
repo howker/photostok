@@ -5,12 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/user_cubit.dart';
 import 'package:photostok/repository/photo_repository.dart';
-
 import 'package:photostok/res/res.dart';
 import 'package:photostok/res/styles.dart';
 import 'package:photostok/screens/home.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
-import 'package:photostok/screens/main_photo_screen.dart';
 import 'package:photostok/screens/profile_screen.dart';
 
 const String transitionToDetailScreen = '/fullScreenImage';

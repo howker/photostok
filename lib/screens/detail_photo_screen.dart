@@ -132,7 +132,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        LikeButton(photo: photo),
+                        LikeButton(photo: photo, index: index),
                         Row(
                           children: [
                             _buildSaveButton(context, photo),
