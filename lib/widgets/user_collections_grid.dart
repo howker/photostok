@@ -1,57 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:photostok/models/photo_list.dart';
-import 'package:photostok/models/user_collection.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photostok/cubit/collections_cubit.dart';
+import 'package:photostok/cubit/collections_state.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 
 ///Сетка отображения коллекций пользователя
 class PhotoGridUserCollections extends StatelessWidget {
-  final Photo photo;
   final String userName;
 
-  const PhotoGridUserCollections({Key key, this.photo, this.userName})
-      : super(key: key);
+  const PhotoGridUserCollections({this.userName});
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<UserCollectionList>(
-      builder: (context, snapshot) {
-        if (snapshot.hasData)
+    final _cubit = BlocProvider.of<CollectionsCubit>(context);
+    _cubit.fetchUserCollections(1, 15, userName);
+    return BlocBuilder<CollectionsCubit, CollectionsState>(
+      builder: (context, state) {
+        if (state is UserCollectionsLoadSuccess) {
+          if (state.userCollectionList.userCollectionList.length == 0)
+            return Center(
+              child: Text('No content yet'),
+            );
+          else
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 11, mainAxisSpacing: 9, crossAxisCount: 3),
+              itemBuilder: (ctx, index) {
+                return GestureDetector(
+                  onTap: () {
+                    _cubit.fetchUserCollectionsPhoto(1, 15, userName);
+                  },
+                  child: PhotoView(
+                    photoLink: state.userCollectionList
+                        .userCollectionList[index].coverPhoto.urls.small,
+                    placeholderColor: state.userCollectionList
+                        .userCollectionList[index].coverPhoto.color,
+                    isRounded: true,
+                    radiusPhoto: 7,
+                  ),
+                );
+              },
+              itemCount: state.userCollectionList.userCollectionList.length,
+            );
+        } else if (state is UserCollectionsLoadFailure)
+          return ErrorLoadingBanner();
+        else if (state is UserCollectionsPhotoLoadSuccess) {
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisSpacing: 11, mainAxisSpacing: 9, crossAxisCount: 3),
             itemBuilder: (ctx, index) {
               return GestureDetector(
                 onTap: () {
-                  Photo photo = Photo();
                   Navigator.pushNamed(
                     context,
                     transitionToDetailScreen,
                     arguments: FullScreenImageArguments(
-                      routeSettings: RouteSettings(
-                        arguments: 'Some title',
-                      ),
-                      photo: photo,
-                      heroTag: photo.id,
+                      routeSettings: RouteSettings(),
+                      photo: state.photoList.photos[index],
+                      heroTag: state.photoList.photos[index].id,
                       index: index,
                     ),
                   );
                 },
                 child: PhotoView(
-                  photoLink: snapshot
-                      .data.userCollectionList[index].coverPhoto.urls.small,
-                  placeholderColor:
-                      snapshot.data.userCollectionList[index].coverPhoto.color,
+                  photoLink: state.photoList.photos[index].urls.small,
+                  placeholderColor: state.photoList.photos[index].color,
                   isRounded: true,
                   radiusPhoto: 7,
                 ),
               );
             },
-            itemCount: snapshot.data.userCollectionList.length,
+            itemCount: state.photoList.photos.length,
           );
-        else
-          return Center(
-            child: Text('No content yet'),
-          );
+        }
+        return Container();
       },
     );
   }

@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
@@ -6,15 +8,18 @@ import 'package:photostok/res/res.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
 import 'package:photostok/screens/profile_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 
 class MainPhotoList extends StatelessWidget {
-  MainPhotoList({Key key}) : super(key: key);
+  int page;
+  MainPhotoList({
+    Key key,
+    this.page = 1,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _cubit = BlocProvider.of<PhotoCubit>(context);
-    _cubit.fetchAllPhotos();
+    _cubit.fetchAllPhotos(page, 15);
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
         if (state is PhotosInitial) {
@@ -24,18 +29,29 @@ class MainPhotoList extends StatelessWidget {
           return Scaffold(
             body: RefreshIndicator(
               onRefresh: () {
-                return _cubit.fetchAllPhotos();
+                return _cubit.fetchAllPhotos(1, 15);
               },
-              child: ListView.builder(
-                itemCount: state.photoList.photos.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Photo photo = state.photoList.photos[index];
-                  return Column(
-                    children: [
-                      _buildItem(index, context, photo, state),
-                    ],
-                  );
+              child: NotificationListener<ScrollNotification>(
+                onNotification: (ScrollNotification scrollInfo) {
+                  //   // if (scrollInfo.metrics.pixels ==
+                  //   //     scrollInfo.metrics.maxScrollExtent) {
+                  //   //   page += 1;
+                  //   //   _cubit.fetchAllPhotos(page, 15);
+                  //   }
+
+                  //  // return true;
                 },
+                child: ListView.builder(
+                  itemCount: state.photoList.photos.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Photo photo = state.photoList.photos[index];
+                    return Column(
+                      children: [
+                        _buildItem(index, context, photo, state),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           );
