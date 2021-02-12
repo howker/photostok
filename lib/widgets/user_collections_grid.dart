@@ -28,7 +28,8 @@ class PhotoGridUserCollections extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 return GestureDetector(
                   onTap: () {
-                    _cubit.fetchUserCollectionsPhoto(1, 15, userName);
+                    _cubit.fetchUserCollectionsPhoto(1, 15,
+                        state.userCollectionList.userCollectionList[index].id);
                   },
                   child: PhotoView(
                     photoLink: state.userCollectionList
@@ -42,8 +43,9 @@ class PhotoGridUserCollections extends StatelessWidget {
               },
               itemCount: state.userCollectionList.userCollectionList.length,
             );
-        } else if (state is UserCollectionsLoadFailure)
-          return ErrorLoadingBanner();
+        } else if (state is UserCollectionsLoadFailure ||
+            state is UserCollectionsPhotoLoadFailure)
+          return Center(child: ErrorLoadingBanner());
         else if (state is UserCollectionsPhotoLoadSuccess) {
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

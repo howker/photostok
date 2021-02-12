@@ -20,7 +20,7 @@ class PhotoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (photoLink == null) return Container();
-    var color = '0xFF${placeholderColor.replaceAll(RegExp(r"[#]"), '')}';
+    String color = '0xFF${placeholderColor.replaceAll(RegExp(r"[#]"), '')}';
     if (!isRounded)
       return Container(
         color: AppColors.grayChateau,

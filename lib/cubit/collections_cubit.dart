@@ -19,10 +19,10 @@ class CollectionsCubit extends Cubit<CollectionsState> {
   }
 
   Future fetchUserCollectionsPhoto(
-      int page, int perPage, String userName) async {
+      int page, int perPage, String collectionId) async {
     try {
-      final userCollectionPhotoList =
-          await photoRepository.getCollectionPhotos(page, perPage, userName);
+      final userCollectionPhotoList = await photoRepository.getCollectionPhotos(
+          page, perPage, collectionId);
 
       emit(UserCollectionsPhotoLoadSuccess(userCollectionPhotoList));
     } catch (e) {

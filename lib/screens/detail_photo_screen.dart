@@ -76,7 +76,7 @@ class _FullScreenImageState extends State<FullScreenImage>
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
         if (state is PhotosLoadSuccess || state is SearchPhotoLoadSuccess) {
-          var photoSize = (MediaQuery.of(context).size.width - 200) /
+          double photoSize = (MediaQuery.of(context).size.width - 150) /
               photo.width *
               photo.height;
           return SafeArea(
@@ -101,17 +101,19 @@ class _FullScreenImageState extends State<FullScreenImage>
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Hero(
-                      tag: heroTag,
-                      child: Container(
-                        height: photoSize,
-                        width: photoSize,
-                        child: PhotoView(
-                          photoLink: photo.urls.regular,
-                          placeholderColor: photo.color,
-                          isRounded: true,
+                    Align(
+                      child: Hero(
+                        tag: heroTag,
+                        child: Container(
+                          height: photoSize,
+                          width: photoSize,
+                          child: PhotoView(
+                            photoLink: photo.urls.regular,
+                            placeholderColor: photo.color,
+                            isRounded: true,
+                          ),
                         ),
                       ),
                     ),
@@ -150,10 +152,7 @@ class _FullScreenImageState extends State<FullScreenImage>
             ),
           );
         } else
-          return Center(
-            child: Text(
-                'detail photo screen error, state is $state'), //TODO remoove
-          );
+          return Container();
       },
     );
   }
@@ -236,14 +235,11 @@ Widget _animatedBuilder(_controller, buildAnimationUserMeta,
           ],
         ),
         onTap: () {
-          //TODO transition to profile
           Navigator.pushNamed(
             context,
             transitionToProfileScreen,
             arguments: ProfileScreenArguments(
-              routeSettings: RouteSettings(
-                arguments: 'Some title',
-              ),
+              routeSettings: RouteSettings(),
               photo: photo,
               isMyProfile: false,
             ),
