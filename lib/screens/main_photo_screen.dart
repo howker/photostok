@@ -21,7 +21,7 @@ class MainPhotoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _cubit = BlocProvider.of<PhotoCubit>(context);
-    _cubit.fetchAllPhotos(page, 15);
+
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
         isLoading = false;
@@ -43,7 +43,6 @@ class MainPhotoList extends StatelessWidget {
                     _cubit.fetchAllPhotos(page, 15);
                     isLoading = true;
                   }
-
                   return false;
                 },
                 child: ListView.builder(

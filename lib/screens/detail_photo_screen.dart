@@ -75,7 +75,7 @@ class _FullScreenImageState extends State<FullScreenImage>
   Widget build(BuildContext context) {
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
-        if (state is PhotosLoadSuccess || state is SearchPhotoLoadSuccess) {
+        if (state is PhotosLoadSuccess) {
           double photoSize = (MediaQuery.of(context).size.width - 200) /
               photo.width *
               photo.height;
@@ -121,7 +121,82 @@ class _FullScreenImageState extends State<FullScreenImage>
                     TimeOfFotoCreation(createdAt: photo.createdAt),
                     const SizedBox(height: 11),
                     Text(
-                      //TODO maxmin text ellipsis
+                      photo.altDescription,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                    const SizedBox(height: 15),
+                    _animatedBuilder(_controller, buildAnimationUserMeta,
+                        buildAnimationUserAvatar, photo),
+                    const SizedBox(height: 17),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        LikeButton(photo: photo, index: index),
+                        Row(
+                          children: [
+                            _buildSaveButton(context, photo),
+                            const SizedBox(width: 10),
+                            _buildVisitButton(context, photo),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    Expanded(child: RelatedPhotoGrid(photo: photo)),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+        if (state is SearchPhotoLoadSuccess) {
+          double photoSize = (MediaQuery.of(context).size.width - 200) /
+              photo.width *
+              photo.height;
+          return SafeArea(
+            child: Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                backgroundColor: AppColors.white,
+                centerTitle: true,
+                title: Text(
+                  'Photo',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                leading: IconButton(
+                  icon: const Icon(
+                    CupertinoIcons.back,
+                    color: AppColors.manatee,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              body: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      child: Hero(
+                        tag: heroTag,
+                        child: Container(
+                          height: photoSize,
+                          width: photoSize,
+                          child: PhotoView(
+                            photoLink: photo.urls.regular,
+                            placeholderColor: photo.color,
+                            isRounded: true,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TimeOfFotoCreation(createdAt: photo.createdAt),
+                    const SizedBox(height: 11),
+                    Text(
                       photo.altDescription,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,

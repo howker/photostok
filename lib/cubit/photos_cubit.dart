@@ -12,7 +12,6 @@ class PhotoCubit extends Cubit<PhotoState> {
     try {
       photoRepository.photoList =
           await photoRepository.getPhotos(page, perPage);
-      // photoList = photos;
       emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
     } catch (e) {
       emit(PhotosLoadFailure(e.toString()));

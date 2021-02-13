@@ -33,7 +33,7 @@ class PhotoRepository {
 
   Future<PhotoList> getPhotos(int page, int perPage) async {
     var response = await http
-        .get('https://api.unsplash.com/photos?page=$page&per_page=2', //$perPage
+        .get('https://api.unsplash.com/photos?page=$page&per_page=3', //$perPage
             headers: {'Authorization': 'Bearer $authToken'});
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
