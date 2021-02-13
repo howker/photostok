@@ -10,20 +10,6 @@ import 'package:photostok/screens/profile_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class FullScreenImageArguments {
-  FullScreenImageArguments({
-    this.photo,
-    this.routeSettings,
-    this.heroTag,
-    this.index,
-  });
-
-  final RouteSettings routeSettings;
-  final Photo photo;
-  final String heroTag;
-  final int index;
-}
-
 ///Экран деталей фотографии
 class FullScreenImage extends StatefulWidget {
   final Photo photo;
@@ -368,4 +354,19 @@ void _onVisitButtonTap(Photo photo) async {
   } else {
     throw 'Could not launch $url';
   }
+}
+
+///Класс для сбора аргументов
+class FullScreenImageArguments {
+  FullScreenImageArguments({
+    this.photo,
+    this.routeSettings,
+    this.heroTag,
+    this.index,
+  });
+
+  final RouteSettings routeSettings;
+  final Photo photo;
+  final String heroTag;
+  final int index;
 }

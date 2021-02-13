@@ -8,6 +8,7 @@ import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/widgets/widgets.dart';
 
+/// Экран отображения профиля пользователя
 class ProfileScreenArguments {
   ProfileScreenArguments({
     this.photo,

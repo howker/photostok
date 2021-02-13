@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///Анимированный красивый круговой индикатор загрузки хотелось сделать
 class TripleCircularIndicator extends StatelessWidget {
   const TripleCircularIndicator({
     Key key,

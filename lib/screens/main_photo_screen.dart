@@ -9,6 +9,7 @@ import 'package:photostok/screens/detail_photo_screen.dart';
 import 'package:photostok/screens/profile_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 
+///Основной экран ленты фотографий
 class MainPhotoList extends StatelessWidget {
   int page;
   bool isLoading;

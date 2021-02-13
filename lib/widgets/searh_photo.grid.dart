@@ -10,6 +10,7 @@ import 'package:photostok/screens/detail_photo_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+///Сетка отображения найденных фотографий
 class SearchPhotoGrid extends StatelessWidget {
   final Photo photo;
 

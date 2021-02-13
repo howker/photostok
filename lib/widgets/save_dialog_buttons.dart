@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:photostok/models/photo_list.dart';
 
+///Кнопка закрытия диалога скачивания фото
 class CloseDialogButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,7 @@ class CloseDialogButton extends StatelessWidget {
   }
 }
 
+///Кнопка диалога скачивания фото
 class SaveButton extends StatelessWidget {
   final Photo photo;
 

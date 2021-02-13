@@ -4,6 +4,7 @@ import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/widgets/widgets.dart';
 
+///Экран поиска фото
 class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

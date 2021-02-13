@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+///Аватар пользователя
 class UserAvatar extends StatelessWidget {
   UserAvatar({this.avatarLink, this.width, this.height});
 

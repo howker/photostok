@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///Дата создания фото
 class TimeOfFotoCreation extends StatelessWidget {
   final String createdAt;
 
