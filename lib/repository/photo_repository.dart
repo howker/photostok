@@ -7,6 +7,7 @@ import 'package:photostok/models/user_collection.dart';
 import 'package:photostok/models/user_profile.dart';
 
 class PhotoRepository {
+  PhotoList photoList = PhotoList();
   static const String authUrl =
       'https://unsplash.com/oauth/authorize?client_id=$_accessKey&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=public+write_likes';
   static String authToken = "_qHJDsz517URgu6HrcQv4NLLw7shIOzD9j6QOvtd8h0";
@@ -31,9 +32,9 @@ class PhotoRepository {
   }
 
   Future<PhotoList> getPhotos(int page, int perPage) async {
-    var response = await http.get(
-        'https://api.unsplash.com/photos?page=$page&per_page=$perPage',
-        headers: {'Authorization': 'Bearer $authToken'});
+    var response = await http
+        .get('https://api.unsplash.com/photos?page=$page&per_page=2', //$perPage
+            headers: {'Authorization': 'Bearer $authToken'});
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return PhotoList.fromJson(json.decode(response.body));

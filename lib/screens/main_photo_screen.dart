@@ -11,9 +11,11 @@ import 'package:photostok/widgets/widgets.dart';
 
 class MainPhotoList extends StatelessWidget {
   int page;
+  bool isLoading;
   MainPhotoList({
     Key key,
     this.page = 1,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class MainPhotoList extends StatelessWidget {
     _cubit.fetchAllPhotos(page, 15);
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
+        isLoading = false;
         if (state is PhotosInitial) {
           return TripleCircularIndicator();
         }
@@ -33,15 +36,18 @@ class MainPhotoList extends StatelessWidget {
               },
               child: NotificationListener<ScrollNotification>(
                 onNotification: (ScrollNotification scrollInfo) {
-                  //   // if (scrollInfo.metrics.pixels ==
-                  //   //     scrollInfo.metrics.maxScrollExtent) {
-                  //   //   page += 1;
-                  //   //   _cubit.fetchAllPhotos(page, 15);
-                  //   }
+                  if (scrollInfo.metrics.pixels ==
+                          scrollInfo.metrics.maxScrollExtent &&
+                      !isLoading) {
+                    page += 1;
+                    _cubit.fetchAllPhotos(page, 15);
+                    isLoading = true;
+                  }
 
-                  //  // return true;
+                  return false;
                 },
                 child: ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: state.photoList.photos.length,
                   itemBuilder: (BuildContext context, int index) {
                     Photo photo = state.photoList.photos[index];
@@ -141,8 +147,8 @@ class MainPhotoList extends StatelessWidget {
               ),
             ),
             LikeButton(
-              photo: state.photoList.photos[index], index: index,
-              //photo: photo,
+              photo: state.photoList.photos[index],
+              index: index,
             ),
           ],
         ),

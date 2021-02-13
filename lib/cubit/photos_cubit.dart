@@ -5,15 +5,15 @@ import 'package:photostok/repository/photo_repository.dart';
 
 class PhotoCubit extends Cubit<PhotoState> {
   final PhotoRepository photoRepository;
-  PhotoList photoList;
 
   PhotoCubit(this.photoRepository) : super(PhotosInitial());
 
   Future fetchAllPhotos(int page, int perPage) async {
     try {
-      final photos = await photoRepository.getPhotos(page, perPage);
-      photoList = photos;
-      emit(PhotosLoadSuccess().copyWith(photoList: photoList));
+      photoRepository.photoList =
+          await photoRepository.getPhotos(page, perPage);
+      // photoList = photos;
+      emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
     } catch (e) {
       emit(PhotosLoadFailure(e.toString()));
     }
@@ -34,19 +34,19 @@ class PhotoCubit extends Cubit<PhotoState> {
       await PhotoRepository.likePhoto(photo.id);
       int index;
 
-      for (int i = 0; i < photoList.photos.length; i++) {
-        if (photo.id == photoList.photos[i].id) {
+      for (int i = 0; i < photoRepository.photoList.photos.length; i++) {
+        if (photo.id == photoRepository.photoList.photos[i].id) {
           index = i;
           break;
         }
       }
 
       if (index != null) {
-        photoList.photos[index].likedByUser = true;
-        photoList.photos[index].likes += 1;
+        photoRepository.photoList.photos[index].likedByUser = true;
+        photoRepository.photoList.photos[index].likes += 1;
       }
 
-      emit(PhotosLoadSuccess().copyWith(photoList: photoList));
+      emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
     } catch (e) {
       emit(LikePhotoFailure());
     }
@@ -56,16 +56,16 @@ class PhotoCubit extends Cubit<PhotoState> {
     try {
       await PhotoRepository.unlikePhoto(photo.id);
       int index;
-      for (int i = 0; i < photoList.photos.length; i++) {
-        if (photo.id == photoList.photos[i].id) {
+      for (int i = 0; i < photoRepository.photoList.photos.length; i++) {
+        if (photo.id == photoRepository.photoList.photos[i].id) {
           index = i;
           break;
         }
       }
-      photoList.photos[index].likedByUser = false;
-      photoList.photos[index].likes -= 1;
+      photoRepository.photoList.photos[index].likedByUser = false;
+      photoRepository.photoList.photos[index].likes -= 1;
 
-      emit(PhotosLoadSuccess().copyWith(photoList: photoList));
+      emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
     } catch (e) {
       emit(PhotosLoadFailure(e.toString()));
     }

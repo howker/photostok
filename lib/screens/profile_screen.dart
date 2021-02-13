@@ -49,6 +49,8 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             );
+          else if (state is UserProfileLoadFailure)
+            return ErrorLoadingBanner();
           else
             return TripleCircularIndicator();
         },
