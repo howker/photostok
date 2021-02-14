@@ -241,20 +241,24 @@ class _FullScreenImageState extends State<FullScreenImage>
   }
 
   Widget _buildVisitButton(context, Photo photo) {
-    return GestureDetector(
-      onTap: () {
-        _onVisitButtonTap(photo);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.dodgerBlue,
-          borderRadius: BorderRadius.circular(7.0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-          child: const Text(
-            'Visit',
-            style: const TextStyle(color: Colors.white, fontSize: 18),
+    return Semantics(
+      label: 'VisitButton',
+      child: GestureDetector(
+        onTap: () {
+          _onVisitButtonTap(photo);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColors.dodgerBlue,
+            borderRadius: BorderRadius.circular(7.0),
+          ),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+            child: const Text(
+              'Visit',
+              style: const TextStyle(color: Colors.white, fontSize: 18),
+            ),
           ),
         ),
       ),

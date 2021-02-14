@@ -22,9 +22,12 @@ class ErrorLoadingBanner extends StatelessWidget {
               child: Row(
                 children: [
                   const SizedBox(width: 23),
-                  const Icon(
-                    Icons.warning_amber_outlined,
-                    color: AppColors.white,
+                  Semantics(
+                    label: 'Warning',
+                    child: const Icon(
+                      Icons.warning_amber_outlined,
+                      color: AppColors.white,
+                    ),
                   ),
                   const SizedBox(width: 21),
                   Text(
