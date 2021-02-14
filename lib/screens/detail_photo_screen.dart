@@ -8,6 +8,7 @@ import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/screens/profile_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 ///Экран деталей фотографии
@@ -122,6 +123,8 @@ class _FullScreenImageState extends State<FullScreenImage>
                         LikeButton(photo: photo, index: index),
                         Row(
                           children: [
+                            _buildShareButton(context, photo),
+                            const SizedBox(width: 10),
                             _buildSaveButton(context, photo),
                             const SizedBox(width: 10),
                             _buildVisitButton(context, photo),
@@ -313,6 +316,29 @@ Widget _animatedBuilder(_controller, buildAnimationUserMeta,
       );
     },
   );
+}
+
+Widget _buildShareButton(context, Photo photo) {
+  return GestureDetector(
+    onTap: () {
+      _onShare(context, photo);
+    },
+    child: Container(
+      decoration: BoxDecoration(
+        color: AppColors.dodgerBlue,
+        borderRadius: BorderRadius.circular(7.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        child: Icon(Icons.share, size: 20, color: AppColors.white),
+      ),
+    ),
+  );
+}
+
+_onShare(BuildContext context, Photo photo) async {
+  await Share.share(
+      photo.urls.thumb + photo.altDescription ?? photo.description);
 }
 
 Widget _buildSaveButton(context, Photo photo) {
