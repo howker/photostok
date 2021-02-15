@@ -10,6 +10,7 @@ class PhotoCubit extends Cubit<PhotoState> {
 
   Future fetchAllPhotos(int page, int perPage) async {
     try {
+      emit(PhotosInitial());
       photoRepository.photoList =
           await photoRepository.getPhotos(page, perPage);
       emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
@@ -19,6 +20,7 @@ class PhotoCubit extends Cubit<PhotoState> {
   }
 
   Future fetchSearchPhotos(String query) async {
+    emit(PhotosInitial());
     try {
       final searchPhotos = await photoRepository.getSearchPhotos(1, 15, query);
 

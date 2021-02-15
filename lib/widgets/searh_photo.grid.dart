@@ -19,7 +19,9 @@ class SearchPhotoGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (BuildContext context, state) {
-        if (state is SearchPhotoLoadSuccess) {
+        if (state is PhotosInitial)
+          return TripleCircularIndicator();
+        else if (state is SearchPhotoLoadSuccess) {
           if (state.searchPhotoList.results.length == 0)
             return Center(
               child: Text(
@@ -51,7 +53,7 @@ class SearchPhotoGrid extends StatelessWidget {
         } else if (state is SearchPhotoLoadFailure)
           return const ErrorLoadingBanner();
         else
-          return Center(child: TripleCircularIndicator());
+          return Container();
       },
     );
   }
