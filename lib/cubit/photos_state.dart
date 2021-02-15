@@ -54,7 +54,15 @@ class SearchPhotoLoadSuccess extends PhotoState {
   SearchPhotoLoadSuccess({this.searchPhotoList});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [searchPhotoList, this.searchPhotoList];
+
+  SearchPhotoLoadSuccess copyWith({
+    RelatedPhotoList searchPhotoList,
+  }) {
+    return SearchPhotoLoadSuccess(
+      searchPhotoList: searchPhotoList ?? this.searchPhotoList,
+    );
+  }
 }
 
 class SearchPhotoLoadFailure extends PhotoState {
