@@ -201,6 +201,8 @@ class _FullScreenImageState extends State<FullScreenImage>
                         LikeButton(photo: photo, index: index),
                         Row(
                           children: [
+                            _buildShareButton(context, photo),
+                            const SizedBox(width: 10),
                             _buildSaveButton(context, photo),
                             const SizedBox(width: 10),
                             _buildVisitButton(context, photo),
