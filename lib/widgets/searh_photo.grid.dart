@@ -20,7 +20,7 @@ class SearchPhotoGrid extends StatelessWidget {
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (BuildContext context, state) {
         if (state is PhotosInitial)
-          return TripleCircularIndicator();
+          return Center(child: TripleCircularIndicator());
         else if (state is SearchPhotoLoadSuccess) {
           if (state.searchPhotoList.results.length == 0)
             return Center(
