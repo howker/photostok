@@ -24,10 +24,14 @@ class MainPhotoList extends StatelessWidget {
     final _cubit = BlocProvider.of<PhotoCubit>(context);
     return BlocBuilder<PhotoCubit, PhotoState>(
       builder: (context, state) {
-        isLoading = false;
         if (state is PhotosInitial) {
           return TripleCircularIndicator();
         }
+        if (state is! PhotosLoadSuccess) {
+          _cubit.fetchAllPhotos(page, 15);
+        }
+        isLoading = false;
+
         if (state is PhotosLoadSuccess) {
           return Scaffold(
             body: RefreshIndicator(
