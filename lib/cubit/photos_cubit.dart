@@ -48,8 +48,10 @@ class PhotoCubit extends Cubit<PhotoState> {
         photoRepository.photoList.photos[index].likedByUser = true;
         photoRepository.photoList.photos[index].likes += 1;
       }
-      emit(LikePhotoSuccess().copyWith(isLike: true));
-      emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
+      emit(LikePhotoSuccess().copyWith(
+          isLike: true,
+          likeCount: photoRepository.photoList.photos[index].likes));
+      //emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
     } catch (e) {
       emit(LikePhotoFailure());
     }
@@ -68,8 +70,10 @@ class PhotoCubit extends Cubit<PhotoState> {
       photoRepository.photoList.photos[index].likedByUser = false;
       photoRepository.photoList.photos[index].likes -= 1;
 
-      emit(LikePhotoSuccess().copyWith(isLike: false));
-      emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
+      emit(LikePhotoSuccess().copyWith(
+          isLike: false,
+          likeCount: photoRepository.photoList.photos[index].likes));
+      //emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
     } catch (e) {
       emit(PhotosLoadFailure(e.toString()));
     }

@@ -74,6 +74,33 @@ class LikeButton extends StatelessWidget {
               ),
             ),
           );
+
+        if (state is LikePhotoSuccess)
+          return GestureDetector(
+            onTap: () {
+              state.isLike
+                  ? _cubit.unlikePhoto(photo)
+                  : _cubit.likePhoto(photo);
+            },
+            child: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(width: 23.3),
+                  Icon(state.isLike ? AppIcons.like_fill : AppIcons.like),
+                  const SizedBox(width: 4.21),
+                  Text(
+                    state.likeCount.toString(),
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline4.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.black,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          );
         else if (state is PhotosLoadFailure) return ErrorLoadingBanner();
         return ErrorLoadingBanner();
       },

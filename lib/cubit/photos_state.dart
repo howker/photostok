@@ -72,19 +72,21 @@ class SearchPhotoLoadFailure extends PhotoState {
 
 class LikePhotoSuccess extends PhotoState {
   final bool isLike;
+  final int likeCount;
 
   LikePhotoSuccess({
     this.isLike,
+    this.likeCount,
   });
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [likeCount];
 
   LikePhotoSuccess copyWith({
     bool isLike,
+    int likeCount,
   }) {
     return LikePhotoSuccess(
-      isLike: isLike ?? this.isLike,
-    );
+        isLike: isLike ?? this.isLike, likeCount: likeCount ?? this.likeCount);
   }
 }
