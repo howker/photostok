@@ -43,13 +43,30 @@ class PhotoCubit extends Cubit<PhotoState> {
           break;
         }
       }
-
       if (index != null) {
         photoRepository.photoList.photos[index].likedByUser = true;
         photoRepository.photoList.photos[index].likes += 1;
+        emit(LikePhotoSuccess().copyWith(isLike: true));
+        emit(
+            PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
+      } else if (index == null &&
+          photoRepository.relatedPhotoList.results.length != 0) {
+        for (int i = 0;
+            i < photoRepository.relatedPhotoList.results.length;
+            i++) {
+          if (photo.id == photoRepository.relatedPhotoList.results[i].id) {
+            index = i;
+            break;
+          }
+        }
+        if (index != null) {
+          photoRepository.relatedPhotoList.results[index].likedByUser = true;
+          photoRepository.relatedPhotoList.results[index].likes += 1;
+          emit(LikePhotoSuccess().copyWith(isLike: true));
+          emit(SearchPhotoLoadSuccess()
+              .copyWith(searchPhotoList: photoRepository.relatedPhotoList));
+        }
       }
-      emit(LikePhotoSuccess().copyWith(isLike: true));
-      emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
     } catch (e) {
       emit(LikePhotoFailure());
     }
@@ -57,21 +74,41 @@ class PhotoCubit extends Cubit<PhotoState> {
 
   Future unlikePhoto(Photo photo) async {
     try {
-      await PhotoRepository.unlikePhoto(photo.id);
+      await PhotoRepository.likePhoto(photo.id);
       int index;
+
       for (int i = 0; i < photoRepository.photoList.photos.length; i++) {
         if (photo.id == photoRepository.photoList.photos[i].id) {
           index = i;
           break;
         }
       }
-      photoRepository.photoList.photos[index].likedByUser = false;
-      photoRepository.photoList.photos[index].likes -= 1;
-
-      emit(LikePhotoSuccess().copyWith(isLike: false));
-      emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
+      if (index != null) {
+        photoRepository.photoList.photos[index].likedByUser = false;
+        photoRepository.photoList.photos[index].likes -= 1;
+        emit(LikePhotoSuccess().copyWith(isLike: false));
+        emit(
+            PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
+      } else if (index == null &&
+          photoRepository.relatedPhotoList.results.length != 0) {
+        for (int i = 0;
+            i < photoRepository.relatedPhotoList.results.length;
+            i++) {
+          if (photo.id == photoRepository.relatedPhotoList.results[i].id) {
+            index = i;
+            break;
+          }
+        }
+        if (index != null) {
+          photoRepository.relatedPhotoList.results[index].likedByUser = false;
+          photoRepository.relatedPhotoList.results[index].likes -= 1;
+          emit(LikePhotoSuccess().copyWith(isLike: false));
+          emit(SearchPhotoLoadSuccess()
+              .copyWith(searchPhotoList: photoRepository.relatedPhotoList));
+        }
+      }
     } catch (e) {
-      emit(PhotosLoadFailure(e.toString()));
+      emit(LikePhotoFailure());
     }
   }
 }
