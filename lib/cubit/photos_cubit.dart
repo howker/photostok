@@ -32,6 +32,19 @@ class PhotoCubit extends Cubit<PhotoState> {
     }
   }
 
+  Future fetchRelatedPhotos(String photoId) async {
+    emit(PhotosInitial());
+    try {
+      photoRepository.relatedPhotoList =
+          await photoRepository.getRelatedPhotos(photoId);
+
+      emit(RelatedPhotoLoadSuccess()
+          .copyWith(relatedPhotoList: photoRepository.relatedPhotoList));
+    } catch (e) {
+      emit(RelatedPhotoLoadFailure());
+    }
+  }
+
   Future likePhoto(Photo photo) async {
     try {
       await PhotoRepository.likePhoto(photo.id);

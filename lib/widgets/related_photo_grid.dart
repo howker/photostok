@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photostok/cubit/photos_cubit.dart';
+import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
-import 'package:photostok/models/related_photo_list.dart';
-import 'package:photostok/repository/photo_repository.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 
-class RelatedPhotoGrid extends StatelessWidget {
+class RelatedPhotoGrid extends StatefulWidget {
   final Photo photo;
 
   ///Сетка отображения связанных фотографий
   const RelatedPhotoGrid({Key key, this.photo}) : super(key: key);
+
+  @override
+  _RelatedPhotoGridState createState() => _RelatedPhotoGridState();
+}
+
+class _RelatedPhotoGridState extends State<RelatedPhotoGrid> {
+  @override
+  void initState() {
+    final _cubit = BlocProvider.of<PhotoCubit>(context);
+    _cubit.fetchRelatedPhotos(widget.photo.id);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<RelatedPhotoList>(
-      future: PhotoRepository.getRelatedPhotos(photo.id),
-      builder: (ctx, snapshot) {
-        if (snapshot.hasError)
+    return BlocBuilder<PhotoCubit, PhotoState>(
+      builder: (ctx, state) {
+        if (state is RelatedPhotoLoadFailure)
           return ErrorLoadingBanner();
-        else if (snapshot.hasData) {
-          if (snapshot.data.results.length == 0)
+        else if (state is RelatedPhotoLoadSuccess) {
+          if (state.relatedPhotoList.results.length == 0)
             return Center(child: Text('No related foto'));
           else
             return GridView.builder(
@@ -30,18 +43,21 @@ class RelatedPhotoGrid extends StatelessWidget {
                   return GestureDetector(
                       onTap: () {
                         Photo photo = Photo(
-                          id: snapshot.data.results[index].id,
-                          createdAt: snapshot.data.results[index].createdAt,
-                          width: snapshot.data.results[index].width,
-                          height: snapshot.data.results[index].height,
-                          color: snapshot.data.results[index].color,
-                          description: snapshot.data.results[index].description,
-                          altDescription:
-                              snapshot.data.results[index].altDescription,
-                          urls: snapshot.data.results[index].urls,
-                          likes: snapshot.data.results[index].likes,
-                          likedByUser: snapshot.data.results[index].likedByUser,
-                          user: snapshot.data.results[index].user,
+                          id: state.relatedPhotoList.results[index].id,
+                          createdAt:
+                              state.relatedPhotoList.results[index].createdAt,
+                          width: state.relatedPhotoList.results[index].width,
+                          height: state.relatedPhotoList.results[index].height,
+                          color: state.relatedPhotoList.results[index].color,
+                          description:
+                              state.relatedPhotoList.results[index].description,
+                          altDescription: state
+                              .relatedPhotoList.results[index].altDescription,
+                          urls: state.relatedPhotoList.results[index].urls,
+                          likes: state.relatedPhotoList.results[index].likes,
+                          likedByUser:
+                              state.relatedPhotoList.results[index].likedByUser,
+                          user: state.relatedPhotoList.results[index].user,
                         );
                         Navigator.pushNamed(
                           context,
@@ -55,8 +71,10 @@ class RelatedPhotoGrid extends StatelessWidget {
                         );
                       },
                       child: PhotoView(
-                        photoLink: snapshot.data.results[index].urls.small,
-                        placeholderColor: snapshot.data.results[index].color,
+                        photoLink:
+                            state.relatedPhotoList.results[index].urls.small,
+                        placeholderColor:
+                            state.relatedPhotoList.results[index].color,
                         isRounded: true,
                         radiusPhoto: 7,
                       ));

@@ -44,7 +44,7 @@ class PhotoRepository {
     }
   }
 
-  static Future<RelatedPhotoList> getRelatedPhotos(String photoId) async {
+  Future<RelatedPhotoList> getRelatedPhotos(String photoId) async {
     var response = await http.get(
         'https://api.unsplash.com/photos/$photoId/related',
         headers: {'Authorization': 'Bearer $authToken'});

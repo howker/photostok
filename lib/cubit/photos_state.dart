@@ -88,3 +88,25 @@ class LikePhotoSuccess extends PhotoState {
     );
   }
 }
+
+class RelatedPhotoLoadSuccess extends PhotoState {
+  final RelatedPhotoList relatedPhotoList;
+
+  RelatedPhotoLoadSuccess({this.relatedPhotoList});
+
+  @override
+  List<Object> get props => [relatedPhotoList, this.relatedPhotoList];
+
+  RelatedPhotoLoadSuccess copyWith({
+    RelatedPhotoList relatedPhotoList,
+  }) {
+    return RelatedPhotoLoadSuccess(
+      relatedPhotoList: relatedPhotoList ?? this.relatedPhotoList,
+    );
+  }
+}
+
+class RelatedPhotoLoadFailure extends PhotoState {
+  @override
+  List<Object> get props => [];
+}
