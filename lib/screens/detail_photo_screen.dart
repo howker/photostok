@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photostok/cubit/photos_cubit.dart';
-import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/screens/profile_screen.dart';
@@ -24,25 +21,20 @@ class FullScreenImage extends StatefulWidget {
   });
 
   @override
-  _FullScreenImageState createState() =>
-      _FullScreenImageState(photo, heroTag, index);
+  _FullScreenImageState createState() => _FullScreenImageState();
 }
 
 class _FullScreenImageState extends State<FullScreenImage>
     with TickerProviderStateMixin {
   AnimationController _controller;
-  final Photo photo;
-  final String heroTag;
-  final int index;
-
-  _FullScreenImageState(this.photo, this.heroTag, this.index);
 
   @override
   void initState() {
     super.initState();
-
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 1500), vsync: this);
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
     _playAnimation();
   }
 
@@ -60,8 +52,9 @@ class _FullScreenImageState extends State<FullScreenImage>
 
   @override
   Widget build(BuildContext context) {
-    double photoSize =
-        (MediaQuery.of(context).size.width - 200) / photo.width * photo.height;
+    double photoSize = (MediaQuery.of(context).size.width - 200) /
+        widget.photo.width *
+        widget.photo.height;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -88,48 +81,48 @@ class _FullScreenImageState extends State<FullScreenImage>
             children: [
               Align(
                 child: Hero(
-                  tag: heroTag,
+                  tag: widget.heroTag,
                   child: Container(
                     height: photoSize,
                     width: photoSize,
                     child: PhotoView(
-                      photoLink: photo.urls.regular,
-                      placeholderColor: photo.color,
+                      photoLink: widget.photo.urls.regular,
+                      placeholderColor: widget.photo.color,
                       isRounded: true,
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
-              TimeOfFotoCreation(createdAt: photo.createdAt),
+              TimeOfFotoCreation(createdAt: widget.photo.createdAt),
               const SizedBox(height: 11),
               Text(
-                photo.altDescription,
+                widget.photo.altDescription,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.headline3,
               ),
               const SizedBox(height: 15),
               _animatedBuilder(_controller, buildAnimationUserMeta,
-                  buildAnimationUserAvatar, photo),
+                  buildAnimationUserAvatar, widget.photo),
               const SizedBox(height: 17),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // LikeButton(photo: photo, index: index),
+                  LikeButton(photo: widget.photo, index: widget.index),
                   Row(
                     children: [
-                      _buildShareButton(context, photo),
+                      _buildShareButton(context, widget.photo),
                       const SizedBox(width: 10),
-                      _buildSaveButton(context, photo),
+                      _buildSaveButton(context, widget.photo),
                       const SizedBox(width: 10),
-                      _buildVisitButton(context, photo),
+                      _buildVisitButton(context, widget.photo),
                     ],
                   ),
                 ],
               ),
               const SizedBox(height: 30),
-              Expanded(child: RelatedPhotoGrid(photo: photo)),
+              Expanded(child: RelatedPhotoGrid(photo: widget.photo)),
             ],
           ),
         ),
