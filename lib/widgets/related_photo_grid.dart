@@ -19,8 +19,7 @@ class RelatedPhotoGrid extends StatefulWidget {
 class _RelatedPhotoGridState extends State<RelatedPhotoGrid> {
   @override
   void initState() {
-    final _cubit = BlocProvider.of<PhotoCubit>(context);
-    _cubit.fetchRelatedPhotos(widget.photo.id);
+    BlocProvider.of<PhotoCubit>(context).fetchRelatedPhotos(widget.photo.id);
     super.initState();
   }
 

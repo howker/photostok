@@ -10,7 +10,7 @@ import 'package:photostok/screens/profile_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
 
 ///Основной экран ленты фотографий
-class MainPhotoList extends StatelessWidget {
+class MainPhotoList extends StatefulWidget {
   int page;
   bool isLoading;
   MainPhotoList({
@@ -20,6 +20,17 @@ class MainPhotoList extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _MainPhotoListState createState() => _MainPhotoListState();
+}
+
+class _MainPhotoListState extends State<MainPhotoList> {
+  @override
+  void initState() {
+    BlocProvider.of<PhotoCubit>(context).fetchAllPhotos(1, 15);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _cubit = BlocProvider.of<PhotoCubit>(context);
     return BlocBuilder<PhotoCubit, PhotoState>(
@@ -27,10 +38,10 @@ class MainPhotoList extends StatelessWidget {
         if (state is PhotosInitial) {
           return TripleCircularIndicator();
         }
-        if (state is! PhotosLoadSuccess) {
-          _cubit.fetchAllPhotos(page, 15);
-        }
-        isLoading = false;
+        // if (state is! PhotosLoadSuccess) {
+        //   _cubit.fetchAllPhotos(widget.page, 15);
+        // }
+        widget.isLoading = false;
 
         if (state is PhotosLoadSuccess) {
           return Scaffold(
@@ -42,10 +53,10 @@ class MainPhotoList extends StatelessWidget {
                 onNotification: (ScrollNotification scrollInfo) {
                   if (scrollInfo.metrics.pixels ==
                           scrollInfo.metrics.maxScrollExtent &&
-                      !isLoading) {
-                    page += 1;
-                    _cubit.fetchAllPhotos(page, 15);
-                    isLoading = true;
+                      !widget.isLoading) {
+                    widget.page += 1;
+                    _cubit.fetchAllPhotos(widget.page, 15);
+                    widget.isLoading = true;
                   }
                   return false;
                 },

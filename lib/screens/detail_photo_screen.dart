@@ -60,166 +60,80 @@ class _FullScreenImageState extends State<FullScreenImage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PhotoCubit, PhotoState>(
-      builder: (context, state) {
-        if (state is PhotosLoadSuccess) {
-          double photoSize = (MediaQuery.of(context).size.width - 200) /
-              photo.width *
-              photo.height;
-          return SafeArea(
-            child: Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: AppColors.white,
-                centerTitle: true,
-                title: Text(
-                  'Photo',
-                  style: Theme.of(context).textTheme.headline2,
-                ),
-                leading: IconButton(
-                  icon: const Icon(
-                    CupertinoIcons.back,
-                    color: AppColors.manatee,
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ),
-              body: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                      child: Hero(
-                        tag: heroTag,
-                        child: Container(
-                          height: photoSize,
-                          width: photoSize,
-                          child: PhotoView(
-                            photoLink: photo.urls.regular,
-                            placeholderColor: photo.color,
-                            isRounded: true,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TimeOfFotoCreation(createdAt: photo.createdAt),
-                    const SizedBox(height: 11),
-                    Text(
-                      photo.altDescription,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                    const SizedBox(height: 15),
-                    _animatedBuilder(_controller, buildAnimationUserMeta,
-                        buildAnimationUserAvatar, photo),
-                    const SizedBox(height: 17),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        LikeButton(photo: photo, index: index),
-                        Row(
-                          children: [
-                            _buildShareButton(context, photo),
-                            const SizedBox(width: 10),
-                            _buildSaveButton(context, photo),
-                            const SizedBox(width: 10),
-                            _buildVisitButton(context, photo),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    Expanded(child: RelatedPhotoGrid(photo: photo)),
-                  ],
-                ),
-              ),
+    double photoSize =
+        (MediaQuery.of(context).size.width - 200) / photo.width * photo.height;
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: AppColors.white,
+          centerTitle: true,
+          title: Text(
+            'Photo',
+            style: Theme.of(context).textTheme.headline2,
+          ),
+          leading: IconButton(
+            icon: const Icon(
+              CupertinoIcons.back,
+              color: AppColors.manatee,
             ),
-          );
-        }
-        if (state is SearchPhotoLoadSuccess) {
-          double photoSize = (MediaQuery.of(context).size.width - 200) /
-              photo.width *
-              photo.height;
-          return SafeArea(
-            child: Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: AppColors.white,
-                centerTitle: true,
-                title: Text(
-                  'Photo',
-                  style: Theme.of(context).textTheme.headline2,
-                ),
-                leading: IconButton(
-                  icon: const Icon(
-                    CupertinoIcons.back,
-                    color: AppColors.manatee,
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                child: Hero(
+                  tag: heroTag,
+                  child: Container(
+                    height: photoSize,
+                    width: photoSize,
+                    child: PhotoView(
+                      photoLink: photo.urls.regular,
+                      placeholderColor: photo.color,
+                      isRounded: true,
+                    ),
                   ),
-                  onPressed: () => Navigator.pop(context),
                 ),
               ),
-              body: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                      child: Hero(
-                        tag: heroTag,
-                        child: Container(
-                          height: photoSize,
-                          width: photoSize,
-                          child: PhotoView(
-                            photoLink: photo.urls.regular,
-                            placeholderColor: photo.color,
-                            isRounded: true,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TimeOfFotoCreation(createdAt: photo.createdAt),
-                    const SizedBox(height: 11),
-                    Text(
-                      photo.altDescription,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                    const SizedBox(height: 15),
-                    _animatedBuilder(_controller, buildAnimationUserMeta,
-                        buildAnimationUserAvatar, photo),
-                    const SizedBox(height: 17),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        LikeButton(photo: photo, index: index),
-                        Row(
-                          children: [
-                            _buildShareButton(context, photo),
-                            const SizedBox(width: 10),
-                            _buildSaveButton(context, photo),
-                            const SizedBox(width: 10),
-                            _buildVisitButton(context, photo),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    Expanded(child: RelatedPhotoGrid(photo: photo)),
-                  ],
-                ),
+              const SizedBox(height: 10),
+              TimeOfFotoCreation(createdAt: photo.createdAt),
+              const SizedBox(height: 11),
+              Text(
+                photo.altDescription,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.headline3,
               ),
-            ),
-          );
-        } else
-          return Container();
-      },
+              const SizedBox(height: 15),
+              _animatedBuilder(_controller, buildAnimationUserMeta,
+                  buildAnimationUserAvatar, photo),
+              const SizedBox(height: 17),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // LikeButton(photo: photo, index: index),
+                  Row(
+                    children: [
+                      _buildShareButton(context, photo),
+                      const SizedBox(width: 10),
+                      _buildSaveButton(context, photo),
+                      const SizedBox(width: 10),
+                      _buildVisitButton(context, photo),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              Expanded(child: RelatedPhotoGrid(photo: photo)),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -244,31 +158,30 @@ class _FullScreenImageState extends State<FullScreenImage>
         )
         .value;
   }
+}
 
-  Widget _buildVisitButton(context, Photo photo) {
-    return Semantics(
-      label: 'VisitButton',
-      child: GestureDetector(
-        onTap: () {
-          _onVisitButtonTap(photo);
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: AppColors.dodgerBlue,
-            borderRadius: BorderRadius.circular(7.0),
-          ),
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-            child: const Text(
-              'Visit',
-              style: const TextStyle(color: Colors.white, fontSize: 18),
-            ),
+Widget _buildVisitButton(context, Photo photo) {
+  return Semantics(
+    label: 'VisitButton',
+    child: GestureDetector(
+      onTap: () {
+        _onVisitButtonTap(photo);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.dodgerBlue,
+          borderRadius: BorderRadius.circular(7.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+          child: const Text(
+            'Visit',
+            style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
 }
 
 Widget _animatedBuilder(_controller, buildAnimationUserMeta,
