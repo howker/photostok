@@ -1,48 +1,38 @@
 import 'package:photostok/models/photo_list.dart';
 
 class RelatedPhotoList {
-  int total;
-  List<Results> results;
+  final int total;
+  final List<Results> results;
 
   RelatedPhotoList({this.total, this.results});
 
-  RelatedPhotoList.fromJson(Map<String, dynamic> json) {
-    total = json['total'];
-    if (json['results'] != null) {
-      results = new List<Results>();
-      json['results'].forEach((v) {
-        results.add(new Results.fromJson(v));
-      });
-    }
-  }
+  factory RelatedPhotoList.fromJson(Map<String, dynamic> json) {
+    List<Results> results;
+    json['results'].forEach((v) {
+      results.add(new Results.fromJson(v));
+    });
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total'] = this.total;
-    if (this.results != null) {
-      data['results'] = this.results.map((v) => v.toJson()).toList();
-    }
-    return data;
+    return RelatedPhotoList(results: results);
   }
 }
 
 class Results {
-  String id;
-  String createdAt;
-  String updatedAt;
-  String promotedAt;
-  int width;
-  int height;
-  String color;
-  String blurHash;
-  String description;
-  String altDescription;
-  Urls urls;
-  Links links;
-  int likes;
-  bool likedByUser;
-  Null sponsorship;
-  User user;
+  final String id;
+  final String createdAt;
+  final String updatedAt;
+  final String promotedAt;
+  final int width;
+  final int height;
+  final String color;
+  final String blurHash;
+  final String description;
+  final String altDescription;
+  final Urls urls;
+  final Links links;
+  final int likes;
+  final bool likedByUser;
+  final Null sponsorship;
+  final User user;
 
   Results(
       {this.id,
@@ -62,84 +52,54 @@ class Results {
       this.sponsorship,
       this.user});
 
-  Results.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    promotedAt = json['promoted_at'];
-    width = json['width'];
-    height = json['height'];
-    color = json['color'];
-    blurHash = json['blur_hash'];
-    description = json['description'];
-    altDescription = json['alt_description'];
-    urls = json['urls'] != null ? new Urls.fromJson(json['urls']) : null;
-    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-    likes = json['likes'];
-    likedByUser = json['liked_by_user'];
-    sponsorship = json['sponsorship'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['promoted_at'] = this.promotedAt;
-    data['width'] = this.width;
-    data['height'] = this.height;
-    data['color'] = this.color;
-    data['blur_hash'] = this.blurHash;
-    data['description'] = this.description;
-    data['alt_description'] = this.altDescription;
-    if (this.urls != null) {
-      data['urls'] = this.urls.toJson();
-    }
-    if (this.links != null) {
-      data['links'] = this.links.toJson();
-    }
-    data['sponsorship'] = this.sponsorship;
-    if (this.user != null) {
-      data['user'] = this.user.toJson();
-    }
-    return data;
+  factory Results.fromJson(Map<String, dynamic> json) {
+    return Results(
+      id: json['id'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      promotedAt: json['promoted_at'],
+      width: json['width'],
+      height: json['height'],
+      color: json['color'],
+      blurHash: json['blur_hash'],
+      description: json['description'],
+      altDescription: json['alt_description'],
+      urls: json['urls'] != null ? new Urls.fromJson(json['urls']) : null,
+      links: json['links'] != null ? new Links.fromJson(json['links']) : null,
+      likes: json['likes'],
+      likedByUser: json['liked_by_user'],
+      sponsorship: json['sponsorship'],
+      user: json['user'] != null ? new User.fromJson(json['user']) : null,
+    );
   }
 }
 
 class Links {
-  String self;
-  String html;
-  String download;
-  String downloadLocation;
+  final String self;
+  final String html;
+  final String download;
+  final String downloadLocation;
 
   Links({this.self, this.html, this.download, this.downloadLocation});
 
-  Links.fromJson(Map<String, dynamic> json) {
-    self = json['self'];
-    html = json['html'];
-    download = json['download'];
-    downloadLocation = json['download_location'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['self'] = this.self;
-    data['html'] = this.html;
-    data['download'] = this.download;
-    data['download_location'] = this.downloadLocation;
-    return data;
+  factory Links.fromJson(Map<String, dynamic> json) {
+    return Links(
+      self: json['self'],
+      html: json['html'],
+      download: json['download'],
+      downloadLocation: json['download_location'],
+    );
   }
 }
 
 class SponsorLinks {
-  String self;
-  String html;
-  String photos;
-  String likes;
-  String portfolio;
-  String following;
-  String followers;
+  final String self;
+  final String html;
+  final String photos;
+  final String likes;
+  final String portfolio;
+  final String following;
+  final String followers;
 
   SponsorLinks(
       {this.self,
@@ -150,47 +110,31 @@ class SponsorLinks {
       this.following,
       this.followers});
 
-  SponsorLinks.fromJson(Map<String, dynamic> json) {
-    self = json['self'];
-    html = json['html'];
-    photos = json['photos'];
-    likes = json['likes'];
-    portfolio = json['portfolio'];
-    following = json['following'];
-    followers = json['followers'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['self'] = this.self;
-    data['html'] = this.html;
-    data['photos'] = this.photos;
-    data['likes'] = this.likes;
-    data['portfolio'] = this.portfolio;
-    data['following'] = this.following;
-    data['followers'] = this.followers;
-    return data;
+  factory SponsorLinks.fromJson(Map<String, dynamic> json) {
+    return SponsorLinks(
+      self: json['self'],
+      html: json['html'],
+      photos: json['photos'],
+      likes: json['likes'],
+      portfolio: json['portfolio'],
+      following: json['following'],
+      followers: json['followers'],
+    );
   }
 }
 
 class ProfileImage {
-  String small;
-  String medium;
-  String large;
+  final String small;
+  final String medium;
+  final String large;
 
   ProfileImage({this.small, this.medium, this.large});
 
-  ProfileImage.fromJson(Map<String, dynamic> json) {
-    small = json['small'];
-    medium = json['medium'];
-    large = json['large'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['small'] = this.small;
-    data['medium'] = this.medium;
-    data['large'] = this.large;
-    return data;
+  factory ProfileImage.fromJson(Map<String, dynamic> json) {
+    return ProfileImage(
+      small: json['small'],
+      medium: json['medium'],
+      large: json['large'],
+    );
   }
 }
