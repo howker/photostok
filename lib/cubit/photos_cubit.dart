@@ -57,8 +57,8 @@ class PhotoCubit extends Cubit<PhotoState> {
         }
       }
       if (index != null) {
-        photoRepository.photoList.photos[index].likedByUser = true;
-        photoRepository.photoList.photos[index].likes += 1;
+        // photoRepository.photoList.photos[index].likedByUser = true;
+        // photoRepository.photoList.photos[index].likes += 1;
         emit(LikePhotoSuccess().copyWith(isLike: true));
         emit(
             PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
