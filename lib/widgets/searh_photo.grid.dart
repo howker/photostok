@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photostok/cubit/photos_cubit.dart';
-import 'package:photostok/cubit/photos_state.dart';
+import 'package:photostok/cubit/search_cubit.dart';
+import 'package:photostok/cubit/search_state.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/models/related_photo_list.dart';
 import 'package:photostok/res/res.dart';
@@ -17,11 +17,11 @@ class SearchPhotoGrid extends StatelessWidget {
   const SearchPhotoGrid({this.photo});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PhotoCubit, PhotoState>(
+    return BlocBuilder<SearchCubit, SearchPhoto>(
       builder: (BuildContext context, state) {
-        if (state is PhotosInitial)
+        if (state is SearchPhotoLoading)
           return Center(child: TripleCircularIndicator());
-        else if (state is SearchPhotoLoadSuccess) {
+        else if (state is SearchPhoto) {
           if (state.searchPhotoList.results.length == 0)
             return Center(
               child: Text(
@@ -98,9 +98,7 @@ class SearchPhotoView extends StatelessWidget {
             context,
             transitionToDetailScreen,
             arguments: FullScreenImageArguments(
-              routeSettings: RouteSettings(
-                arguments: 'Some title',
-              ),
+              routeSettings: RouteSettings(),
               photo: photo,
               heroTag: photo.id,
               index: index,

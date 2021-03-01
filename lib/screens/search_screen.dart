@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photostok/cubit/photos_cubit.dart';
+import 'package:photostok/cubit/search_cubit.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/widgets/widgets.dart';
 
@@ -24,7 +24,7 @@ class SearchScreen extends StatelessWidget {
 }
 
 Widget _buildSearchBar(BuildContext context) {
-  final _cubit = BlocProvider.of<PhotoCubit>(context);
+  final cubit = BlocProvider.of<SearchCubit>(context);
   return ClipRRect(
     borderRadius: BorderRadius.circular(10),
     child: Container(
@@ -52,7 +52,7 @@ Widget _buildSearchBar(BuildContext context) {
                 fontSize: 23,
               ),
               onSubmitted: (inputText) {
-                _cubit.fetchSearchPhotos(inputText);
+                cubit.fetchSearchPhotos(inputText);
               },
             ),
           ),
