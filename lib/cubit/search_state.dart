@@ -1,23 +1,23 @@
 import 'package:equatable/equatable.dart';
 import 'package:photostok/models/related_photo_list.dart';
 
-class SearchPhoto extends Equatable {
+class SearchState extends Equatable {
   final RelatedPhotoList searchPhotoList;
 
-  SearchPhoto({this.searchPhotoList});
+  SearchState({this.searchPhotoList});
 
   @override
   List<Object> get props => [searchPhotoList, this.searchPhotoList];
 
-  SearchPhoto copyWith({
+  SearchState copyWith({
     RelatedPhotoList searchPhotoList,
   }) {
-    return SearchPhoto(
+    return SearchState(
       searchPhotoList: searchPhotoList ?? this.searchPhotoList,
     );
   }
 }
 
-class SearchPhotoLoading extends SearchPhoto {}
+class SearchPhotoLoading extends SearchState {}
 
-class SearchPhotoLoadFailure extends SearchPhoto {}
+class SearchPhotoLoadFailure extends SearchState {}

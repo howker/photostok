@@ -3,7 +3,7 @@ import 'package:photostok/cubit/search_state.dart';
 import 'package:photostok/models/related_photo_list.dart';
 import 'package:photostok/repository/photo_repository.dart';
 
-class SearchCubit extends Cubit<SearchPhoto> {
+class SearchCubit extends Cubit<SearchState> {
   SearchCubit(this.photoRepository) : super(SearchPhotoLoading());
   final PhotoRepository photoRepository;
 

@@ -17,11 +17,11 @@ class SearchPhotoGrid extends StatelessWidget {
   const SearchPhotoGrid({this.photo});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchCubit, SearchPhoto>(
+    return BlocBuilder<SearchCubit, SearchState>(
       builder: (BuildContext context, state) {
         if (state is SearchPhotoLoading)
           return Center(child: TripleCircularIndicator());
-        else if (state is SearchPhoto) {
+        else if (state is SearchState) {
           if (state.searchPhotoList.results.length == 0)
             return Center(
               child: Text(
