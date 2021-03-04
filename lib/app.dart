@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/collections_cubit.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
+import 'package:photostok/cubit/related_photo_cubit.dart';
+import 'package:photostok/cubit/search_cubit.dart';
 import 'package:photostok/cubit/user_cubit.dart';
 import 'package:photostok/repository/photo_repository.dart';
 import 'package:photostok/res/res.dart';
@@ -36,6 +38,16 @@ class MyApp extends StatelessWidget {
         BlocProvider<CollectionsCubit>(
           create: (BuildContext context) {
             return CollectionsCubit(photoRepository);
+          },
+        ),
+        BlocProvider<RelatedPhotoCubit>(
+          create: (BuildContext context) {
+            return RelatedPhotoCubit(photoRepository);
+          },
+        ),
+        BlocProvider<SearchCubit>(
+          create: (BuildContext context) {
+            return SearchCubit(photoRepository);
           },
         ),
       ],

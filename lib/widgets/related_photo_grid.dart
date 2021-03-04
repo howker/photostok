@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/photos_state.dart';
+import 'package:photostok/cubit/related_photo_cubit.dart';
+import 'package:photostok/cubit/related_photo_state.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/screens/detail_photo_screen.dart';
 import 'package:photostok/widgets/widgets.dart';
@@ -19,17 +21,18 @@ class RelatedPhotoGrid extends StatefulWidget {
 class _RelatedPhotoGridState extends State<RelatedPhotoGrid> {
   @override
   void initState() {
-    BlocProvider.of<PhotoCubit>(context).fetchRelatedPhotos(widget.photo.id);
+    BlocProvider.of<RelatedPhotoCubit>(context)
+        .fetchRelatedPhotos(widget.photo.id);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PhotoCubit, PhotoState>(
+    return BlocBuilder<RelatedPhotoCubit, RelatedPhotoState>(
       builder: (ctx, state) {
         if (state is RelatedPhotoLoadFailure)
           return ErrorLoadingBanner();
-        else if (state is RelatedPhotoLoadSuccess) {
+        else if (state is RelatedPhotoState) {
           if (state.relatedPhotoList.results.length == 0)
             return Center(child: Text('No related foto'));
           else

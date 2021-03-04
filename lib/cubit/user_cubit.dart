@@ -5,24 +5,28 @@ import 'package:photostok/repository/photo_repository.dart';
 class UserCubit extends Cubit<UserState> {
   final PhotoRepository photoRepository;
 
-  UserCubit(this.photoRepository) : super(null);
+  UserCubit(this.photoRepository) : super(UserProfileLoading());
 
   Future fetchMyProfile() async {
     try {
+      emit(UserProfileLoading());
+
       final userProfile = await photoRepository.getMyProfile();
 
-      emit(UserProfileLoadSuccess(userProfile));
-    } catch (e) {
+      emit(state.copyWith(userProfile: userProfile));
+    } catch (_) {
       emit(UserProfileLoadFailure());
     }
   }
 
   Future fetchUserProfile(String userName) async {
     try {
+      emit(UserProfileLoading());
+
       final userProfile = await photoRepository.getUserProfile(userName);
 
-      emit(UserProfileLoadSuccess(userProfile));
-    } catch (e) {
+      emit(state.copyWith(userProfile: userProfile));
+    } catch (_) {
       emit(UserProfileLoadFailure());
     }
   }

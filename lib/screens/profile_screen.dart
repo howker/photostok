@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
       _cubit.fetchMyProfile();
       return BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
-          if (state is UserProfileLoadSuccess)
+          if (state is UserState)
             return DefaultTabController(
               length: 3,
               child: Scaffold(
@@ -60,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
       _cubit.fetchUserProfile(photo.user.username);
       return BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
-          if (state is UserProfileLoadSuccess)
+          if (state is UserState)
             return DefaultTabController(
               length: 3,
               child: Scaffold(
@@ -78,8 +78,7 @@ class ProfileScreen extends StatelessWidget {
     }
   }
 
-  Widget _buildUserProfileDescription(
-      UserProfileLoadSuccess state, BuildContext context) {
+  Widget _buildUserProfileDescription(UserState state, BuildContext context) {
     return Column(
       children: [
         SizedBox(height: 24),
@@ -245,8 +244,7 @@ AppBar _buildMyProfileAppBar(BuildContext context) {
   );
 }
 
-Widget _buildMyProfileDescription(
-    UserProfileLoadSuccess state, BuildContext context) {
+Widget _buildMyProfileDescription(UserState state, BuildContext context) {
   return Column(
     children: [
       SizedBox(height: 24),
