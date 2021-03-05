@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/collections_cubit.dart';
+import 'package:photostok/cubit/like_cubit.dart';
 import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/cubit/related_photo_cubit.dart';
 import 'package:photostok/cubit/search_cubit.dart';
@@ -48,6 +49,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<SearchCubit>(
           create: (BuildContext context) {
             return SearchCubit(photoRepository);
+          },
+        ),
+        BlocProvider<LikeCubit>(
+          create: (BuildContext context) {
+            return LikeCubit(false);
           },
         ),
       ],

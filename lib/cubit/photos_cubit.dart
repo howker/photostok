@@ -3,19 +3,19 @@ import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/repository/photo_repository.dart';
 
-class PhotoCubit extends Cubit<PhotoState> {
+class PhotoCubit extends Cubit<PhotosState> {
   final PhotoRepository photoRepository;
 
-  PhotoCubit(this.photoRepository) : super(PhotosInitial());
+  PhotoCubit(this.photoRepository) : super(PhotosLoading());
 
   Future fetchAllPhotos(int page, int perPage) async {
     try {
-      emit(PhotosInitial());
+      emit(PhotosLoading());
       photoRepository.photoList =
           await photoRepository.getPhotos(page, perPage);
-      emit(PhotosLoadSuccess().copyWith(photoList: photoRepository.photoList));
-    } catch (e) {
-      emit(PhotosLoadFailure(e.toString()));
+      emit(state.copyWith(photoList: photoRepository.photoList));
+    } catch (_) {
+      emit(PhotosLoadFailure());
     }
   }
 

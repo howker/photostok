@@ -1,7 +1,7 @@
-class LikePhotoFailure {}
-
-class LikePhotoSuccess {
+class LikeState {
   final bool isLike;
 
-  LikePhotoSuccess(this.isLike);
+  LikeState(this.isLike);
 }
+
+class LikePhotoFailure {}

@@ -3,26 +3,23 @@ import 'package:flutter/foundation.dart';
 import 'package:photostok/models/photo_list.dart';
 
 @immutable
-class PhotosLoadSuccess extends Equatable {
+class PhotosState extends Equatable {
   final PhotoList photoList;
 
-  const PhotosLoadSuccess({this.photoList});
+  const PhotosState({this.photoList});
 
   @override
   List<Object> get props => [photoList, this.photoList];
 
-  PhotosLoadSuccess copyWith({
+  PhotosState copyWith({
     PhotoList photoList,
   }) {
-    return PhotosLoadSuccess(
+    return PhotosState(
       photoList: photoList ?? this.photoList,
     );
   }
 }
 
-class PhotosInitial {}
+class PhotosLoading extends PhotosState {}
 
-class PhotosLoadFailure {
-  final String errorMessage;
-  PhotosLoadFailure(this.errorMessage);
-}
+class PhotosLoadFailure extends PhotosState {}
