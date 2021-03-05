@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photostok/cubit/like_cubit.dart';
 import 'package:photostok/cubit/like_state.dart';
-import 'package:photostok/cubit/photos_cubit.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/widgets/error_loading_banner.dart';
@@ -16,7 +15,7 @@ class LikeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<PhotoCubit>(context);
+    final cubit = BlocProvider.of<LikeCubit>(context);
     return BlocBuilder<LikeCubit, LikeState>(
       builder: (context, state) {
         if (state is LikeState)
