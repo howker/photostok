@@ -11,9 +11,8 @@ class PhotoCubit extends Cubit<PhotosState> {
   Future fetchAllPhotos(int page, int perPage) async {
     try {
       emit(PhotosLoading());
-      photoRepository.photoList =
-          await photoRepository.getPhotos(page, perPage);
-      emit(state.copyWith(photoList: photoRepository.photoList));
+      PhotoList photoList = await photoRepository.getPhotos(page, perPage);
+      emit(state.copyWith(photoList: photoList));
     } catch (_) {
       emit(PhotosLoadFailure());
     }

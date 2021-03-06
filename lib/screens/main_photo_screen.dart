@@ -33,17 +33,17 @@ class _MainPhotoListState extends State<MainPhotoList> {
   @override
   Widget build(BuildContext context) {
     final _cubit = BlocProvider.of<PhotoCubit>(context);
-    return BlocBuilder<PhotoCubit, PhotoState>(
+    return BlocBuilder<PhotoCubit, PhotosState>(
       builder: (context, state) {
-        if (state is PhotosInitial) {
-          return TripleCircularIndicator();
-        }
-        // if (state is! PhotosLoadSuccess) {
+        // if (state is! PhotosState) {
         //   _cubit.fetchAllPhotos(widget.page, 15);
         // }
+        if (state is PhotosLoading) {
+          return TripleCircularIndicator();
+        }
         widget.isLoading = false;
 
-        if (state is PhotosLoadSuccess) {
+        if (state is PhotosState) {
           return Scaffold(
             body: RefreshIndicator(
               onRefresh: () {

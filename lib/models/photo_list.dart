@@ -4,7 +4,7 @@ class PhotoList {
   PhotoList({this.photos});
 
   factory PhotoList.fromJson(List<dynamic> json) {
-    List<Photo> photos;
+    List<Photo> photos = [];
     json.forEach((value) {
       photos.add(Photo.fromJson(value as Map<String, dynamic>));
     });
