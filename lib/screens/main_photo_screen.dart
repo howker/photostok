@@ -32,7 +32,7 @@ class _MainPhotoListState extends State<MainPhotoList> {
 
   @override
   Widget build(BuildContext context) {
-    final _cubit = BlocProvider.of<PhotoCubit>(context);
+    final cubit = BlocProvider.of<PhotoCubit>(context);
     return BlocBuilder<PhotoCubit, PhotosState>(
       builder: (context, state) {
         // if (state is! PhotosState) {
@@ -47,7 +47,7 @@ class _MainPhotoListState extends State<MainPhotoList> {
           return Scaffold(
             body: RefreshIndicator(
               onRefresh: () {
-                return _cubit.fetchAllPhotos(1, 15);
+                return cubit.fetchAllPhotos(1, 15);
               },
               child: NotificationListener<ScrollNotification>(
                 onNotification: (ScrollNotification scrollInfo) {
@@ -55,7 +55,7 @@ class _MainPhotoListState extends State<MainPhotoList> {
                           scrollInfo.metrics.maxScrollExtent &&
                       !widget.isLoading) {
                     widget.page += 1;
-                    _cubit.fetchAllPhotos(widget.page, 15);
+                    cubit.fetchAllPhotos(widget.page, 15);
                     widget.isLoading = true;
                   }
                   return false;

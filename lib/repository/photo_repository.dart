@@ -143,7 +143,7 @@ class PhotoRepository {
     }
   }
 
-  static Future<bool> likePhoto(String photoId) async {
+  Future<bool> likePhoto(String photoId) async {
     var response = await http
         .post('https://api.unsplash.com/photos/$photoId/like', headers: {
       'Authorization': 'Bearer $authToken',
@@ -156,7 +156,7 @@ class PhotoRepository {
     }
   }
 
-  static Future<bool> unlikePhoto(String photoId) async {
+  Future<bool> unlikePhoto(String photoId) async {
     var response = await http
         .delete('https://api.unsplash.com/photos/$photoId/like', headers: {
       'Authorization': 'Bearer $authToken',

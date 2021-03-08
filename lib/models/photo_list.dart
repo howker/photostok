@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 class PhotoList {
   final List<Photo> photos;
 
@@ -13,7 +15,7 @@ class PhotoList {
   }
 }
 
-class Photo {
+class Photo extends Equatable {
   final String id;
   final String createdAt;
   final String updatedAt;
@@ -47,6 +49,13 @@ class Photo {
     this.sponsorship,
     this.user,
   });
+
+  Photo copyWith({int likes, bool likedByUser}) {
+    return Photo(likes: likes, likedByUser: likedByUser);
+  }
+
+  @override
+  List<Object> get props => [likes, likedByUser];
 
   factory Photo.fromJson(Map<String, dynamic> json) {
     return Photo(

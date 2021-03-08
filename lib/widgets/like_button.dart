@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photostok/cubit/like_cubit.dart';
-import 'package:photostok/cubit/like_state.dart';
+import 'package:photostok/cubit/photos_cubit.dart';
+import 'package:photostok/cubit/photos_state.dart';
 import 'package:photostok/models/photo_list.dart';
 import 'package:photostok/res/res.dart';
 import 'package:photostok/widgets/error_loading_banner.dart';
@@ -15,10 +15,10 @@ class LikeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<LikeCubit>(context);
-    return BlocBuilder<LikeCubit, LikeState>(
+    final cubit = BlocProvider.of<PhotoCubit>(context);
+    return BlocBuilder<PhotoCubit, PhotosState>(
       builder: (context, state) {
-        if (state is LikeState)
+        if (state is PhotosState)
           return GestureDetector(
             onTap: () {
               photo.likedByUser
@@ -30,7 +30,12 @@ class LikeButton extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(width: 23.3),
-                  Icon(photo.likedByUser ? AppIcons.like_fill : AppIcons.like),
+                  Icon(context.select((PhotoCubit photoCubit) =>
+                          photoCubit.photoList.photos[index].likedByUser)
+                      ? AppIcons.like_fill
+                      : AppIcons.like),
+
+                  // photo.likedByUser ? AppIcons.like_fill : AppIcons.like),
                   const SizedBox(width: 4.21),
                   Text(
                     photo.likes.toString(),
@@ -44,7 +49,7 @@ class LikeButton extends StatelessWidget {
               ),
             ),
           );
-        if (state is LikePhotoFailure) return ErrorLoadingBanner();
+        if (state is PhotosLoadFailure) return ErrorLoadingBanner();
         return SizedBox();
       },
     );

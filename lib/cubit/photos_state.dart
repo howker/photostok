@@ -6,14 +6,14 @@ import 'package:photostok/models/photo_list.dart';
 class PhotosState extends Equatable {
   final PhotoList photoList;
 
-  const PhotosState({this.photoList});
+  const PhotosState({
+    this.photoList,
+  });
 
   @override
-  List<Object> get props => [photoList, this.photoList];
+  List<Object> get props => [photoList];
 
-  PhotosState copyWith({
-    PhotoList photoList,
-  }) {
+  PhotosState copyWith({PhotoList photoList}) {
     return PhotosState(
       photoList: photoList ?? this.photoList,
     );

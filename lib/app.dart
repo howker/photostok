@@ -51,11 +51,6 @@ class MyApp extends StatelessWidget {
             return SearchCubit(photoRepository);
           },
         ),
-        BlocProvider<LikeCubit>(
-          create: (BuildContext context) {
-            return LikeCubit(false);
-          },
-        ),
       ],
       child: MaterialApp(
         theme: ThemeData(
